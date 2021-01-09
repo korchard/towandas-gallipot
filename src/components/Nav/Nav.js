@@ -11,6 +11,9 @@ const Nav = (props) => {
     text: 'Login / Register',
   };
 
+  // if someone is logged in, the home page goes to /user and Home
+  // if they are not logged in it takes them to the loggin pages
+  // this is what the loginLinkData.path and loginLinkData.text are doing
   if (props.store.user.id != null) {
     loginLinkData.path = '/user';
     loginLinkData.text = 'Home';
@@ -31,6 +34,17 @@ const Nav = (props) => {
         {/* Show the link to the info page and the logout button if the user is logged in */}
         {props.store.user.id && (
           <>
+            {/* <PreviousOrders /> */}
+            <Link className="nav-link" to="/info">
+              Info Page
+            </Link>
+            <LogOutButton className="nav-link" />
+          </>
+        )}
+        {/* do something like this below for the admin routes - which should also be protected */}
+        {props.store.user.id === 1 || props.store.user.id === 2 && (
+          <>
+            {/* <ProductAdminDisplay /> */}
             <Link className="nav-link" to="/info">
               Info Page
             </Link>

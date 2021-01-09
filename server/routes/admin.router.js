@@ -6,9 +6,9 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 require('dotenv').config();
 
 // GET ROUTE
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('req.user', req.user);
-    const queryText = `SELECT * FROM "product" ORDER BY type ASC`;
+    const queryText = `SELECT * FROM "product" ORDER BY type`;
     pool.query(queryText)
         .then((results) => {
           res.send(results.rows);
@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
 router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('body', req.body);
     console.log('user', req.user);
-    let queryText = `INSERT INTO "product" (name, description, size, cost, image_path, type)
+    const queryText = `INSERT INTO "product" (name, description, size, cost, image_path, type)
                      VALUES ( $1, $2, $3, $4, $5, $6 )`;
     pool.query(queryText, [req.body.name, req.body.description, req.body.size, 
                            req.body.cost, req.body.image_path])
@@ -34,8 +34,19 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 });
 
 // DELETE ROUTE
-router.delete('/:id', (req, res) => {
-
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('req.user', req.user.id);
+    if (req.user.id === 1 || req.user.id === 2) { 
+    const queryText = `DELETE FROM "product" WHERE id = $1`;
+    pool.query(queryText, [req.params.id])
+          .then(() => { res.sendStatus(200); })
+          .catch((err) => {
+            console.log('Bad news bears error in server DELETE product ---->', error)
+            res.sendStatus(500);
+          });
+      } else { 
+        console.log(`User with id of ${req.user.id} is unauthorized to delete`)
+      }
 });
 
 // PUT ROUTE

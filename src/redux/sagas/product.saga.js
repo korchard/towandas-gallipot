@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 
 // POST ROUTE
 function* addProduct (action) {
@@ -32,9 +32,42 @@ function* getProduct() {
     }
 }
 
+// DELETE ROUTE
+function* deleteProduct (action) {
+    try {
+      const config = {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      };
+    
+      yield axios.delete(`api/admin/${action.payload}`, config);
+
+      yield put({ type: 'GET_PRODUCT' });
+    } catch (error) {
+      console.log('Bad news bears...error in product saga delete', error);
+    }
+}
+
+// PUT ROUTE
+function* editProduct (action) {
+    try {
+      const config = {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      };
+    
+      yield axios.put(`api/admin/${action.payload.id}`, action.payload, config);
+      yield put({ type: 'GET_PRODUCT' });
+    } catch (error) {
+      console.log('Bad news bears...error in product saga put', error);
+    }
+  }
+
 function* productSaga() {
-  yield takeLatest('ADD_PRODUCT', addProduct);
-  yield takeLatest('GET_PRODUCT', getProduct);
+  yield takeEvery('ADD_PRODUCT', addProduct);
+  yield takeEvery('GET_PRODUCT', getProduct);
+  yield takeEvery('DELETE_PRODUCT', deleteProduct);
+  yield takeEvery('EDIT_PRODUCT', editProduct);
 }
 
 export default productSaga;
