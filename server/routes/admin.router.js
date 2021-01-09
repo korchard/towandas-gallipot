@@ -7,7 +7,7 @@ require('dotenv').config();
 
 // GET ROUTE
 router.get('/', rejectUnauthenticated, (req, res) => {
-    console.log('req.user', req.user);
+    console.log('user', req.user);
     const queryText = `SELECT * FROM "product" ORDER BY type`;
     pool.query(queryText)
         .then((results) => {
@@ -25,7 +25,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     const queryText = `INSERT INTO "product" (name, description, size, cost, image_path, type)
                      VALUES ( $1, $2, $3, $4, $5, $6 )`;
     pool.query(queryText, [req.body.name, req.body.description, req.body.size, 
-                           req.body.cost, req.body.image_path])
+                           req.body.cost, req.body.image_path, req.body.type])
         .then(() => res.sendStatus(201))
         .catch((error) => { 
           console.log('Bad news bears error in server POST adding product ---->', error)
@@ -35,7 +35,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
 // DELETE ROUTE
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
-    console.log('req.user', req.user.id);
+    console.log('user', req.user);
     if (req.user.id === 1 || req.user.id === 2) { 
     const queryText = `DELETE FROM "product" WHERE id = $1`;
     pool.query(queryText, [req.params.id])
@@ -50,8 +50,18 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 });
 
 // PUT ROUTE
-router.put('/:id', (req, res) => {
-
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('body', req.body);
+    console.log('user', req.user);
+    const queryText = `UPDATE "product" SET "name" = $1, "description" = $2, "size" = $3, 
+                      "cost" = $4, "image_path" = $5, "type" = $6 WHERE id = $7;`
+    pool.query(queryText, [req.body.name, req.body.description, req.body.size, 
+                           req.body.cost, req.body.image_path, req.body.type])
+        .then(() => res.sendStatus(201))
+        .catch((error) => { 
+          console.log('Bad news bears error in server PUT route ---->', error)
+          res.sendStatus(501)
+        });
 });
 
 module.exports = router;
