@@ -31,13 +31,13 @@ router.post('/register', (req, res, next) => {
 
   const queryText = `INSERT INTO "user" (username, password, first_name, last_name, 
                      street_address, city, state, zip, phone_number, email_address)
-                     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`;
+                     VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10 ) RETURNING id`;
   pool
     .query(queryText, [username, password, first_name, last_name, street_address,
                       city, state, zip, phone_number, email_address ])
     .then(() => res.sendStatus(201))
-    .catch((err) => {
-      console.log('User registration failed: ', err);
+    .catch((error) => {
+      console.log('Bad news bears...user registration failed: ', error);
       res.sendStatus(500);
     });
 });

@@ -34,8 +34,8 @@ const pool = new pg.Pool(config);
 
 // the pool with emit an error on behalf of any idle clients
 // it contains if a backend error or network partition happens
-pool.on('error', (err) => {
-  console.log('Unexpected error on idle client', err);
+pool.on('error', (error) => {
+  console.log('Bad news bears...unexpected error on idle client', error);
   process.exit(-1);
 });
 
