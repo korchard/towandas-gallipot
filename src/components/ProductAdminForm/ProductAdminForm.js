@@ -10,6 +10,7 @@ class ProductAdminForm extends Component {
       size: '',
       cost: '',
       image_path: '',
+      type: ''
   };
 
   addProduct = (event) => {
@@ -22,6 +23,7 @@ class ProductAdminForm extends Component {
         size: this.state.size,
         cost: this.state.cost,
         image_path: this.state.image_path,
+        type: this.state.type
       },
     });
   }; // end registerUser
@@ -93,6 +95,18 @@ class ProductAdminForm extends Component {
               value={this.state.image_path}
               required
               onChange={this.handleInputChangeFor('image_path')}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="type">
+            Type:
+            <input
+              type="type"
+              name="type"
+              value={this.state.type}
+              required
+              onChange={this.handleInputChangeFor('type')}
             />
           </label>
         </div>
