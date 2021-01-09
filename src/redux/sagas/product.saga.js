@@ -14,7 +14,7 @@ function* addProduct (action) {
     } catch (error) {
       console.log('Bad news bears...error in product saga post', error);
     }
-}
+} // end addProduct
 
 // GET ROUTE
 function* getProduct() {
@@ -27,11 +27,10 @@ function* getProduct() {
       const response = yield axios.get('api/admin', config);
   
       yield put({ type: 'SET_PRODUCT', payload: response.data });
-      console.log('set produtct', response.data)
     } catch (error) {
       console.log('Bad news bears...error in product saga get', error);
     }
-}
+} // end getProduct
 
 // DELETE ROUTE
 function* deleteProduct (action) {
@@ -47,7 +46,7 @@ function* deleteProduct (action) {
     } catch (error) {
       console.log('Bad news bears...error in product saga delete', error);
     }
-}
+} // end deleteProduct
 
 // PUT ROUTE
 function* editProduct (action) {
@@ -62,7 +61,7 @@ function* editProduct (action) {
     } catch (error) {
       console.log('Bad news bears...error in product saga put', error);
     }
-  }
+} // end editProduct
 
 function* productSaga() {
   yield takeEvery('ADD_PRODUCT', addProduct);

@@ -8,10 +8,6 @@ class ProductsList extends Component {
     heading: 'Product List',
   };
 
-  componentDidMount = () => {
-      this.props.dispatch({ type: 'GET_PRODUCTS' }); 
-  }
-
   render() {
     return (
       <div>

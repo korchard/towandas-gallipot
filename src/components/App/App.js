@@ -14,12 +14,15 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
+import Consultations from '../Consultations/Consultations';
+import ContactPage from '../ContactPage/ContactPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import ProductAdminDisplay from '../ProductAdminDisplay/ProductAdminDisplay';
+import ProductList from '../ProductsList/ProductsList';
 
 import './App.css';
 
@@ -41,8 +44,32 @@ class App extends Component {
             <Route
               // shows AboutPage at all times (logged in or not)
               exact
+              path="/home"
+              component={LandingPage}
+            />
+            <Route
+              // shows AboutPage at all times (logged in or not)
+              exact
               path="/about"
               component={AboutPage}
+            />
+            <Route
+              // shows AboutPage at all times (logged in or not)
+              exact
+              path="/consultations"
+              component={Consultations}
+            />
+            <Route
+              // shows AboutPage at all times (logged in or not)
+              exact
+              path="/product"
+              component={ProductList}
+            />
+            <Route
+              // shows AboutPage at all times (logged in or not)
+              exact
+              path="/contact"
+              component={ContactPage}
             />
 
             {/* For protected routes, the view could show one of several things on the same route.
@@ -84,7 +111,7 @@ class App extends Component {
               component={RegisterPage}
               authRedirect="/user"
             />
-            <ProtectedRoute
+            {/* <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/user"
               // - else shows LandingPage at "/home"
@@ -92,7 +119,7 @@ class App extends Component {
               path="/home"
               component={LandingPage}
               authRedirect="/user"
-            />
+            /> */}
             <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/user"
