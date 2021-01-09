@@ -8,8 +8,9 @@ CREATE TABLE "user" (
 	last_name VARCHAR(100) NOT NULL,
 	street_address VARCHAR(200) NOT NULL,
 	city VARCHAR(50) NOT NULL,
+	state VARCHAR(50) NOT NULL,
 	zip INTEGER NOT NULL,
-	phone_number INTEGER,
+	phone_number VARCHAR(50),
 	email_address VARCHAR(100) NOT NULL,
 	administrator BOOLEAN DEFAULT false
 );
