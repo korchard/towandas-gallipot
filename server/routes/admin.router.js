@@ -8,10 +8,11 @@ require('dotenv').config();
 // GET ROUTE
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('user', req.user);
-    const queryText = `SELECT * FROM "product" ORDER BY type`;
+    const queryText = `SELECT * FROM "product"`;
     pool.query(queryText)
         .then((results) => {
           res.send(results.rows);
+          console.log('result', results.rows)
         }).catch((error) => {
           console.log('Bad news bears error in server GET route ---->', error)
           res.sendStatus(500);

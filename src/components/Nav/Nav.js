@@ -42,7 +42,7 @@ const Nav = (props) => {
           </>
         )}
         {/* do something like this below for the admin routes - which should also be protected */}
-        {props.store.user.id === 1 || props.store.user.id === 2 && (
+        {(props.store.user.id === 1 || props.store.user.id === 2) && (
           <>
             {/* <ProductAdminDisplay /> */}
             <Link className="nav-link" to="/info">

@@ -27,6 +27,7 @@ function* getProduct() {
       const response = yield axios.get('api/admin', config);
   
       yield put({ type: 'SET_PRODUCT', payload: response.data });
+      console.log('set produtct', response.data)
     } catch (error) {
       console.log('Bad news bears...error in product saga get', error);
     }

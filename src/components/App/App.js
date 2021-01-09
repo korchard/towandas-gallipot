@@ -19,7 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import ProductAdminForm from '../ProductAdminForm/ProductAdminForm';
+import ProductAdminDisplay from '../ProductAdminDisplay/ProductAdminDisplay';
 
 import './App.css';
 
@@ -99,7 +99,7 @@ class App extends Component {
               // - else shows LandingPage at "/home"
               exact
               path="/admin_product_add"
-              component={ProductAdminForm}
+              component={ProductAdminDisplay}
               // authRedirect="/user"
             />
 
