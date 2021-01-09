@@ -86,17 +86,16 @@ class App extends Component {
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
             <ProtectedRoute
+              // logged in shows PreviousOrders else shows LoginPage
+              exact
+              path="/previous-orders"
+              component={PreviousOrders}
+            />
+            <ProtectedRoute
               // logged in shows UserPage else shows LoginPage
               exact
               path="/user"
               component={UserPage}
-            />
-
-            <ProtectedRoute
-              // logged in shows PreviousOrders else shows LoginPage
-              exact
-              path="/previous_orders"
-              component={PreviousOrders}
             />
 
             {/* When a value is supplied for the authRedirect prop the user will
@@ -107,27 +106,27 @@ class App extends Component {
               // - if logged in, redirects to "/user"
               // - else shows CheckoutPage at "/checkout"
               exact
-              path="/checkout"
+              path="/login"
               component={CheckoutPage}
-              authRedirect="/user"
+              authRedirect="/checkout"
             />
             <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/user"
               // - else shows CompletedOrdersAdmin at "/admin_completed_orders"
               exact
-              path="/admin_completed_orders"
+              path="/login"
               component={CompletedOrdersAdmin}
-              authRedirect="/user"
+              authRedirect="/admin-completed-orders"
             />
             <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/user"
               // - else shows IncompleteOrdersAdmin at "/admin_incomplete_orders"
               exact
-              path="/admin_incomplete_orders"
+              path="/login"
               component={IncompleteOrdersAdmin}
-              authRedirect="/user"
+              authRedirect="/admin-incomplete-orders"
             />
             <ProtectedRoute
               // with authRedirect:
@@ -143,9 +142,9 @@ class App extends Component {
               // - if logged in, redirects to "/user"
               // - else shows ProductAdminDisplay at "/admin_product_add"
               exact
-              path="/admin_product_add"
+              path="/login"
               component={ProductAdminDisplay}
-              authRedirect="/user"
+              authRedirect="/admin-product-add"
             />
             <ProtectedRoute
               // with authRedirect:
@@ -161,9 +160,9 @@ class App extends Component {
               // - if logged in, redirects to "/user"
               // - else shows UserInfoAdmin at "/admin_user_info"
               exact
-              path="/admin_user_info"
+              path="/login"
               component={UserInfoAdmin}
-              authRedirect="/user"
+              authRedirect="/admin-user-info"
             />
 
             {/* If none of the other routes matched, we will show a 404. */}

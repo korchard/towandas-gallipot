@@ -6,7 +6,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 // value setup. When making a new component be sure to replace
 // the component name TemplateClass with the name for the new
 // component.
-class TemplateClass extends Component {
+class ProductsItem extends Component {
   state = {
     heading: 'Items'
   };
@@ -23,4 +23,4 @@ class TemplateClass extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(TemplateClass);
+export default connect(mapStoreToProps)(ProductsItem);
