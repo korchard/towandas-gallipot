@@ -21,23 +21,11 @@ const Nav = (props) => {
 
   return (
     <div className="nav">
+      <div className="nav-block">
       <img src={window.location.origin + '/images/logo.jpg'} alt="herb witch logo" className="logo"/>
       <Link to="/home">
         <h2 className="nav-title">Towanda's Gallipot</h2>
       </Link>
-      <div className="nav-bottom">
-        <Link className="nav-link" to="/about">
-          About Me
-        </Link>
-        <Link className="nav-link" to="/consultations">
-          Consultations
-        </Link>
-        <Link className="nav-link" to="/product">
-          Products
-        </Link>
-        <Link className="nav-link" to="/contact">
-          Contact
-        </Link>
       </div>
       <div className="nav-right">
         <Link className="nav-link" to={loginLinkData.path}>
@@ -70,6 +58,23 @@ const Nav = (props) => {
           </>
         )}
       </div>
+      {/* <Link to="/home">
+        <h2 className="nav-title">Towanda's Gallipot</h2>
+      </Link>
+      <div className="nav-bottom">
+        <Link className="nav-link" to="/about">
+          About Me
+        </Link>
+        <Link className="nav-link" to="/consultations">
+          Consultations
+        </Link>
+        <Link className="nav-link" to="/product">
+          Products
+        </Link>
+        <Link className="nav-link" to="/contact">
+          Contact
+        </Link>
+      </div> */}
     </div>
   );
 };
