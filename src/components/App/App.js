@@ -144,9 +144,9 @@ class App extends Component {
               // - if logged in, redirects to "/user"
               // - else shows ProductAdminDisplay at "/admin_product_add"
               exact
-              path="/login"
+              path="/admin-product-add"
               component={ProductAdminDisplay}
-              authRedirect="/admin-product-add"
+              // authRedirect="/admin-product-add"
             />
             <ProtectedRoute
               // with authRedirect:
