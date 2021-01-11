@@ -5,30 +5,45 @@ import './ProductsItem.css';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
-const styles = {
-  card: {
+const useStyles = makeStyles((theme) => ({
+  root: {
     maxWidth: 345,
-    height: 500,
+    minWidth: 225,
   },
   media: {
-    // ⚠️ object-fit is not supported by IE 11.
-    objectFit: 'cover',
+    height: 0,
+    paddingTop: '56.25%', // 16:9
   },
-};
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+}));
 
 const theme = createMuiTheme();
 
-theme.typography.h6 = {
+theme.typography.h4 = {
   fontSize: '1.2rem',
   '@media (min-width:600px)': {
     fontSize: '1.5rem',
@@ -49,59 +64,80 @@ theme.typography.p = {
 };
 
 function ProductsItem(props) {
-  const { classes } = props;
+  const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const deleteItem = () => {
+    console.log('delete item', props.item.id)
+    props.dispatch({ type: 'DELETE_PRODUCT', 
+                     payload: props.item.id })
+  }
 
     return (
-      <Grid item xs={12} sm={3}>
-          <Card className={classes.card}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              alt={props.item.name}
-              className={classes.media}
-              height="250"
-              image={props.item.image_path}
-              title={props.item.name}
-            />
-            <CardContent>
+      <Grid item xs={12} sm={6} md={3}>
+          <Card className={classes.root}>
+          <CardHeader
+            title={props.item.name}
+          />
+          <ThemeProvider theme={theme}>
+          <CardMedia
+            className={classes.media}
+            image={props.item.image_path}
+            title={props.item.name}
+            variant="h4"
+          />
+          </ThemeProvider>
+          <CardContent>
             <ThemeProvider theme={theme}>
-              <Typography gutterBottom variant="h5" component="h2" className="typeText">
-                {props.item.name}
-              </Typography>
-              </ThemeProvider>
+            <Typography color="textSecondary" component="p">
+              {props.item.size} - ${props.item.cost}
+            </Typography>
+            </ThemeProvider>
+          </CardContent>
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to cart">
+              <AddShoppingCartIcon />
+            </IconButton>
+            {props.store.user.administrator &&
+            <>
+            <IconButton aria-label="edit">
+              <EditIcon />
+            </IconButton>
+            <IconButton aria-label="delete"
+                        onClick={deleteItem}>
+              <DeleteIcon />
+            </IconButton>
+            </>
+            }
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: expanded,
+              })}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardActions>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
               <ThemeProvider theme={theme}>
-              <Typography variant="p" component="p" className="typeText">
+              <Typography paragraph>Ingredients:</Typography>
+              <Typography paragraph>
                 {props.item.description}
               </Typography>
               </ThemeProvider>
-              <ThemeProvider theme={theme}>
-              <Typography variant="p" component="p" className="typeText">
-                {props.item.size}
-              </Typography>
-              </ThemeProvider>
-              <ThemeProvider theme={theme}>
-              <Typography variant="p" component="p" className="typeText">
-                {props.item.cost}
-              </Typography>
-              </ThemeProvider>
             </CardContent>
-            </CardActionArea>
-            <CardActions>
-              <Button size="small" color="primary" className="typeText">
-                Share
-              </Button>
-              <Button size="small" color="primary" className="typeText">
-                Learn More
-              </Button>
-            </CardActions>
-          </Card>
+          </Collapse>
+        </Card>
           </Grid>
        
     );
 }
 
-ProductsItem.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default connect(mapStoreToProps)(withStyles(styles)(ProductsItem));
+export default connect(mapStoreToProps)(ProductsItem);

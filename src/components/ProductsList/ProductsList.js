@@ -10,6 +10,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  gridContainer: {
+    paddingLeft: '40px',
+    paddingRight: '40px',
+    paddingTop: '60px',
+  }
 }));
 
 function ProductsList(props) {
@@ -19,7 +24,7 @@ function ProductsList(props) {
 
     return (
       <div className={classes.root}>
-        <Grid container spacing={6}>
+        <Grid container spacing={6} className={classes.gridContainer} justify="center">
         {props.store.product.map((item) => {
             return (
                 <ProductsItem key= {item.id} item={item}/>
