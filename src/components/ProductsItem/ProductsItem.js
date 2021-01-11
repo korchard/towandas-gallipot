@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import './ProductsItem.css';
 
-// import { makeStyles } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -17,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 const styles = {
   card: {
     maxWidth: 345,
+    height: 500,
   },
   media: {
     // ⚠️ object-fit is not supported by IE 11.
@@ -24,49 +26,71 @@ const styles = {
   },
 };
 
-// const useStyles = makeStyles((theme) => ({
-//   card: {
-//     padding: theme.spacing(2),
-//     textAlign: 'center',
-//     color: theme.palette.text.secondary,
-//   },
-//   media: {
-//     // ⚠️ object-fit is not supported by IE 11.
-//     objectFit: 'cover',
-//   },
-// }));
+const theme = createMuiTheme();
+
+theme.typography.h6 = {
+  fontSize: '1.2rem',
+  '@media (min-width:600px)': {
+    fontSize: '1.5rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '2rem',
+  },
+};
+
+theme.typography.p = {
+  fontSize: '1.2rem',
+  '@media (min-width:600px)': {
+    fontSize: '1.5rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '2rem',
+  },
+};
 
 function ProductsItem(props) {
   const { classes } = props;
-  // const classes = useStyles();
 
     return (
-      <Grid item xs={6} sm={3}>
+      <Grid item xs={12} sm={3}>
           <Card className={classes.card}>
           <CardActionArea>
             <CardMedia
               component="img"
-              alt="Contemplative Reptile"
+              alt={props.item.name}
               className={classes.media}
-              height="140"
-              image="/static/images/cards/contemplative-reptile.jpg"
-              title="Contemplative Reptile"
+              height="250"
+              image={props.item.image_path}
+              title={props.item.name}
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                Lizard
+            <ThemeProvider theme={theme}>
+              <Typography gutterBottom variant="h5" component="h2" className="typeText">
+                {props.item.name}
               </Typography>
-              <Typography component="p">
-                Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                across all continents except Antarctica
+              </ThemeProvider>
+              <ThemeProvider theme={theme}>
+              <Typography variant="p" component="p" className="typeText">
+                {props.item.description}
               </Typography>
+              </ThemeProvider>
+              <ThemeProvider theme={theme}>
+              <Typography variant="p" component="p" className="typeText">
+                {props.item.size}
+              </Typography>
+              </ThemeProvider>
+              <ThemeProvider theme={theme}>
+              <Typography variant="p" component="p" className="typeText">
+                {props.item.cost}
+              </Typography>
+              </ThemeProvider>
             </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary">
+              <Button size="small" color="primary" className="typeText">
                 Share
               </Button>
-              <Button size="small" color="primary">
+              <Button size="small" color="primary" className="typeText">
                 Learn More
               </Button>
             </CardActions>
