@@ -1,25 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import ProductsItem from '../ProductsItem/ProductsItem';
 
-class ProductsList extends Component {
-  state = {
-    heading: 'Product List',
-  };
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
-  render() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+}));
+
+function ProductsList(props) {
+  
+  // const [heading, setHeading] = useState('Functional Component');
+  const classes = useStyles();
+
     return (
-      <div>
-        <h2>{this.state.heading}</h2>
-        {this.props.store.product.map((item) => {
+      <div className={classes.root}>
+        <Grid container spacing={6}>
+        {props.store.product.map((item) => {
             return (
                 <ProductsItem key= {item.id} item={item}/>
             );
         })} 
+        </Grid>
       </div>
     );
-  }
 }
 
 export default connect(mapStoreToProps)(ProductsList);

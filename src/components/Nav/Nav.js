@@ -44,7 +44,7 @@ const Nav = (props) => {
             <Link className="nav-link" to="/previous-orders">
               Orders
             </Link>
-            <LogOutButton className="nav-link" />
+            {/* <LogOutButton className="nav-link" /> */}
           </>
         )}
         {/* do something like this below for the admin routes - which should also be protected */}
@@ -58,9 +58,9 @@ const Nav = (props) => {
           </>
         )}
       </div>
-      <Link to="/home">
+      {/* <Link to="/home">
         <h2 className="nav-title">Towanda's Gallipot</h2>
-      </Link>
+      </Link> */}
       <div className="nav-bottom">
         <Link className="nav-link" to="/about">
           About Me
