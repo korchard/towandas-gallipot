@@ -14,6 +14,7 @@ import CheckoutPage from '../CheckoutPage/CheckoutPage';
 import CompletedOrdersAdmin from '../CompletedOrdersAdmin/CompletedOrdersAdmin';
 import Consultations from '../Consultations/Consultations';
 import ContactPage from '../ContactPage/ContactPage';
+// import CustomNav from '../CustomNav/CustomNav';
 import Footer from '../Footer/Footer';
 import IncompleteOrdersAdmin from '../IncompleteOrdersAdmin/IncompleteOrdersAdmin';
 import LandingPage from '../LandingPage/LandingPage';
@@ -39,6 +40,7 @@ class App extends Component {
       <Router>
         <div>
           <Nav />
+          {/* <CustomNav /> */}
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -104,6 +106,15 @@ class App extends Component {
             <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/user"
+              // - else shows LoginPage at /login
+              exact
+              path="/login"
+              component={LoginPage}
+              authRedirect="/user"
+            />
+            <ProtectedRoute
+              // with authRedirect:
+              // - if logged in, redirects to "/user"
               // - else shows CheckoutPage at "/checkout"
               exact
               path="/login"
@@ -127,15 +138,6 @@ class App extends Component {
               path="/login"
               component={IncompleteOrdersAdmin}
               authRedirect="/admin-incomplete-orders"
-            />
-            <ProtectedRoute
-              // with authRedirect:
-              // - if logged in, redirects to "/user"
-              // - else shows LoginPage at /login
-              exact
-              path="/login"
-              component={LoginPage}
-              authRedirect="/user"
             />
             <ProtectedRoute
               // with authRedirect:
