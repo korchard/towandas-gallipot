@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import './ProductsItem.css';
+import { useState } from 'react';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -19,6 +20,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CheckIcon from '@material-ui/icons/Check';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,7 +67,8 @@ theme.typography.p = {
 
 function ProductsItem(props) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [mode, setMode] = useState('edit');
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -75,6 +78,30 @@ function ProductsItem(props) {
     console.log('delete item', props.item.id)
     props.dispatch({ type: 'DELETE_PRODUCT', 
                      payload: props.item.id })
+  }
+
+  const whichButton = () => {
+    if (mode === 'edit') {
+      return <IconButton aria-label="edit"
+                onClick={editItem}>
+                <EditIcon />
+             </IconButton>
+    } else if (mode === 'save') {
+      return <IconButton aria-label="save"
+                onClick={saveItem}>
+                <CheckIcon />
+             </IconButton>
+    }
+  }
+
+  const editItem = () => {
+    console.log (`Edit Mode`, mode);
+    setMode('save');
+  }
+
+  const saveItem = () => {
+    console.log (`save Mode`, mode);
+    setMode('edit');
   }
 
     return (
@@ -104,9 +131,7 @@ function ProductsItem(props) {
             </IconButton>
             {props.store.user.administrator &&
             <>
-            <IconButton aria-label="edit">
-              <EditIcon />
-            </IconButton>
+            <>{whichButton()}</>
             <IconButton aria-label="delete"
                         onClick={deleteItem}>
               <DeleteIcon />
