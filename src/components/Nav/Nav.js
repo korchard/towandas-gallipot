@@ -21,9 +21,12 @@ const Nav = (props) => {
 
   return (
     <div className="nav">
+      <div className="nav-block">
+      <img src={window.location.origin + '/images/logo.jpg'} alt="herb witch logo" className="logo"/>
       <Link to="/home">
-        <h2 className="nav-title">Prime Solo Project</h2>
+        <h2 className="nav-title">Towanda's Gallipot</h2>
       </Link>
+      </div>
       <div className="nav-right">
         <Link className="nav-link" to={loginLinkData.path}>
           {/* Show this link if they are logged in or not,
@@ -31,12 +34,15 @@ const Nav = (props) => {
           and call this link 'Login / Register' if they are not */}
           {loginLinkData.text}
         </Link>
+        <Link className="nav-link" to="/cart">
+          Cart
+        </Link>
         {/* Show the link to the info page and the logout button if the user is logged in */}
         {props.store.user.id && (
           <>
             {/* <PreviousOrders /> */}
-            <Link className="nav-link" to="/info">
-              Info Page
+            <Link className="nav-link" to="/previous-orders">
+              Orders
             </Link>
             <LogOutButton className="nav-link" />
           </>
@@ -45,15 +51,28 @@ const Nav = (props) => {
         {(props.store.user.id === 1 || props.store.user.id === 2) && (
           <>
             {/* <ProductAdminDisplay /> */}
-            <Link className="nav-link" to="/info">
-              Info Page
+            <Link className="nav-link" to="/admin-product-add">
+              Products
             </Link>
             <LogOutButton className="nav-link" />
           </>
         )}
-        {/* Always show this link since the about page is not protected */}
+      </div>
+      <Link to="/home">
+        <h2 className="nav-title">Towanda's Gallipot</h2>
+      </Link>
+      <div className="nav-bottom">
         <Link className="nav-link" to="/about">
-          About
+          About Me
+        </Link>
+        <Link className="nav-link" to="/consultations">
+          Consultations
+        </Link>
+        <Link className="nav-link" to="/product">
+          Products
+        </Link>
+        <Link className="nav-link" to="/contact">
+          Contact
         </Link>
       </div>
     </div>
