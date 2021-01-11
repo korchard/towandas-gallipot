@@ -69,6 +69,14 @@ function ProductsItem(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [mode, setMode] = useState('edit');
+  const [product, setProduct] = useState({
+    title: props.title,
+    description: props.description,
+    size: props.size,
+    cost: props.cost,
+    image_path: props.image_path,
+    type: props.type
+  })
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
