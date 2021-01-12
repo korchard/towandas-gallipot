@@ -6,7 +6,7 @@ import './ProductsItem.css';
 
 import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -22,6 +22,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 // import CheckIcon from '@material-ui/icons/Check';
+// import TextField from '@material-ui/icons/TextFields';
 
 const theme = createMuiTheme();
 
@@ -83,15 +84,14 @@ const styles = {
     },
   };
 
-class ProductsItem2 extends Component {
+class ProductsItem extends Component {
     
     state = {
         expanded: false,
         mode: 'edit',
         open: false,
-        show: true,
         product: {
-            title: '',
+            name: '',
             description: '',
             size: '',
             cost: '',
@@ -100,11 +100,11 @@ class ProductsItem2 extends Component {
         }
     }
   
-    handleClose = () => {
-        this.setState({
-            open: false
-        });
-    }
+    // handleClose = () => {
+    //     this.setState({
+    //         open: false
+    //     });
+    // }
   
     handleExpandClick = () => {
         this.setState({
@@ -134,14 +134,12 @@ class ProductsItem2 extends Component {
   
     editItem = () => {
       console.log (`Edit Mode`, this.state.mode);
-      
       console.log('item is', this.props.item);
       this.setState({
           mode: 'save',
           open: true,
-          show: true,
           product: {
-            title: this.props.item.title,
+            name: this.props.item.name,
             description: this.props.item.description,
             size: this.props.item.size,
             cost: this.props.item.cost,
@@ -151,29 +149,33 @@ class ProductsItem2 extends Component {
       });
     }
   
-   saveItem = (event) => {
-      event.preventDefault();
-      console.log('newProduct', this.state.product);
-      console.log (`save Mode`, this.state.mode);
-      this.setState({
-          mode: 'edit',
-          open: false,
-          show: false,
-      });
-    }
+  //  saveItem = (event) => {
+  //     event.preventDefault();
+  //     console.log('newProduct', this.state.product);
+  //     console.log (`save Mode`, this.state.mode);
+  //     this.setState({
+  //         mode: 'edit',
+  //         open: false,
+  //         show: false,
+  //     });
+  //   }
   
-    updateProduct = (event, inputProperty) => {
-        this.setState({
-            product: {
-                ...this.state.product,
-                [inputProperty]: event.target.value
-            }
-      });
-    }
+    // updateProduct = (event, inputProperty) => {
+    //     this.setState({
+    //         product: {
+    //             ...this.state.product,
+    //             [inputProperty]: event.target.value
+    //         }
+    //   });
+    // }
 
     hideModal = () => {
-        this.setState({ show: false });
-    };
+      console.log('mode', this.state.mode);
+      this.setState({ 
+        mode: 'edit',
+        open: false 
+      });
+    }
 
     // body = () => {
 
@@ -327,34 +329,13 @@ class ProductsItem2 extends Component {
             </CardContent>
           </Collapse>
         </Card>
-           <Modal show={this.state.show} handleClose={this.hideModal}>
-           <CardContent>
-             <form className={classes.form}>
-               {/* <TextField
-                 label="Subject"
-                 type="text"
-                 onChange={(event) => this.handleModalChange('subject', event)}
-                 className={classes.textField}
-               />
-               <br></br><br></br>
-               <TextField
-                 label="Message"
-                 type="text"
-                 multiline
-                 className={classes.textField}
-                 onChange={(event) => this.handleModalChange('message', event)}
-               /> */}
-               <br></br>
-               <br></br>
-               <Button
-                 onClick={this.saveItem}>Save</Button>
-             </form>
-           </CardContent>
-         </Modal>
+          <Modal open={this.state.open} hideModal={this.hideModal}
+                product={this.state.product}>
+          </Modal>
          </>}
         </Grid>
       );
   }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(ProductsItem2));
+export default connect(mapStoreToProps)(withStyles(styles)(ProductsItem));
