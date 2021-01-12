@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import Modal from '../Modal/Modal';
-import './ProductsItem2.css';
+import './ProductsItem.css';
 
 import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -21,8 +21,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import CheckIcon from '@material-ui/icons/Check';
-// import Modal from '@material-ui/core/Modal';
+// import CheckIcon from '@material-ui/icons/Check';
 
 const theme = createMuiTheme();
 
@@ -52,6 +51,15 @@ const styles = {
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
+    },
+    form: {
+      height: '52vh',
+      textAlign: 'center'
+    },
+    textField: {
+      marginTop: '1rem',
+      width: '90%',
+      backgroundColor: '#fff9e6',
     },
   }
   
@@ -110,19 +118,19 @@ class ProductsItem2 extends Component {
                        payload: this.props.item.id })
     }
   
-    whichButton = () => {
-      if (this.state.mode === 'edit') {
-        return <IconButton aria-label="edit"
-                  onClick={this.showModal}>
-                  <EditIcon />
-               </IconButton>
-      } else if (this.state.mode === 'save') {
-        return <IconButton aria-label="save"
-                  onClick={this.saveItem}>
-                  <CheckIcon />
-               </IconButton>
-      }
-    }
+    // whichButton = () => {
+    //   if (this.state.mode === 'edit') {
+    //     return <IconButton aria-label="edit"
+    //               onClick={this.showModal}>
+    //               <EditIcon />
+    //            </IconButton>
+    //   } else if (this.state.mode === 'save') {
+    //     return <IconButton aria-label="save"
+    //               onClick={this.saveItem}>
+    //               <CheckIcon />
+    //            </IconButton>
+    //   }
+    // }
   
     editItem = () => {
       console.log (`Edit Mode`, this.state.mode);
@@ -149,7 +157,8 @@ class ProductsItem2 extends Component {
       console.log (`save Mode`, this.state.mode);
       this.setState({
           mode: 'edit',
-          open: false
+          open: false,
+          show: false,
       });
     }
   
@@ -162,13 +171,9 @@ class ProductsItem2 extends Component {
       });
     }
 
-    showModal = () => {
-        this.setState({ show: true });
-      };
-
-      hideModal = () => {
+    hideModal = () => {
         this.setState({ show: false });
-      };
+    };
 
     // body = () => {
 
@@ -264,6 +269,64 @@ class ProductsItem2 extends Component {
             </Collapse>
           </Card> :
           <>
+          <Card className={classes.root}>
+          <CardHeader
+            title={this.props.item.name}
+          />
+          <ThemeProvider theme={theme}>
+          <CardMedia
+            className={classes.media}
+            image={this.props.item.image_path}
+            title={this.props.item.name}
+            variant="h4"
+          />
+          </ThemeProvider>
+          <CardContent>
+            <ThemeProvider theme={theme}>
+            <Typography color="textSecondary" component="p">
+              {this.props.item.size} - ${this.props.item.cost} - {this.props.item.type}
+            </Typography>
+            </ThemeProvider>
+          </CardContent>
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to cart">
+              <AddShoppingCartIcon />
+            </IconButton>
+            {this.props.store.user.administrator &&
+            <>
+            {/* <>{this.whichButton()}</> */}
+            <IconButton aria-label="edit"
+                onClick={this.editItem}>
+                <EditIcon />
+            </IconButton>
+            <IconButton aria-label="delete"
+                        onClick={this.deleteItem}>
+              <DeleteIcon />
+            </IconButton>
+            </>
+            }
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: this.state.expanded,
+              })}
+              onClick={this.handleExpandClick}
+              aria-expanded={this.state.expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardActions>
+          <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <ThemeProvider theme={theme}>
+              <Typography paragraph>Ingredients:</Typography>
+              <Typography paragraph>
+                {this.props.item.description}
+              </Typography>
+              </ThemeProvider>
+            </CardContent>
+          </Collapse>
+        </Card>
            <Modal show={this.state.show} handleClose={this.hideModal}>
            <CardContent>
              <form className={classes.form}>
@@ -284,7 +347,7 @@ class ProductsItem2 extends Component {
                <br></br>
                <br></br>
                <Button
-                 onClick={this.addMessage}>Save</Button>
+                 onClick={this.saveItem}>Save</Button>
              </form>
            </CardContent>
          </Modal>
