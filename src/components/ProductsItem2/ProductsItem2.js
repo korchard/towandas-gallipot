@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import Modal from '../Modal/Modal';
+import './ProductsItem2.css';
 
 import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -19,7 +22,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CheckIcon from '@material-ui/icons/Check';
-import Modal from '@material-ui/core/Modal';
+// import Modal from '@material-ui/core/Modal';
 
 const theme = createMuiTheme();
 
@@ -78,6 +81,7 @@ class ProductsItem2 extends Component {
         expanded: false,
         mode: 'edit',
         open: false,
+        show: true,
         product: {
             title: '',
             description: '',
@@ -109,7 +113,7 @@ class ProductsItem2 extends Component {
     whichButton = () => {
       if (this.state.mode === 'edit') {
         return <IconButton aria-label="edit"
-                  onClick={this.editItem}>
+                  onClick={this.showModal}>
                   <EditIcon />
                </IconButton>
       } else if (this.state.mode === 'save') {
@@ -127,6 +131,7 @@ class ProductsItem2 extends Component {
       this.setState({
           mode: 'save',
           open: true,
+          show: true,
           product: {
             title: this.props.item.title,
             description: this.props.item.description,
@@ -157,33 +162,41 @@ class ProductsItem2 extends Component {
       });
     }
 
-    body = () => {
+    showModal = () => {
+        this.setState({ show: true });
+      };
 
-        const { classes } = this.props;
-        return (
-        <div className={classes.paper}>
-          <form onSubmit={this.saveItem}>
-          <h2>Editing Product</h2>
-          <input placeholder={this.state.product.title} 
-                           onChange={(event) => this.updateProduct(event, 'title')}
-                           value={this.state.product.title} />
-          <input type="text" value={this.state.product.description} placeholder={this.state.product.description} 
-                          onChange={(event) => this.updateProduct(event, 'description')}/>
-          <input type="text" value={this.state.product.size} placeholder={this.state.product.size} 
-                          onChange={(event) => this.updateProduct(event, 'size')}/>
-          <input type="text" value={this.state.product.cost} placeholder={this.state.product.cost} 
-                          onChange={(event) => this.updateProduct(event, 'cost')}/>
-          <input type="text" value={this.state.product.image_path} placeholder={this.state.product.image_path} 
-                          onChange={(event) => this.updateProduct(event, 'image_path')}/>
-          <input type="text" value={this.state.product.type} placeholder={this.state.product.type} 
-                          onChange={(event) => this.updateProduct(event, 'type')}/>
-          <IconButton aria-label="save" type="submit">
-                    <CheckIcon />
-                 </IconButton>
-          <Modal />
-          </form>
-        </div>
-        )};
+      hideModal = () => {
+        this.setState({ show: false });
+      };
+
+    // body = () => {
+
+    //     const { classes } = this.props;
+    //     return (
+    //     <div className={classes.paper}>
+    //       <form onSubmit={this.saveItem}>
+    //       <h2>Editing Product</h2>
+    //       <input placeholder={this.state.product.title} 
+    //                        onChange={(event) => this.updateProduct(event, 'title')}
+    //                        value={this.state.product.title} />
+    //       <input type="text" value={this.state.product.description} placeholder={this.state.product.description} 
+    //                       onChange={(event) => this.updateProduct(event, 'description')}/>
+    //       <input type="text" value={this.state.product.size} placeholder={this.state.product.size} 
+    //                       onChange={(event) => this.updateProduct(event, 'size')}/>
+    //       <input type="text" value={this.state.product.cost} placeholder={this.state.product.cost} 
+    //                       onChange={(event) => this.updateProduct(event, 'cost')}/>
+    //       <input type="text" value={this.state.product.image_path} placeholder={this.state.product.image_path} 
+    //                       onChange={(event) => this.updateProduct(event, 'image_path')}/>
+    //       <input type="text" value={this.state.product.type} placeholder={this.state.product.type} 
+    //                       onChange={(event) => this.updateProduct(event, 'type')}/>
+    //       <IconButton aria-label="save" type="submit">
+    //                 <CheckIcon />
+    //              </IconButton>
+    //       <Modal />
+    //       </form>
+    //     </div>
+    //     )};
 
 
   render() {
@@ -217,7 +230,11 @@ class ProductsItem2 extends Component {
               </IconButton>
               {this.props.store.user.administrator &&
               <>
-              <>{this.whichButton()}</>
+              {/* <>{this.whichButton()}</> */}
+              <IconButton aria-label="edit"
+                  onClick={this.editItem}>
+                  <EditIcon />
+              </IconButton>
               <IconButton aria-label="delete"
                           onClick={this.deleteItem}>
                 <DeleteIcon />
@@ -246,18 +263,33 @@ class ProductsItem2 extends Component {
               </CardContent>
             </Collapse>
           </Card> :
-          <div>
-            <Modal
-              open={this.state.open}
-              onClose={this.handleClose}
-              aria-labelledby="simple-modal-title"
-              aria-describedby="simple-modal-description"
-            >
-              {this.body}
-            </Modal>
-            </div>}
+          <>
+           <Modal show={this.state.show} handleClose={this.hideModal}>
+           <CardContent>
+             <form className={classes.form}>
+               {/* <TextField
+                 label="Subject"
+                 type="text"
+                 onChange={(event) => this.handleModalChange('subject', event)}
+                 className={classes.textField}
+               />
+               <br></br><br></br>
+               <TextField
+                 label="Message"
+                 type="text"
+                 multiline
+                 className={classes.textField}
+                 onChange={(event) => this.handleModalChange('message', event)}
+               /> */}
+               <br></br>
+               <br></br>
+               <Button
+                 onClick={this.addMessage}>Save</Button>
+             </form>
+           </CardContent>
+         </Modal>
+         </>}
         </Grid>
-         
       );
   }
 }
