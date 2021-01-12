@@ -1,7 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import './RegisterForm.css';
+import { Card, CardContent, Button, TextField, Typography } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = {
+  header: {
+    backgroundColor: '#648b16',
+    margin: 'auto',
+    width: '100%',
+    textAlign: 'center',
+    padding: '10px',
+    radius: '5px',
+    color: '#f8f8f8',
+    height: '3vh',
+  },
+  form: {
+    textAlign: 'center',
+    width: '80%',
+  },
+  textField: {
+    marginTop: '1rem',
+    width: '90%',
+    backgroundColor: '#f8f8f8',
+  },
+  root: {
+    flexGrow: 1,
+  },
+  gridContainer: {
+    paddingLeft: '40px',
+    paddingRight: '40px',
+    paddingTop: '60px',
+    marginBottom: '15px',
+  },
+  card: {
+    width: '100%',
+  },
+}
 
 class RegisterForm extends Component {
   state = {
@@ -43,140 +79,127 @@ class RegisterForm extends Component {
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
-      <form className="formPanel" onSubmit={this.registerUser}>
-        <h2>Register User</h2>
-        {this.props.store.errors.registrationMessage && (
-          <h3 className="alert" role="alert">
-            {this.props.store.errors.registrationMessage}
-          </h3>
-        )}
-        <div>
-          <label htmlFor="username">
-            Username:
-            <input
-              type="text"
-              name="username"
-              value={this.state.username}
-              required
-              onChange={this.handleInputChangeFor('username')}
+      <div className={classes.root}>
+        <Grid container spacing={4} className={classes.gridContainer} justify="center">
+          <form className={classes.form} onSubmit={this.registerUser}>
+            <Card className={classes.card}>
+              <Typography component="h2" className={classes.header}>
+                Register 
+              </Typography>
+          {this.props.store.errors.registrationMessage && (
+            <Typography className="alert" role="alert">{this.props.store.errors.registrationMessage}</Typography>
+          )}
+            <CardContent>
+              <Grid container justify="center">
+              <Grid item xs={12} sm={6}>
+          <TextField 
+            label="Username"
+            name="username"
+            className={classes.textField}
+            onChange={this.handleInputChangeFor('username')}
+            required
+            value={this.state.username}
             />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="password">
-            Password:
-            <input
-              type="password"
-              name="password"
-              value={this.state.password}
-              required
-              onChange={this.handleInputChangeFor('password')}
+            <br></br>
+            <TextField 
+            type="password"
+            label="Password"
+            name="password"
+            className={classes.textField}
+            onChange={this.handleInputChangeFor('password')}
+            required
+            value={this.state.password}
             />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="first_name">
-            First Name:
-            <input
-              type="first_name"
-              name="first_name"
-              value={this.state.first_name}
-              required
-              onChange={this.handleInputChangeFor('first_name')}
+            <br></br>
+            <TextField 
+            label="First Name"
+            name="first_name"
+            className={classes.textField}
+            onChange={this.handleInputChangeFor('first_name')}
+            required
+            value={this.state.first_name}
             />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="last_name">
-            Last Name:
-            <input
-              type="last_name"
-              name="last_name"
-              value={this.state.last_name}
-              required
-              onChange={this.handleInputChangeFor('last_name')}
+            <br></br>
+            <TextField 
+            label="Last Name"
+            name="last_name"
+            className={classes.textField}
+            onChange={this.handleInputChangeFor('last_name')}
+            required
+            value={this.state.last_name}
             />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="street_address">
-            Street Address:
-            <input
-              type="street_address"
-              name="street_address"
-              value={this.state.street_address}
-              required
-              onChange={this.handleInputChangeFor('street_address')}
+            <br></br>
+            <TextField 
+            label="Email Address"
+            name="email_address"
+            className={classes.textField}
+            onChange={this.handleInputChangeFor('email_address')}
+            required
+            value={this.state.email_address}
             />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="city">
-            City:
-            <input
-              type="city"
-              name="city"
-              value={this.state.city}
-              required
-              onChange={this.handleInputChangeFor('city')}
+            <br></br>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+            <TextField 
+            label="Street Address"
+            name="street_address"
+            className={classes.textField}
+            onChange={this.handleInputChangeFor('street_address')}
+            required
+            value={this.state.street_address}
             />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="state">
-            State:
-            <input
-              type="state"
-              name="state"
-              value={this.state.state}
-              required
-              onChange={this.handleInputChangeFor('state')}
+            <br></br>
+            <TextField 
+            label="City"
+            name="city"
+            className={classes.textField}
+            onChange={this.handleInputChangeFor('city')}
+            required
+            value={this.state.city}
             />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="zip">
-            Zip:
-            <input
-              type="zip"
-              name="zip"
-              value={this.state.zip}
-              required
-              onChange={this.handleInputChangeFor('zip')}
+            <br></br>
+            <TextField 
+            label="State"
+            name="state"
+            className={classes.textField}
+            onChange={this.handleInputChangeFor('state')}
+            required
+            value={this.state.state}
             />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="phone_number">
-            Phone Number:
-            <input
-              type="phone_number"
-              name="phone_number"
-              value={this.state.phone_number}
-              // required
-              onChange={this.handleInputChangeFor('phone_number')}
+            <br></br>
+            <TextField 
+            label="Zip"
+            name="zip"
+            className={classes.textField}
+            onChange={this.handleInputChangeFor('zip')}
+            required
+            value={this.state.zip}
             />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="email_address">
-            Email Address:
-            <input
-              type="email_address"
-              name="email_address"
-              value={this.state.email_address}
-              required
-              onChange={this.handleInputChangeFor('email_address')}
+            <br></br>
+            <TextField 
+            label="Phone Number"
+            name="phone_number"
+            className={classes.textField}
+            onChange={this.handleInputChangeFor('phone_number')}
+            value={this.state.phone_number}
             />
-          </label>
-        </div>
-        <div>
-          <input className="btn" type="submit" name="submit" value="Register" />
-        </div>
-      </form>
+            <br></br><br></br>
+            </Grid>
+            </Grid>
+            <Button>
+           <input className="btn" type="submit" name="submit" value="Register" />
+         </Button>
+            </CardContent>
+            </Card>
+        </form>
+      
+      </Grid>
+</div>
     );
   }
 }
 
-export default connect(mapStoreToProps)(RegisterForm);
+export default connect(mapStoreToProps)(withStyles(styles)(RegisterForm));

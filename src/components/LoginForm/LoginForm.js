@@ -12,14 +12,10 @@ const styles = {
     width: '100%',
     textAlign: 'center',
     padding: '10px',
-    // fontFamily: 'fantasy',
     radius: '5px',
     color: '#f8f8f8',
     height: '3vh',
   },
-  // required: {
-  //   padding: '4px',
-  // },
   form: {
     textAlign: 'center',
   },
@@ -73,7 +69,7 @@ class LoginForm extends Component {
     const { classes } = this.props;
 
     return (
-<>
+<div className={classes.root}>
       <Grid container spacing={6} className={classes.gridContainer} justify="center">
       <Grid item xs={12} sm={8} md={4}>
       <form className={classes.form} onSubmit={this.login}>
@@ -93,8 +89,9 @@ class LoginForm extends Component {
             required
             value={this.state.username}
             />
-            <br></br><br></br>
+            <br></br>
             <TextField 
+            type="password"
             label="Password"
             name="password"
             className={classes.textField}
@@ -102,7 +99,7 @@ class LoginForm extends Component {
             required
             value={this.state.password}
             />
-            <br></br><br></br>
+            <br></br>
             <Button>
             <input className="btn" type="submit" name="submit" value="Log In" />
             </Button>
@@ -111,43 +108,7 @@ class LoginForm extends Component {
       </form>
       </Grid>
       </Grid>
-
-      {/* <form className="formPanel" onSubmit={this.login}>
-        <h2>Login</h2>
-        {this.props.store.errors.loginMessage && (
-          <h3 className="alert" role="alert">
-            {this.props.store.errors.loginMessage}
-          </h3>
-        )}
-        <div>
-          <label htmlFor="username">
-            Username:
-            <input
-              type="text"
-              name="username"
-              required
-              value={this.state.username}
-              onChange={this.handleInputChangeFor('username')}
-            />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="password">
-            Password:
-            <input
-              type="password"
-              name="password"
-              required
-              value={this.state.password}
-              onChange={this.handleInputChangeFor('password')}
-            />
-          </label>
-        </div>
-        <div>
-          <input className="btn" type="submit" name="submit" value="Log In" />
-        </div>
-      </form> */}
-      </>
+      </div>
     );
   }
 }

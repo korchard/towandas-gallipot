@@ -44,24 +44,10 @@ const Nav = (props) => {
             <Link className="nav-link" to="/previous-orders">
               Orders
             </Link>
-            {/* <LogOutButton className="nav-link" /> */}
-          </>
-        )}
-        {/* do something like this below for the admin routes - which should also be protected */}
-        {(props.store.user.id === 1 || props.store.user.id === 2) && (
-          <>
-            {/* <ProductAdminDisplay /> */}
-            <Link className="nav-link" to="/admin-product-add">
-              Products
-            </Link>
             <LogOutButton className="nav-link" />
           </>
         )}
-      </div>
-      {/* <Link to="/home">
-        <h2 className="nav-title">Towanda's Gallipot</h2>
-      </Link> */}
-      <div className="nav-bottom">
+        <div className="nav-bottom">
         <Link className="nav-link" to="/about">
           About Me
         </Link>
@@ -74,6 +60,17 @@ const Nav = (props) => {
         <Link className="nav-link" to="/contact">
           Contact
         </Link>
+        </div>
+        {/* do something like this below for the admin routes - which should also be protected */}
+        {(props.store.user.id === 1 || props.store.user.id === 2) && (
+          <>
+            {/* <ProductAdminDisplay /> */}
+            <Link className="nav-link" to="/admin-product-add">
+              Products
+            </Link>
+            <LogOutButton className="nav-link" />
+          </>
+        )}
       </div>
     </div>
   );
