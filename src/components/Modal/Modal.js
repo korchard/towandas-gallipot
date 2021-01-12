@@ -32,6 +32,7 @@ class Modal extends Component {
     componentDidMount = () => {
         this.setState({
             product: {
+                id: this.props.store.edit.id,
                 name: this.props.store.edit.name,
                 description: this.props.store.edit.description,
                 size: this.props.store.edit.size,
