@@ -22,7 +22,7 @@ const Nav = (props) => {
   return (
     <div className="nav">
       <div className="nav-block">
-      <img src={window.location.origin + '/images/logo.jpg'} alt="herb witch logo" className="logo"/>
+      <img src={window.location.origin + '/image/logo.jpg'} alt="herb witch logo" className="logo"/>
       <Link to="/home">
         <h2 className="nav-title">Towanda's Gallipot</h2>
       </Link>

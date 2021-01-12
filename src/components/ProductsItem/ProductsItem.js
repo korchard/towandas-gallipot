@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import Modal from '../Modal/Modal';
-import './ProductsItem.css';
 
 import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -51,24 +50,28 @@ const styles = {
       padding: theme.spacing(2, 4, 3),
     },
   }
-  
-  theme.typography.h4 = {
-    fontSize: '1.2rem',
+
+  theme.typography.h5 = {
+      fontFamily: [
+        'fantasy',
+        'serif',
+      ].join(','),
+      fontSize: '1rem',
     '@media (min-width:600px)': {
-      fontSize: '1.5rem',
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '2rem',
-    },
+      fontSize: '1rem',
+      },
+      [theme.breakpoints.up('md')]: {
+        fontSize: '1.5rem',
+      },
   };
   
   theme.typography.p = {
-    fontSize: '1.2rem',
+    fontSize: '1rem',
     '@media (min-width:600px)': {
-      fontSize: '1.5rem',
+      fontSize: '1rem',
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: '2rem',
+      fontSize: '1.5rem',
     },
   };
 
@@ -139,17 +142,17 @@ class ProductsItem extends Component {
         <Grid item xs={12} sm={6} md={3}>
           {this.state.mode === 'edit' ?
             <Card className={classes.root}>
-            <CardHeader
-              title={this.props.item.name}
-            />
             <ThemeProvider theme={theme}>
+              <CardHeader
+                title={this.props.item.name}
+              />
+            </ThemeProvider>
             <CardMedia
               className={classes.media}
               image={this.props.item.image_path}
               title={this.props.item.name}
-              variant="h4"
+    
             />
-            </ThemeProvider>
             <CardContent>
               <ThemeProvider theme={theme}>
               <Typography color="textSecondary" component="p">
