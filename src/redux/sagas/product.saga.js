@@ -67,7 +67,7 @@ function* productSaga() {
   yield takeEvery('ADD_PRODUCT', addProduct);
   yield takeEvery('GET_PRODUCT', getProduct);
   yield takeEvery('DELETE_PRODUCT', deleteProduct);
-  yield takeEvery('EDIT_PRODUCT', editProduct);
+  yield takeEvery('UPDATE_PRODUCT', editProduct);
 }
 
 export default productSaga;

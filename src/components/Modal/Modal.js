@@ -29,6 +29,19 @@ const styles = {
 
 class Modal extends Component {
 
+    componentDidMount = () => {
+        this.setState({
+            product: {
+                name: this.props.store.edit.name,
+                description: this.props.store.edit.description,
+                size: this.props.store.edit.size,
+                cost: this.props.store.edit.cost,
+                image_path: this.props.store.edit.image_path,
+                type: this.props.store.edit.type,
+            }
+        })
+    }
+
     state = {
         product: {
             name: '',
@@ -36,24 +49,25 @@ class Modal extends Component {
             size: '',
             cost: '',
             image_path: '',
-            type: '',
-          }
+            type: ''
+        }
     }
 
     updateProduct = (event, inputProperty) => {
         event.preventDefault();
         console.log('event happened', event.target.value);
-        let product = {
-                ...this.props.store.edit,
+        console.log('store is', this.props.store.edit);
+        this.setState({
+            product: {
+                ...this.state.product,
                 [inputProperty]: event.target.value
-            };
-        // this.props.dispatch({ type: 'EDIT_PRODUCT', payload: [product] })
-        console.log('updated Product', product);
+            }
+        })
     }
 
-    saveItem = (event) => {
-        event.preventDefault();
+    saveItem = () => {
         console.log('newProduct', this.state.product);
+        this.props.dispatch({ type: 'UPDATE_PRODUCT', payload: this.state.product })
         this.props.hideModal();
     }
 
@@ -62,6 +76,7 @@ render() {
   const { classes } = this.props;
   return (
     <div className={showHideClassName}>
+        
       <Card className="modal-main">
         <Typography gutterBottom variant="h5" component="h2" className={classes.header}>
           Edit Product
@@ -71,7 +86,7 @@ render() {
                <TextField
                   label="Name"
                   onChange={(event) => this.updateProduct(event, 'name')}
-                  value={this.props.store.edit.name} 
+                  value={this.state.product.name} 
                   placeholder={this.props.store.edit.name} 
                   className={classes.textField}
                />
@@ -81,7 +96,7 @@ render() {
                   type="text"
                   multiline
                   className={classes.textField}
-                  value={this.props.store.edit.description} 
+                  value={this.state.product.description} 
                   placeholder={this.props.store.edit.description} 
                   onChange={(event) => this.updateProduct(event, 'description')}
                />
@@ -89,7 +104,7 @@ render() {
                   label="Size"
                   type="text"
                   className={classes.textField}
-                  value={this.props.store.edit.size} 
+                  value={this.state.product.size} 
                   placeholder={this.props.store.edit.size} 
                   onChange={(event) => this.updateProduct(event, 'size')}
                />
@@ -97,7 +112,7 @@ render() {
                   label="Cost"
                   type="text"
                   className={classes.textField}
-                  value={this.props.store.edit.cost} 
+                  value={this.state.product.cost} 
                   placeholder={this.props.store.edit.cost} 
                   onChange={(event) => this.updateProduct(event, 'cost')}
                />
@@ -105,7 +120,7 @@ render() {
                   label="Image"
                   type="text"
                   className={classes.textField}
-                  value={this.props.store.edit.image_path} 
+                  value={this.state.product.image_path} 
                   placeholder={this.props.store.edit.image_path} 
                   onChange={(event) => this.updateProduct(event, 'image_path')}
                />
@@ -113,7 +128,7 @@ render() {
                   label="Type"
                   type="text"
                   className={classes.textField}
-                  value={this.props.store.edit.type} 
+                  value={this.state.product.type} 
                   placeholder={this.props.store.edit.type} 
                   onChange={(event) => this.updateProduct(event, 'type')}
                />

@@ -117,7 +117,7 @@ class ProductsItem extends Component {
     editItem = () => {
       console.log (`Edit Mode`, this.state.mode);
       console.log('item is', this.props.item);
-      this.props.dispatch({ type: 'UPDATE_PRODUCT', payload: this.props.item })
+      this.props.dispatch({ type: 'EDIT_PRODUCT', payload: this.props.item })
       this.setState({
           mode: 'save',
           open: true,
@@ -255,7 +255,7 @@ class ProductsItem extends Component {
             </CardContent>
           </Collapse>
         </Card>
-          <Modal open={this.state.open} hideModal={this.hideModal} />
+          <Modal open={this.state.open} hideModal={this.hideModal} editItem={this.editItem}/>
          </>}
         </Grid>
       );
