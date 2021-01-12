@@ -38,7 +38,7 @@ const styles = {
     paddingLeft: '40px',
     paddingRight: '40px',
     paddingTop: '60px',
-  }
+  },
 }
 
 theme.typography.h5 = {

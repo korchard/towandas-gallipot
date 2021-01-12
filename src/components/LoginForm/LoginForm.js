@@ -35,7 +35,10 @@ const styles = {
     paddingLeft: '40px',
     paddingRight: '40px',
     paddingTop: '60px',
-  }
+  },
+  card: {
+    marginBottom: '15px',
+  },
 }
 
 class LoginForm extends Component {
@@ -74,14 +77,12 @@ class LoginForm extends Component {
       <Grid container spacing={6} className={classes.gridContainer} justify="center">
       <Grid item xs={12} sm={8} md={4}>
       <form className={classes.form} onSubmit={this.login}>
-      <Card>
+      <Card className={classes.card}>
           <Typography component="h2" className={classes.header}>
             Login 
           </Typography>
           {this.props.store.errors.loginMessage && (
-          <h3 className="alert" role="alert">
-            {this.props.store.errors.loginMessage}
-          </h3>
+            <Typography className="alert" role="alert">{this.props.store.errors.loginMessage}</Typography>
         )}
         <CardContent>
           <TextField 
