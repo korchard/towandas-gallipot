@@ -6,8 +6,9 @@ const productReducer = (state = [], action) => {
         return state;
     }
   };
-  
+
   // product will be on the redux state at:
   // state.product
-  export default productReducer;
+
+export default productReducer;
   

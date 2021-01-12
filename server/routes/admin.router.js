@@ -8,7 +8,7 @@ require('dotenv').config();
 // GET ROUTE
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('user', req.user);
-    const queryText = `SELECT * FROM "product"`;
+    const queryText = `SELECT * FROM "product" ORDER BY type`;
     pool.query(queryText)
         .then((results) => {
           res.send(results.rows);
@@ -57,7 +57,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
     const queryText = `UPDATE "product" SET "name" = $1, "description" = $2, "size" = $3, 
                       "cost" = $4, "image_path" = $5, "type" = $6 WHERE id = $7;`
     pool.query(queryText, [req.body.name, req.body.description, req.body.size, 
-                           req.body.cost, req.body.image_path, req.body.type])
+                           req.body.cost, req.body.image_path, req.body.type, req.body.id])
         .then(() => res.sendStatus(201))
         .catch((error) => { 
           console.log('Bad news bears error in server PUT route ---->', error)

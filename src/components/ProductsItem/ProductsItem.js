@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import Modal from '../Modal/Modal';
 import './ProductsItem.css';
 
+import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -20,81 +21,198 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 345,
-    minWidth: 225,
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-}));
-
 const theme = createMuiTheme();
 
-theme.typography.h4 = {
-  fontSize: '1.2rem',
-  '@media (min-width:600px)': {
-    fontSize: '1.5rem',
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '2rem',
-  },
-};
-
-theme.typography.p = {
-  fontSize: '1.2rem',
-  '@media (min-width:600px)': {
-    fontSize: '1.5rem',
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '2rem',
-  },
-};
-
-function ProductsItem(props) {
-  const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+const styles = {
+    root: {
+      maxWidth: 345,
+      minWidth: 225,
+    },
+    media: {
+      height: 0,
+      paddingTop: '56.25%', // 16:9
+    },
+    expand: {
+      transform: 'rotate(0deg)',
+      marginLeft: 'auto',
+      transition: theme.transitions.create('transform', {
+        duration: theme.transitions.duration.shortest,
+      }),
+    },
+    expandOpen: {
+      transform: 'rotate(180deg)',
+    },
+    paper: {
+      position: 'absolute',
+      width: 400,
+      backgroundColor: theme.palette.background.paper,
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    },
+  }
+  
+  theme.typography.h4 = {
+    fontSize: '1.2rem',
+    '@media (min-width:600px)': {
+      fontSize: '1.5rem',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '2rem',
+    },
+  };
+  
+  theme.typography.p = {
+    fontSize: '1.2rem',
+    '@media (min-width:600px)': {
+      fontSize: '1.5rem',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '2rem',
+    },
   };
 
-  const deleteItem = () => {
-    console.log('delete item', props.item.id)
-    props.dispatch({ type: 'DELETE_PRODUCT', 
-                     payload: props.item.id })
-  }
+class ProductsItem extends Component {
+    
+    state = {
+        expanded: false,
+        mode: 'edit',
+        open: false,
+        product: {
+            name: '',
+            description: '',
+            size: '',
+            cost: '',
+            imagee_path: '',
+            type: ''
+        }
+    }
+  
+    handleExpandClick = () => {
+        this.setState({
+            expanded: !this.state.expanded
+        });
+    }
+  
+    deleteItem = () => {
+      console.log('delete item', this.props.item.id)
+      this.props.dispatch({ type: 'DELETE_PRODUCT', 
+                       payload: this.props.item.id })
+    }
+  
+    // whichButton = () => {
+    //   if (this.state.mode === 'edit') {
+    //     return <IconButton aria-label="edit"
+    //               onClick={this.showModal}>
+    //               <EditIcon />
+    //            </IconButton>
+    //   } else if (this.state.mode === 'save') {
+    //     return <IconButton aria-label="save"
+    //               onClick={this.saveItem}>
+    //               <CheckIcon />
+    //            </IconButton>
+    //   }
+    // }
+  
+    editItem = () => {
+      console.log (`Edit Mode`, this.state.mode);
+      console.log('item is', this.props.item);
+      this.props.dispatch({ type: 'EDIT_PRODUCT', payload: this.props.item })
+      this.setState({
+          mode: 'save',
+          open: true,
+      });
+    }
+
+    hideModal = () => {
+      console.log('mode', this.state.mode);
+      this.setState({ 
+        mode: 'edit',
+        open: false 
+      });
+    }
+
+  render() {
+    const { classes } = this.props;
 
     return (
-      <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
+          {this.state.mode === 'edit' ?
+            <Card className={classes.root}>
+            <CardHeader
+              title={this.props.item.name}
+            />
+            <ThemeProvider theme={theme}>
+            <CardMedia
+              className={classes.media}
+              image={this.props.item.image_path}
+              title={this.props.item.name}
+              variant="h4"
+            />
+            </ThemeProvider>
+            <CardContent>
+              <ThemeProvider theme={theme}>
+              <Typography color="textSecondary" component="p">
+                {this.props.item.size} - ${this.props.item.cost} - {this.props.item.type}
+              </Typography>
+              </ThemeProvider>
+            </CardContent>
+            <CardActions disableSpacing>
+              <IconButton aria-label="add to cart">
+                <AddShoppingCartIcon />
+              </IconButton>
+              {this.props.store.user.administrator &&
+              <>
+              {/* <>{this.whichButton()}</> */}
+              <IconButton aria-label="edit"
+                  onClick={this.editItem}>
+                  <EditIcon />
+              </IconButton>
+              <IconButton aria-label="delete"
+                          onClick={this.deleteItem}>
+                <DeleteIcon />
+              </IconButton>
+              </>
+              }
+              <IconButton
+                className={clsx(classes.expand, {
+                  [classes.expandOpen]: this.state.expanded,
+                })}
+                onClick={this.handleExpandClick}
+                aria-expanded={this.state.expanded}
+                aria-label="show more"
+              >
+                <ExpandMoreIcon />
+              </IconButton>
+            </CardActions>
+            <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+              <CardContent>
+                <ThemeProvider theme={theme}>
+                <Typography paragraph>Ingredients:</Typography>
+                <Typography paragraph>
+                  {this.props.item.description}
+                </Typography>
+                </ThemeProvider>
+              </CardContent>
+            </Collapse>
+          </Card> :
+          <>
           <Card className={classes.root}>
           <CardHeader
-            title={props.item.name}
+            title={this.props.item.name}
           />
           <ThemeProvider theme={theme}>
           <CardMedia
             className={classes.media}
-            image={props.item.image_path}
-            title={props.item.name}
+            image={this.props.item.image_path}
+            title={this.props.item.name}
             variant="h4"
           />
           </ThemeProvider>
           <CardContent>
             <ThemeProvider theme={theme}>
             <Typography color="textSecondary" component="p">
-              {props.item.size} - ${props.item.cost}
+              {this.props.item.size} - ${this.props.item.cost} - {this.props.item.type}
             </Typography>
             </ThemeProvider>
           </CardContent>
@@ -102,42 +220,46 @@ function ProductsItem(props) {
             <IconButton aria-label="add to cart">
               <AddShoppingCartIcon />
             </IconButton>
-            {props.store.user.administrator &&
+            {this.props.store.user.administrator &&
             <>
-            <IconButton aria-label="edit">
-              <EditIcon />
+            {/* <>{this.whichButton()}</> */}
+            <IconButton aria-label="edit"
+                onClick={this.editItem}>
+                <EditIcon />
             </IconButton>
             <IconButton aria-label="delete"
-                        onClick={deleteItem}>
+                        onClick={this.deleteItem}>
               <DeleteIcon />
             </IconButton>
             </>
             }
             <IconButton
               className={clsx(classes.expand, {
-                [classes.expandOpen]: expanded,
+                [classes.expandOpen]: this.state.expanded,
               })}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
+              onClick={this.handleExpandClick}
+              aria-expanded={this.state.expanded}
               aria-label="show more"
             >
               <ExpandMoreIcon />
             </IconButton>
           </CardActions>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             <CardContent>
               <ThemeProvider theme={theme}>
               <Typography paragraph>Ingredients:</Typography>
               <Typography paragraph>
-                {props.item.description}
+                {this.props.item.description}
               </Typography>
               </ThemeProvider>
             </CardContent>
           </Collapse>
         </Card>
-          </Grid>
-       
-    );
+          <Modal open={this.state.open} hideModal={this.hideModal} editItem={this.editItem}/>
+         </>}
+        </Grid>
+      );
+  }
 }
 
-export default connect(mapStoreToProps)(ProductsItem);
+export default connect(mapStoreToProps)(withStyles(styles)(ProductsItem));
