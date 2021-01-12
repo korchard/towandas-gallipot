@@ -20,9 +20,9 @@ const styles = {
     color: '#f8f8f8',
     height: '3vh',
   },
-  required: {
-    padding: '4px',
-  },
+  // required: {
+  //   padding: '4px',
+  // },
   form: {
     textAlign: 'center',
   },
@@ -90,6 +90,7 @@ class ProductAdminForm extends Component {
     const { classes } = this.props;
 
     return (
+      <div className={classes.root}>
       <Grid container spacing={6} className={classes.gridContainer} justify="center">
       <Grid item xs={12} sm={8} md={4}>
       <form className={classes.form} onSubmit={this.addProduct}>
@@ -99,9 +100,9 @@ class ProductAdminForm extends Component {
           Add Product
         </Typography>
         </ThemeProvider>
-        <Typography component="p" className={classes.required}>
+        {/* <Typography component="p" className={classes.required}>
           *field is required
-        </Typography>
+        </Typography> */}
         <CardContent>
                <TextField
                   label="Name"
@@ -159,6 +160,7 @@ class ProductAdminForm extends Component {
       </form>
       </Grid>
       </Grid>
+      </div>
     );
   }
 }
