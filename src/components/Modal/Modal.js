@@ -7,13 +7,15 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   header: {
-    backgroundColor: "#C78B50",
-    margin: " auto",
-    width: "80%",
-    textAlign: "center",
-    padding: "3rem",
-    border: '3px solid #FFF9E6',
-    letterSpacing: '5px',
+    backgroundColor: '#648b16',
+    margin: 'auto',
+    width: '87%',
+    textAlign: 'center',
+    padding: '10px',
+    fontFamily: 'fantasy',
+    radius: '5px',
+    color: '#f8f8f8',
+    height: '3vh',
   },
   form: {
     height: '52vh',
@@ -22,7 +24,7 @@ const styles = {
   textField: {
     marginTop: '1rem',
     width: '90%',
-    backgroundColor: '#fff9e6',
+    backgroundColor: '#f8f8f8',
   },
 }
 
