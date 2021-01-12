@@ -121,14 +121,6 @@ class ProductsItem extends Component {
       this.setState({
           mode: 'save',
           open: true,
-          product: {
-            name: this.props.item.name,
-            description: this.props.item.description,
-            size: this.props.item.size,
-            cost: this.props.item.cost,
-            image_path: this.props.item.image_path,
-            type: this.props.item.type
-          }
       });
     }
 
@@ -263,9 +255,7 @@ class ProductsItem extends Component {
             </CardContent>
           </Collapse>
         </Card>
-          <Modal open={this.state.open} hideModal={this.hideModal}
-                product={this.state.product}>
-          </Modal>
+          <Modal open={this.state.open} hideModal={this.hideModal} />
          </>}
         </Grid>
       );

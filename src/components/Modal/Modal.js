@@ -38,23 +38,17 @@ class Modal extends Component {
             image_path: '',
             type: '',
           }
-        //   product: {
-            //     name: this.props.edit[0].name,
-            //     description: this.props.edit[0].description,
-            //     size: this.props.edit[0].size,
-            //     cost: this.props.edit[0].cost,
-            //     image_path: this.store.edit[0].image_path,
-            //     type: this.props.edit[0].type,
-            //   }
     }
 
     updateProduct = (event, inputProperty) => {
-        this.setState({
-            product: {
-                ...this.state.product,
+        event.preventDefault();
+        console.log('event happened', event.target.value);
+        let product = {
+                ...this.props.store.edit,
                 [inputProperty]: event.target.value
-            }
-      });
+            };
+        // this.props.dispatch({ type: 'EDIT_PRODUCT', payload: [product] })
+        console.log('updated Product', product);
     }
 
     saveItem = (event) => {
@@ -77,8 +71,8 @@ render() {
                <TextField
                   label="Name"
                   onChange={(event) => this.updateProduct(event, 'name')}
-                  value={props.store.edit.name} 
-                  placeholder={props.store.edit.name} 
+                  value={this.props.store.edit.name} 
+                  placeholder={this.props.store.edit.name} 
                   className={classes.textField}
                />
                <br></br><br></br>
@@ -87,40 +81,40 @@ render() {
                   type="text"
                   multiline
                   className={classes.textField}
-                  value={this.props.product.description} 
-                  placeholder={this.props.product.description} 
+                  value={this.props.store.edit.description} 
+                  placeholder={this.props.store.edit.description} 
                   onChange={(event) => this.updateProduct(event, 'description')}
                />
                <TextField
                   label="Size"
                   type="text"
                   className={classes.textField}
-                  value={this.props.product.size} 
-                  placeholder={this.props.product.size} 
+                  value={this.props.store.edit.size} 
+                  placeholder={this.props.store.edit.size} 
                   onChange={(event) => this.updateProduct(event, 'size')}
                />
                <TextField
                   label="Cost"
                   type="text"
                   className={classes.textField}
-                  value={this.props.product.cost} 
-                  placeholder={this.props.product.cost} 
+                  value={this.props.store.edit.cost} 
+                  placeholder={this.props.store.edit.cost} 
                   onChange={(event) => this.updateProduct(event, 'cost')}
                />
                <TextField
                   label="Image"
                   type="text"
                   className={classes.textField}
-                  value={this.props.product.image_path} 
-                  placeholder={this.props.product.image_path} 
+                  value={this.props.store.edit.image_path} 
+                  placeholder={this.props.store.edit.image_path} 
                   onChange={(event) => this.updateProduct(event, 'image_path')}
                />
                <TextField
                   label="Type"
                   type="text"
                   className={classes.textField}
-                  value={this.props.product.type} 
-                  placeholder={this.props.product.type} 
+                  value={this.props.store.edit.type} 
+                  placeholder={this.props.store.edit.type} 
                   onChange={(event) => this.updateProduct(event, 'type')}
                />
                <br></br>
