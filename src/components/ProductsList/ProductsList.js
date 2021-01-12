@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import ProductsItem from '../ProductsItem/ProductsItem';
+import ProductsItem2 from '../ProductsItem2/ProductsItem2';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -27,7 +27,7 @@ function ProductsList(props) {
         <Grid container spacing={6} className={classes.gridContainer} justify="center">
         {props.store.product.map((item) => {
             return (
-                <ProductsItem key= {item.id} item={item}/>
+                <ProductsItem2 key= {item.id} item={item}/>
             );
         })} 
         </Grid>
