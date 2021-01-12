@@ -6,7 +6,6 @@ import './ProductsItem.css';
 
 import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-// import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -21,8 +20,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-// import CheckIcon from '@material-ui/icons/Check';
-// import TextField from '@material-ui/icons/TextFields';
 
 const theme = createMuiTheme();
 
@@ -52,15 +49,6 @@ const styles = {
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
-    },
-    form: {
-      height: '52vh',
-      textAlign: 'center'
-    },
-    textField: {
-      marginTop: '1rem',
-      width: '90%',
-      backgroundColor: '#fff9e6',
     },
   }
   
@@ -100,12 +88,6 @@ class ProductsItem extends Component {
         }
     }
   
-    // handleClose = () => {
-    //     this.setState({
-    //         open: false
-    //     });
-    // }
-  
     handleExpandClick = () => {
         this.setState({
             expanded: !this.state.expanded
@@ -135,6 +117,7 @@ class ProductsItem extends Component {
     editItem = () => {
       console.log (`Edit Mode`, this.state.mode);
       console.log('item is', this.props.item);
+      this.props.dispatch({ type: 'UPDATE_PRODUCT', payload: this.props.item })
       this.setState({
           mode: 'save',
           open: true,
@@ -148,26 +131,6 @@ class ProductsItem extends Component {
           }
       });
     }
-  
-  //  saveItem = (event) => {
-  //     event.preventDefault();
-  //     console.log('newProduct', this.state.product);
-  //     console.log (`save Mode`, this.state.mode);
-  //     this.setState({
-  //         mode: 'edit',
-  //         open: false,
-  //         show: false,
-  //     });
-  //   }
-  
-    // updateProduct = (event, inputProperty) => {
-    //     this.setState({
-    //         product: {
-    //             ...this.state.product,
-    //             [inputProperty]: event.target.value
-    //         }
-    //   });
-    // }
 
     hideModal = () => {
       console.log('mode', this.state.mode);
@@ -176,35 +139,6 @@ class ProductsItem extends Component {
         open: false 
       });
     }
-
-    // body = () => {
-
-    //     const { classes } = this.props;
-    //     return (
-    //     <div className={classes.paper}>
-    //       <form onSubmit={this.saveItem}>
-    //       <h2>Editing Product</h2>
-    //       <input placeholder={this.state.product.title} 
-    //                        onChange={(event) => this.updateProduct(event, 'title')}
-    //                        value={this.state.product.title} />
-    //       <input type="text" value={this.state.product.description} placeholder={this.state.product.description} 
-    //                       onChange={(event) => this.updateProduct(event, 'description')}/>
-    //       <input type="text" value={this.state.product.size} placeholder={this.state.product.size} 
-    //                       onChange={(event) => this.updateProduct(event, 'size')}/>
-    //       <input type="text" value={this.state.product.cost} placeholder={this.state.product.cost} 
-    //                       onChange={(event) => this.updateProduct(event, 'cost')}/>
-    //       <input type="text" value={this.state.product.image_path} placeholder={this.state.product.image_path} 
-    //                       onChange={(event) => this.updateProduct(event, 'image_path')}/>
-    //       <input type="text" value={this.state.product.type} placeholder={this.state.product.type} 
-    //                       onChange={(event) => this.updateProduct(event, 'type')}/>
-    //       <IconButton aria-label="save" type="submit">
-    //                 <CheckIcon />
-    //              </IconButton>
-    //       <Modal />
-    //       </form>
-    //     </div>
-    //     )};
-
 
   render() {
     const { classes } = this.props;

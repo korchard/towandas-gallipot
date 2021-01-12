@@ -1,5 +1,7 @@
 import './Modal.css';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import mapStoreToProps from '../../redux/mapStoreToProps';
 import { Card, CardContent, Button, TextField, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -12,7 +14,16 @@ const styles = {
     padding: "3rem",
     border: '3px solid #FFF9E6',
     letterSpacing: '5px',
-  }
+  },
+  form: {
+    height: '52vh',
+    textAlign: 'center'
+  },
+  textField: {
+    marginTop: '1rem',
+    width: '90%',
+    backgroundColor: '#fff9e6',
+  },
 }
 
 
@@ -20,13 +31,21 @@ class Modal extends Component {
 
     state = {
         product: {
-            name: this.props.product.name,
-            description: this.props.product.description,
-            size: this.props.product.size,
-            cost: this.props.product.cost,
-            image_path: this.props.product.image_path,
-            type: this.props.product.type
+            name: '',
+            description: '',
+            size: '',
+            cost: '',
+            image_path: '',
+            type: '',
           }
+        //   product: {
+            //     name: this.props.edit[0].name,
+            //     description: this.props.edit[0].description,
+            //     size: this.props.edit[0].size,
+            //     cost: this.props.edit[0].cost,
+            //     image_path: this.store.edit[0].image_path,
+            //     type: this.props.edit[0].type,
+            //   }
     }
 
     updateProduct = (event, inputProperty) => {
@@ -42,7 +61,7 @@ class Modal extends Component {
         event.preventDefault();
         console.log('newProduct', this.state.product);
         this.props.hideModal();
-      }
+    }
 
 render() {
   const showHideClassName = this.props.open ? "modal display-block" : "modal display-none";
@@ -58,8 +77,8 @@ render() {
                <TextField
                   label="Name"
                   onChange={(event) => this.updateProduct(event, 'name')}
-                  value={this.props.product.name} 
-                  placeholder={this.props.product.name} 
+                  value={props.store.edit.name} 
+                  placeholder={props.store.edit.name} 
                   className={classes.textField}
                />
                <br></br><br></br>
@@ -120,4 +139,4 @@ render() {
   );
 }};
 
-export default withStyles(styles)(Modal);
+export default connect(mapStoreToProps)(withStyles(styles)(Modal));
