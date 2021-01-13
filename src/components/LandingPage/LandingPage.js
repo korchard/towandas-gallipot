@@ -1,74 +1,138 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-
+import { Typography } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import './LandingPage.css';
 
 // CUSTOM COMPONENTS
 import RegisterForm from '../RegisterForm/RegisterForm';
 
+const theme = createMuiTheme();
+
+const styles = {
+  header: {
+    margin: 'auto',
+    width: '100%',
+    marginBottom: '30px',
+    marginTop: '30px',
+    radius: '5px',
+    color: '#648b16',
+    height: '3vh',
+    fontSize: '2em',
+  },
+  form: {
+    width: '100%',
+  },
+  root: {
+    flexGrow: 1,
+  },
+  gridContainer: {
+    paddingLeft: '40px',
+    paddingRight: '40px',
+    paddingTop: '60px',
+    marginBottom: '15px',
+  },
+  paragraph: {
+    fontFamily: 'fantasy',
+    marginBottom: '10px',
+  },
+  intro: {
+    fontFamily: 'fantasy',
+    color: '#648b16',
+    marginBottom: '30px',
+    marginTop: '30px',
+  },
+  question: {
+    marginBottom: '10px',
+  },
+}
+
+theme.typography.h2 = {
+  fontSize: '1rem',
+'@media (min-width:320px)': {
+  fontSize: '1rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.5rem',
+  },
+};
+
+theme.typography.h3 = {
+  fontSize: '1rem',
+'@media (min-width:320px)': {
+  fontSize: '1rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.5rem',
+  },
+};
+
+theme.typography.p = {
+fontSize: '1rem',
+'@media (min-width:600px)': {
+  fontSize: '1rem',
+},
+[theme.breakpoints.up('md')]: {
+  fontSize: '1.5rem',
+},
+};
+
 class LandingPage extends Component {
-  state = {
-    heading: 'Class Component',
-  };
 
   onLogin = (event) => {
     this.props.history.push('/login');
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
-      <div className="container">
-        <h2>{this.state.heading}</h2>
-
-        <div className="grid">
-          <div className="grid-col grid-col_8">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-              id felis metus. Vestibulum et pulvinar tortor. Morbi pharetra
-              lacus ut ex molestie blandit. Etiam et turpis sit amet risus
-              mollis interdum. Suspendisse et justo vitae metus bibendum
-              fringilla sed sed justo. Aliquam sollicitudin dapibus lectus,
-              vitae consequat odio elementum eget. Praesent efficitur eros vitae
-              nunc interdum, eu interdum justo facilisis. Sed pulvinar nulla ac
-              dignissim efficitur. Quisque eget eros metus. Vestibulum bibendum
-              fringilla nibh a luctus. Duis a sapien metus.
-            </p>
-
-            <p>
-              Praesent consectetur orci dui, id elementum eros facilisis id. Sed
-              id dolor in augue porttitor faucibus eget sit amet ante. Nunc
-              consectetur placerat pharetra. Aenean gravida ex ut erat commodo,
-              ut finibus metus facilisis. Nullam eget lectus non urna rhoncus
-              accumsan quis id massa. Curabitur sit amet dolor nisl. Proin
-              euismod, augue at condimentum rhoncus, massa lorem semper lacus,
-              sed lobortis augue mi vel felis. Duis ultrices sapien at est
-              convallis congue.
-            </p>
-
-            <p>
-              Fusce porta diam ac tortor elementum, ut imperdiet metus volutpat.
-              Suspendisse posuere dapibus maximus. Aliquam vitae felis libero.
-              In vehicula sapien at semper ultrices. Vivamus sed feugiat libero.
-              Sed sagittis neque id diam euismod, ut egestas felis ultricies.
-              Nullam non fermentum mauris. Sed in enim ac turpis faucibus
-              pretium in sit amet nisi.
-            </p>
-          </div>
-          <div className="grid-col grid-col_4">
-            <RegisterForm />
-
+      <div className={classes.root}>
+        <Grid container spacing={4} className={classes.gridContainer} justify="center">
+          <Grid item xs={12} sm={6}>
+            <ThemeProvider>
+              <Typography variant="h3" component="h3" className={classes.header}>
+                What’s in a name?
+              </Typography>
+              <Typography variant="p" component="p" className={classes.paragraph}>
+                “Towanda! Righter of Wrongs, Queen Beyond Compare!”
+              </Typography>
+              <Typography variant="p" component="p" className={classes.paragraph}>
+                ~Evelyn Couch, Fried Green Tomatoes.
+              </Typography>
+              <Typography variant="p" component="p" className={classes.paragraph}>
+                gal·li·pot
+                <br></br>
+                /ˈɡaləˌpät/
+                <br></br>
+                noun
+              </Typography >
+              <Typography variant="h5" component="h5" className={classes.intro}>
+                HISTORICAL
+              </Typography>
+              <Typography variant="p" component="p" className={classes.paragraph}>
+                A small pot made from glazed earthenware or metal, used by pharmacists to hold medicines or ointments.
+              </Typography>
+            </ThemeProvider>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <RegisterForm className={classes.form}/>
             <center>
-              <h4>Already a Member?</h4>
+              <Typography className={classes.question}>
+                Already a Member?
+              </Typography>
               <button className="btn btn_sizeSm" onClick={this.onLogin}>
                 Login
               </button>
             </center>
-          </div>
-        </div>
+          </Grid>
+        </Grid>
       </div>
     );
   }
 }
 
-export default connect(mapStoreToProps)(LandingPage);
+export default connect(mapStoreToProps)(withStyles(styles)(LandingPage));

@@ -7,6 +7,9 @@ body,
 body {
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   margin: 0px;
+  /* background-image: url(/image/mushroom.JPG);
+  background-size: cover;
+  background-repeat: none */
 }
 
 img {

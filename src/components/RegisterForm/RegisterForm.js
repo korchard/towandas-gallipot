@@ -18,7 +18,7 @@ const styles = {
   },
   form: {
     textAlign: 'center',
-    width: '80%',
+    width: '60%',
   },
   textField: {
     marginTop: '1rem',
@@ -40,6 +40,7 @@ const styles = {
 }
 
 class RegisterForm extends Component {
+
   state = {
       username: '',
       password: '',
@@ -89,8 +90,8 @@ class RegisterForm extends Component {
               <Typography component="h2" className={classes.header}>
                 Register 
               </Typography>
-          {this.props.store.errors.registrationMessage && (
-            <Typography className="alert" role="alert">{this.props.store.errors.registrationMessage}</Typography>
+            {this.props.store.errors.registrationMessage && (
+              <Typography className="alert" role="alert">{this.props.store.errors.registrationMessage}</Typography>
           )}
             <CardContent>
               <Grid container justify="center">
