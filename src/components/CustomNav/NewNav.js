@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import { withRouter } from 'react-router-dom';
 
 import './CustomNav.css';
 import AppBar from '@material-ui/core/AppBar';
@@ -31,11 +32,11 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-  display: 'flex',
-  marginLeft: '0',
-  marginBottom: '50px',
-  height: '170px',
-},
+    display: 'flex',
+    marginLeft: '0',
+    marginBottom: '50px',
+    height: '170px',
+  },
   header: {
     backgroundImage: 'linear-gradient(to right, #7fad14, #395208)',
     width: '100%',
@@ -135,7 +136,7 @@ const NewNav = (props) => {
     // this is what the loginLinkData.path and loginLinkData.text are doing
     if (props.store.user.id != null) {
       loginLinkData.path = '/user';
-      loginLinkData.text = 'Home';
+      loginLinkData.text = 'User Info';
     }
 
     const classes = useStyles();
@@ -149,6 +150,57 @@ const NewNav = (props) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const itemsList = [
+    {
+      text: 'About Me', 
+      onClick: () => props.history.push('/about'),
+    }, 
+    {
+      text: 'Consultations', 
+      onClick: () => props.history.push('/consultations'),
+    }, 
+    {
+      text: 'Products', 
+      onClick: () => props.history.push('/product'),
+    }, 
+    {
+      text: 'Cart', 
+      onClick: () => props.history.push('/cart'),
+    }, 
+    {
+      text: 'Contact',
+      onClick: () => props.history.push('/contact'),
+    },
+];
+
+const loggedInList = [
+    {
+        text: 'Orders', 
+        onClick: () => props.history.push('/previous-orders'),
+    }, 
+    {
+        text: <LogOutButton />
+    }, 
+];
+
+const adminList = [
+    {
+        text: 'Edit Products', 
+        onClick: () => props.history.push('/admin-product-add'),
+    }, 
+    {
+        text: 'Incomplete Orders', 
+        onClick: () => props.history.push('/admin-incomplete-orders'),
+    }, 
+    {
+        text: 'Completed Orders', 
+        onClick: () => props.history.push('/admin-completed-orders'),
+    }, 
+    {
+        text: <LogOutButton />
+    }, 
+];
 
     return (
       <div className={classes.root}>
@@ -167,30 +219,22 @@ const NewNav = (props) => {
             </Link>
           </Typography>
             <div className="nav-right">
-                {/* <Typography> */}
                     <Link className="nav-link" to={loginLinkData.path}>
                         {/* Show this link if they are logged in or not,
                         but call this link 'Home' if they are logged in,
                         and call this link 'Login / Register' if they are not */}
                         {loginLinkData.text}
                     </Link>
-                {/* </Typography>
-                <Typography> */}
+                     {/* Show the link to the info page and the logout button if the user is logged in */}
+                    {props.store.user.id && (
+                        <>
+                        <LogOutButton className="nav-link" />
+                        </>
+                    )}
                     <Link className="nav-link" to="/cart">
                         <ShoppingCartIcon/>
                     </Link>
-                {/* </Typography> */}
-        {/* Show the link to the info page and the logout button if the user is logged in */}
-                {props.store.user.id && (
-                <>
-                    <Typography>
-                        <Link className="nav-link" to="/previous-orders">
-                            Orders
-                        </Link>
-                    </Typography>
-                    <LogOutButton className="nav-link" />
-                </>
-                )}
+            
                 <IconButton
                     color="inherit"
                     aria-label="open drawer"
@@ -223,18 +267,42 @@ const NewNav = (props) => {
             {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
-        <Divider />
         <List>
-          {['About Me', 'Consultations', 'Products', 'Contact'].map((text, index) => (
-            <ListItem button key={text}>
+          {itemsList.map((item, index) => {
+              const {text, onClick} = item;
+              return (
+            <ListItem button key={text} onClick={onClick}>
               <ListItemText primary={text} />
             </ListItem>
-          ))}
+          )
+          })}
         </List>
         <Divider />
+        {props.store.user.administrator === false && (
+                <List>
+                    {loggedInList.map((item, index) => {
+                        const {text, onClick} = item;
+                        return (
+                        <ListItem button key={text} onClick={onClick}>
+                            <ListItemText primary={text} />
+                        </ListItem>
+                    )})}
+                </List>
+        )}
+        {props.store.user.administrator === true && (
+                <List>
+                    {adminList.map((item, index) => {
+                        const {text, onClick} = item;
+                        return (
+                        <ListItem button key={text} onClick={onClick}>
+                            <ListItemText primary={text} />
+                        </ListItem>
+                    )})}
+                </List>
+        )}
       </Drawer>
     </div>
   );
 }
 
-export default connect(mapStoreToProps)(NewNav);
+export default connect(mapStoreToProps)(withRouter(NewNav));

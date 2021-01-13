@@ -1,4 +1,4 @@
-#logOutButton {
+/* #logOutButton {
     display: inline-block;
     padding: 10px 20px;
     border-color: #6d9414;
@@ -12,10 +12,32 @@
     padding: 15px 15px;
     text-decoration: none;
     font-size: 15px;
-}
+} */
 
-#logOutButton:hover {
+#logOutButton {
+  color: #f2f2f2;
+  text-align: center;
+  padding: 12px 12px;
+  text-decoration: none;
+  display: inline-block;
+  border-color: #6d9414;
+  background-color: #6d9414;
+  border-width: 1px 1px 1px;
+  font-size: 15px;
+  border-radius: 10%;
+  border:none;
+  cursor: pointer;
+  outline:0;
+} 
+
+/* #logOutButton:hover {
     text-decoration: none;
     background-color: #648b16;
     color: #f8f8f8;
-}
+} */
+
+#logOutButton:hover {
+    /* background-color: #648b16; */
+    text-decoration: none;
+    color: #f2f2f2;
+  }
