@@ -10,7 +10,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
-// import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 // import Menu from '@material-ui/core/Menu';
 // import MenuItem from '@material-ui/core/MenuItem';
 import clsx from 'clsx';
@@ -89,6 +89,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerHeader: {
     display: 'flex',
+    height: '170px',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
@@ -166,19 +167,19 @@ const NewNav = (props) => {
             </Link>
           </Typography>
             <div className="nav-right">
-                <Typography>
+                {/* <Typography> */}
                     <Link className="nav-link" to={loginLinkData.path}>
                         {/* Show this link if they are logged in or not,
                         but call this link 'Home' if they are logged in,
                         and call this link 'Login / Register' if they are not */}
                         {loginLinkData.text}
                     </Link>
-                </Typography>
-                <Typography>
+                {/* </Typography>
+                <Typography> */}
                     <Link className="nav-link" to="/cart">
-                        Cart
+                        <ShoppingCartIcon/>
                     </Link>
-                </Typography>
+                {/* </Typography> */}
         {/* Show the link to the info page and the logout button if the user is logged in */}
                 {props.store.user.id && (
                 <>
