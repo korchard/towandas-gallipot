@@ -10,11 +10,11 @@ const theme = createMuiTheme();
 
 const styles = {
   header: {
-    backgroundColor: '#648b16',
+    backgroundImage: 'linear-gradient(to right, #7fad14, #395208)',
     margin: 'auto',
     width: '100%',
     textAlign: 'center',
-    padding: '10px',
+    padding: '3%',
     // fontFamily: 'fantasy',
     radius: '5px',
     color: '#f8f8f8',
@@ -35,6 +35,7 @@ const styles = {
     paddingLeft: '40px',
     paddingRight: '40px',
     paddingTop: '60px',
+    // width: '60%',
   },
 }
 
@@ -89,7 +90,7 @@ class ProductAdminForm extends Component {
     return (
       <div className={classes.root}>
       <Grid container spacing={6} className={classes.gridContainer} justify="center">
-      <Grid item xs={12} sm={8} md={4}>
+      <Grid item xs={12} sm={8} md={6}>
       <form className={classes.form} onSubmit={this.addProduct}>
         <Card>
           <ThemeProvider theme={theme}>
@@ -149,7 +150,7 @@ class ProductAdminForm extends Component {
                   value={this.state.type}
                />
                <br></br><br></br>
-               <Button>
+               <Button >
                <input className="btn" type="submit" name="submit" value="Add" />
                </Button>
           </CardContent>

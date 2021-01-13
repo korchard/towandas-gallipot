@@ -7,18 +7,18 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   header: {
-    backgroundColor: '#648b16',
+    backgroundImage: 'linear-gradient(to right, #7fad14, #395208)',
     margin: 'auto',
     width: '100%',
     textAlign: 'center',
-    padding: '10px',
+    padding: '3%',
     radius: '5px',
     color: '#f8f8f8',
     height: '3vh',
   },
   form: {
     textAlign: 'center',
-    width: '90%',
+    width: '60%',
   },
   textField: {
     marginTop: '1rem',

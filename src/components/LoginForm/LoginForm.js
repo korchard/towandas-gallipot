@@ -7,11 +7,11 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   header: {
-    backgroundColor: '#648b16',
+    backgroundImage: 'linear-gradient(to right, #7fad14, #395208)',
     margin: 'auto',
     width: '100%',
     textAlign: 'center',
-    padding: '10px',
+    padding: '3%',
     radius: '5px',
     color: '#f8f8f8',
     height: '3vh',
@@ -100,6 +100,7 @@ class LoginForm extends Component {
                   onChange={this.handleInputChangeFor('password')}
                   required
                   value={this.state.password}/>
+                  <br></br>
                   <br></br>
                 <Button>
                   <input className="btn" type="submit" name="submit" value="Log In" />

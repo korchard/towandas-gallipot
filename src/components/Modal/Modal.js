@@ -7,19 +7,19 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   header: {
-    backgroundColor: '#648b16',
+    backgroundImage: 'linear-gradient(to right, #7fad14, #395208)',
     margin: 'auto',
     width: '87%',
     textAlign: 'center',
-    padding: '10px',
+    padding: '3%',
     fontFamily: 'fantasy',
     radius: '5px',
     color: '#f8f8f8',
     height: '3vh',
   },
   form: {
-    height: '52vh',
-    textAlign: 'center'
+    height: 'auto',
+    textAlign: 'center',
   },
   textField: {
     marginTop: '1rem',
@@ -137,12 +137,17 @@ render() {
                />
                <br></br>
                <br></br>
-                <Button type="button" onClick={this.props.hideModal}>
-                    Cancel
+                <Button 
+                    onClick={this.props.hideModal}>
+                    <input className="btn"
+                    type="button"
+                    value="Cancel" />
                 </Button>
                 <Button
-                    onClick={this.saveItem} type="submit">
-                    Save
+                     onClick={this.saveItem}>
+                      <input className="btn"
+                      type="submit"
+                      value="Save" />
                 </Button>
              </form>
            </CardContent>
