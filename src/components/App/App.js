@@ -23,7 +23,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import NewNav from '../CustomNav/NewNav';
 import PreviousOrders from '../PreviousOrders/PreviousOrders';
 import ProductAdminDisplay from '../ProductAdminDisplay/ProductAdminDisplay';
-import ProductList from '../ProductsList/ProductsList';
+import ProductList from '../ProductList/ProductList';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import UserInfoAdmin from '../UserInfoAdmin/UserInfoAdmin';
@@ -146,9 +146,9 @@ class App extends Component {
               // - if logged in, redirects to "/user"
               // - else shows ProductAdminDisplay at "/admin_product_add"
               exact
-              path="/admin-product-add"
+              path="/login"
               component={ProductAdminDisplay}
-              // authRedirect="/admin-product-add"
+              authRedirect="/admin-product-add"
             />
             <ProtectedRoute
               // with authRedirect:

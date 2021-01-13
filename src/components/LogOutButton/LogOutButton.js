@@ -9,9 +9,8 @@ const LogOutButton = (props) => (
     // is passed to it from it's parents through React props
     className={props.className}
     id="logOutButton"
-    onClick={() => props.dispatch({ type: 'LOGOUT' })}
-  >
-    Log Out
+    onClick={() => props.dispatch({ type: 'LOGOUT' })}>
+      Log Out
   </button>
 );
 
