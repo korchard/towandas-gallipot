@@ -18,18 +18,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ProductsList(props) {
-  
-  // const [heading, setHeading] = useState('Functional Component');
+
   const classes = useStyles();
 
     return (
       <div className={classes.root}>
         <Grid container spacing={6} className={classes.gridContainer} justify="center">
-        {props.store.product.map((item) => {
+          {props.store.product.map((item) => {
             return (
                 <ProductsItem key= {item.id} item={item}/>
             );
-        })} 
+          })} 
         </Grid>
       </div>
     );

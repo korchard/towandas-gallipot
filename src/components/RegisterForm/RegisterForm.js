@@ -18,7 +18,7 @@ const styles = {
   },
   form: {
     textAlign: 'center',
-    width: '60%',
+    width: '90%',
   },
   textField: {
     marginTop: '1rem',
@@ -149,52 +149,51 @@ class RegisterForm extends Component {
                     required
                     value={this.state.street_address}/>
                     <br></br>
-            <TextField 
-            label="City"
-            name="city"
-            className={classes.textField}
-            onChange={this.handleInputChangeFor('city')}
-            required
-            value={this.state.city}
-            />
-            <br></br>
-            <TextField 
-            label="State"
-            name="state"
-            className={classes.textField}
-            onChange={this.handleInputChangeFor('state')}
-            required
-            value={this.state.state}
-            />
-            <br></br>
-            <TextField 
-            label="Zip"
-            name="zip"
-            className={classes.textField}
-            onChange={this.handleInputChangeFor('zip')}
-            required
-            value={this.state.zip}
-            />
-            <br></br>
-            <TextField 
-            label="Phone Number"
-            name="phone_number"
-            className={classes.textField}
-            onChange={this.handleInputChangeFor('phone_number')}
-            value={this.state.phone_number}
-            />
-            <br></br><br></br>
-            </Grid>
-            </Grid>
-            <Button>
-           <input className="btn" type="submit" name="submit" value="Register" />
-         </Button>
+                  <TextField 
+                    label="City"
+                    name="city"
+                    className={classes.textField}
+                    onChange={this.handleInputChangeFor('city')}
+                    required
+                    value={this.state.city}/>
+                    <br></br>
+                  <TextField 
+                    label="State"
+                    name="state"
+                    className={classes.textField}
+                    onChange={this.handleInputChangeFor('state')}
+                    required
+                    value={this.state.state}/>
+                    <br></br>
+                  <TextField 
+                    label="Zip"
+                    name="zip"
+                    className={classes.textField}
+                    onChange={this.handleInputChangeFor('zip')}
+                    required
+                    value={this.state.zip}/>
+                    <br></br>
+                  <TextField 
+                    label="Phone Number"
+                    name="phone_number"
+                    className={classes.textField}
+                    onChange={this.handleInputChangeFor('phone_number')}
+                    value={this.state.phone_number}/>
+                    <br></br><br></br>
+                </Grid>
+              </Grid>
+              <Button>
+                <input 
+                  className="btn" 
+                  type="submit" 
+                  name="submit"
+                  value="Register" />
+              </Button>
             </CardContent>
             </Card>
-        </form>
-      
-      </Grid>
-</div>
+          </form>
+        </Grid>
+      </div>
     );
   }
 }

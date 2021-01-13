@@ -22,6 +22,7 @@ const styles = {
     color: '#648b16',
     height: '3vh',
     fontSize: '2em',
+    fontFamily: 'fantasy',
   },
   form: {
     width: '100%',
@@ -38,6 +39,7 @@ const styles = {
   paragraph: {
     fontFamily: 'fantasy',
     marginBottom: '10px',
+    marginTop: '10px',
   },
   intro: {
     fontFamily: 'fantasy',
@@ -95,7 +97,7 @@ class LandingPage extends Component {
           <Grid item xs={12} sm={6}>
             <ThemeProvider>
               <Typography variant="h3" component="h3" className={classes.header}>
-                What’s in a name?
+                WHAT'S IN A NAME?
               </Typography>
               <Typography variant="p" component="p" className={classes.paragraph}>
                 “Towanda! Righter of Wrongs, Queen Beyond Compare!”

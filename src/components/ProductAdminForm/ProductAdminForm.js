@@ -20,9 +20,6 @@ const styles = {
     color: '#f8f8f8',
     height: '3vh',
   },
-  // required: {
-  //   padding: '4px',
-  // },
   form: {
     textAlign: 'center',
   },
