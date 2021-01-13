@@ -90,69 +90,65 @@ class RegisterForm extends Component {
               <Typography component="h2" className={classes.header}>
                 Register 
               </Typography>
-            {this.props.store.errors.registrationMessage && (
-              <Typography className="alert" role="alert">{this.props.store.errors.registrationMessage}</Typography>
-          )}
+              {this.props.store.errors.registrationMessage && (
+                <Typography className="alert" role="alert">
+                  {this.props.store.errors.registrationMessage}
+                </Typography>
+              )}
             <CardContent>
               <Grid container justify="center">
-              <Grid item xs={12} sm={6}>
-          <TextField 
-            label="Username"
-            name="username"
-            className={classes.textField}
-            onChange={this.handleInputChangeFor('username')}
-            required
-            value={this.state.username}
-            />
-            <br></br>
-            <TextField 
-            type="password"
-            label="Password"
-            name="password"
-            className={classes.textField}
-            onChange={this.handleInputChangeFor('password')}
-            required
-            value={this.state.password}
-            />
-            <br></br>
-            <TextField 
-            label="First Name"
-            name="first_name"
-            className={classes.textField}
-            onChange={this.handleInputChangeFor('first_name')}
-            required
-            value={this.state.first_name}
-            />
-            <br></br>
-            <TextField 
-            label="Last Name"
-            name="last_name"
-            className={classes.textField}
-            onChange={this.handleInputChangeFor('last_name')}
-            required
-            value={this.state.last_name}
-            />
-            <br></br>
-            <TextField 
-            label="Email Address"
-            name="email_address"
-            className={classes.textField}
-            onChange={this.handleInputChangeFor('email_address')}
-            required
-            value={this.state.email_address}
-            />
-            <br></br>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-            <TextField 
-            label="Street Address"
-            name="street_address"
-            className={classes.textField}
-            onChange={this.handleInputChangeFor('street_address')}
-            required
-            value={this.state.street_address}
-            />
-            <br></br>
+                <Grid item xs={12} sm={6}>
+                  <TextField 
+                    label="Username"
+                    name="username"
+                    className={classes.textField}
+                    onChange={this.handleInputChangeFor('username')}
+                    required
+                    value={this.state.username}/>
+                   <br></br>
+                  <TextField 
+                    type="password"
+                    label="Password"
+                    name="password"
+                    className={classes.textField}
+                    onChange={this.handleInputChangeFor('password')}
+                    required
+                    value={this.state.password}/>
+                    <br></br>
+                  <TextField 
+                    label="First Name"
+                    name="first_name"
+                    className={classes.textField}
+                    onChange={this.handleInputChangeFor('first_name')}
+                    required
+                    value={this.state.first_name}/>
+                    <br></br>
+                  <TextField 
+                    label="Last Name"
+                    name="last_name"
+                    className={classes.textField}
+                    onChange={this.handleInputChangeFor('last_name')}
+                    required
+                    value={this.state.last_name}/>
+                    <br></br>
+                  <TextField 
+                    label="Email Address"
+                    name="email_address"
+                    className={classes.textField}
+                    onChange={this.handleInputChangeFor('email_address')}
+                    required
+                    value={this.state.email_address}/>
+                    <br></br>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField 
+                    label="Street Address"
+                    name="street_address"
+                    className={classes.textField}
+                    onChange={this.handleInputChangeFor('street_address')}
+                    required
+                    value={this.state.street_address}/>
+                    <br></br>
             <TextField 
             label="City"
             name="city"

@@ -72,7 +72,7 @@ theme.typography.h3 = {
 
 theme.typography.p = {
 fontSize: '1rem',
-'@media (min-width:600px)': {
+'@media (min-width:320px)': {
   fontSize: '1rem',
 },
 [theme.breakpoints.up('md')]: {
@@ -119,7 +119,7 @@ class LandingPage extends Component {
             </ThemeProvider>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <RegisterForm className={classes.form}/>
+              <RegisterForm className={classes.form}/>
             <center>
               <Typography className={classes.question}>
                 Already a Member?

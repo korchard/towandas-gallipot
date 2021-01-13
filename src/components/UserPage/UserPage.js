@@ -10,7 +10,7 @@ class UserPage extends Component {
     return (
       <div className="userPage">
         <h1 id="welcome">Welcome, {this.props.store.user.username}!</h1>
-        <p>Your ID is: {this.props.store.user.id}</p>
+          <p>Your ID is: {this.props.store.user.id}</p>
         <LogOutButton className="log-in" />
       </div>
     );
