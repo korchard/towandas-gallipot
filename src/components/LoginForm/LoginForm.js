@@ -14,7 +14,7 @@ const styles = {
     padding: '3%',
     radius: '5px',
     color: '#f8f8f8',
-    height: '3vh',
+    // height: '3vh',
   },
   form: {
     textAlign: 'center',

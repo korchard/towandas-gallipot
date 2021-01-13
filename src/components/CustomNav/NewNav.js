@@ -1,16 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import LogOutButton from '../LogOutButton/LogOutButton';
+import LogOutButton from '../LogOutButton/LogOutButton';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 import './CustomNav.css';
-import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-// import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 // import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 // import Menu from '@material-ui/core/Menu';
@@ -23,27 +21,21 @@ import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 
 const theme = createMuiTheme();
 const drawerWidth = 240;
 
-const style = {
-  header: {
-    marginLeft: '0',
-  },
-};
-
-const styles = {
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    marginLeft: '0',
-    marginBottom: '50px',
-    height: '170px',
-  },
+  display: 'flex',
+  marginLeft: '0',
+  marginBottom: '50px',
+  height: '170px',
+},
   header: {
     backgroundImage: 'linear-gradient(to right, #7fad14, #395208)',
     width: '100%',
@@ -58,6 +50,19 @@ const styles = {
     width: 'auto',
     float: 'left',
   },
+  link: {
+    textDecoration: 'none',
+    color: '#f2f2f2',
+  },
+  title: {
+    flexGrow: 1,
+    fontFamily: 'fantasy',
+    fontSize: '40px',
+    fontWeight: '700',
+    display: 'inline-block',
+    paddingLeft: '40px',
+    paddingTop: '25px',
+  },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
@@ -71,19 +76,6 @@ const styles = {
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginRight: drawerWidth,
-  },
-  title: {
-    flexGrow: 1,
-    fontFamily: 'fantasy',
-    fontSize: '40px',
-    fontWeight: '700',
-    display: 'inline-block',
-    paddingLeft: '40px',
-    paddingTop: '25px',
-  },
-  link: {
-    textDecoration: 'none',
-    color: '#f2f2f2',
   },
   hide: {
     display: 'none',
@@ -119,38 +111,43 @@ const styles = {
     }),
     marginRight: 0,
   },
-};
+}));
 
 theme.typography.h6 = {
-  fontSize: '1.2rem',
-'@media (min-width:600px)': {
-  fontSize: '1.2rem',
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '1.5rem',
-  },
-};
+    fontSize: '1.2rem',
+  '@media (min-width:600px)': {
+    fontSize: '1.2rem',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '1.5rem',
+    },
+  };
 
-class CustomNav extends Component {
-
-  state = {
-    open: false,
-  }
+const NewNav = (props) => {
+    let loginLinkData = {
+      path: '/login',
+      text: 'Login / Register',
+    };
   
-  handleDrawerOpen = () => {
-    this.setState({
-      open: true
-    });
-  }
+    // if someone is logged in, the home page goes to /user and Home
+    // if they are not logged in it takes them to the loggin pages
+    // this is what the loginLinkData.path and loginLinkData.text are doing
+    if (props.store.user.id != null) {
+      loginLinkData.path = '/user';
+      loginLinkData.text = 'Home';
+    }
 
- handleDrawerClose = () => {
-    this.setState({
-      open: false
-    });
-  }
+    const classes = useStyles();
+    const theme = useTheme();
+    const [open, setOpen] = React.useState(false);
 
-  render() {
-    const { classes } = this.props;
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
     return (
       <div className={classes.root}>
@@ -158,30 +155,55 @@ class CustomNav extends Component {
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: this.state.open,
+          [classes.appBarShift]: open,
         })}
       >
-        <Toolbar className={classes.header} style={style}>
+        <Toolbar className={classes.header}>
           <img src={window.location.origin + '/image/logo.jpg'} alt="herb witch logo" className={classes.logo}/>
           <Typography variant="h6" noWrap className={classes.title}>
             <Link to="/home" className={classes.link}>
               Towanda's Gallipot
             </Link>
           </Typography>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="end"
-            onClick={this.handleDrawerOpen}
-            className={clsx(this.state.open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
+            <div className="nav-right">
+                <Typography>
+                    <Link className="nav-link" to={loginLinkData.path}>
+                        {/* Show this link if they are logged in or not,
+                        but call this link 'Home' if they are logged in,
+                        and call this link 'Login / Register' if they are not */}
+                        {loginLinkData.text}
+                    </Link>
+                </Typography>
+                <Typography>
+                    <Link className="nav-link" to="/cart">
+                        Cart
+                    </Link>
+                </Typography>
+        {/* Show the link to the info page and the logout button if the user is logged in */}
+                {props.store.user.id && (
+                <>
+                    <Typography>
+                        <Link className="nav-link" to="/previous-orders">
+                            Orders
+                        </Link>
+                    </Typography>
+                    <LogOutButton className="nav-link" />
+                </>
+                )}
+                <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="end"
+                    onClick={handleDrawerOpen}
+                    className={clsx(open && classes.hide)}>
+                        <MenuIcon />
+                </IconButton>
+            </div>
         </Toolbar>
-      </AppBar>
+    </AppBar>
       <main
         className={clsx(classes.content, {
-          [classes.contentShift]: this.state.open,
+          [classes.contentShift]: open,
         })}
       >
         <div className={classes.drawerHeader} />
@@ -190,13 +212,13 @@ class CustomNav extends Component {
         className={classes.drawer}
         variant="persistent"
         anchor="right"
-        open={this.state.open}
+        open={open}
         classes={{
           paper: classes.drawerPaper,
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={this.handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
@@ -213,6 +235,5 @@ class CustomNav extends Component {
     </div>
   );
 }
-}
 
-export default connect(mapStoreToProps)(withStyles(styles)(CustomNav));
+export default connect(mapStoreToProps)(NewNav);
