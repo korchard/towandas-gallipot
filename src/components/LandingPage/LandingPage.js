@@ -35,9 +35,9 @@ const styles = {
     textAlign: 'left',
     paddingLeft: '20px',
   },
-  form: {
-    width: '100%',
-  },
+  // form: {
+  //   width: '100%',
+  // },
   root: {
     flexGrow: 1,
   },
@@ -126,16 +126,17 @@ class LandingPage extends Component {
             </Grid>
             <Grid item xs={12} sm={5}>
               <Typography variant="h3" component="h3" className={classes.header2}>
-                HISTORICAL
-              </Typography>
-              <Typography variant="subtitle1" component="p" className={classes.paragraph2}>
                 gal·li·pot
                 /ˈɡaləˌpät/
-                <br></br>
+              </Typography>
+              <Typography variant="h6" component="p" className={classes.paragraph2}>
                 noun
               </Typography >
+              <Typography variant="subtitle1" component="p" className={classes.paragraph2}>
+                HISTORICAL
+              </Typography >
               <Typography variant="h6" component="p" className={classes.paragraph2}>
-                A small pot made 
+                1. A small pot made 
                 from glazed earthenware or metal, 
                 used by pharmacists to hold 
                 medicines or ointments.

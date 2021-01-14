@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { Card, CardContent, Button, TextField, Typography } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
+
+// STYLING
+import { Button, Card, CardContent, Grid, TextField, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
@@ -76,7 +77,7 @@ class RegisterForm extends Component {
     this.setState({
         [propertyName]: event.target.value,
     });
-  };
+  } // end handleInputChange
 
   render() {
     const { classes } = this.props;

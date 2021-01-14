@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+
+// COMPONENTS
+import LogOutButton from '../LogOutButton/LogOutButton';
+
+// STYLING
 import './UserPage.css';
 import { withStyles } from '@material-ui/core/styles';
 
