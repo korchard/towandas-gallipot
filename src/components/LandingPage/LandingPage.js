@@ -15,12 +15,25 @@ const styles = {
     margin: 'auto',
     width: '100%',
     marginBottom: '30px',
-    marginTop: '30px',
+    marginTop: '10%',
     radius: '5px',
     color: '#648b16',
-    height: '3vh',
     fontSize: '2em',
     fontFamily: 'fantasy',
+    textAlign: 'right',
+    paddingRight: '20px',
+  },
+  header2: {
+    margin: 'auto',
+    width: '100%',
+    marginBottom: '30px',
+    marginTop: '10%',
+    radius: '5px',
+    color: '#648b16',
+    fontSize: '2em',
+    fontFamily: 'fantasy',
+    textAlign: 'left',
+    paddingLeft: '20px',
   },
   form: {
     width: '100%',
@@ -29,24 +42,24 @@ const styles = {
     flexGrow: 1,
   },
   gridContainer: {
-    paddingLeft: '40px',
-    paddingRight: '40px',
-    paddingTop: '60px',
+    paddingLeft: '10%',
+    paddingRight: '10%',
+    paddingTop: '3%',
     marginBottom: '15px',
   },
   paragraph: {
     fontFamily: 'fantasy',
     marginBottom: '10px',
     marginTop: '10px',
+    textAlign: 'right',
+    paddingRight: '20px',
   },
-  intro: {
+  paragraph2: {
     fontFamily: 'fantasy',
-    color: '#648b16',
-    marginBottom: '30px',
-    marginTop: '30px',
-  },
-  question: {
     marginBottom: '10px',
+    marginTop: '10px',
+    textAlign: 'left',
+    paddingLeft: '20px',
   },
 }
 
@@ -91,39 +104,45 @@ class LandingPage extends Component {
 
     return (
       <div className={classes.root}>
-        <Grid container spacing={4} className={classes.gridContainer} justify="center">
+        <Grid container spacing={0} className={classes.gridContainer} justify="center">
+          <Grid container justify="center" className={classes.gridContainer}>
           <ThemeProvider theme={theme}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={5} >
               <Typography variant="h3" component="h3" className={classes.header}>
                 WHAT'S IN A NAME?
               </Typography>
               <Typography variant="h6" component="p" className={classes.paragraph}>
                 “Towanda! Righter of Wrongs, Queen Beyond Compare!”
               </Typography>
-              <Typography variant="h6" component="p" className={classes.paragraph}>
+              <Typography variant="subtitle1" component="p" className={classes.paragraph}>
                 ~Evelyn Couch, Fried Green Tomatoes.
               </Typography>
-              <Typography variant="h6" component="p" className={classes.paragraph}>
+            </Grid>
+            <Grid item xs={12} sm={5}>
+              <img src={window.location.origin + '/image/roots.jpg'} alt="roots" className={classes.image}/>
+            </Grid>
+            <Grid item xs={12} sm={5}>
+              <img src={window.location.origin + '/image/bee.jpg'} alt="bees pollinating" className={classes.image}/>
+            </Grid>
+            <Grid item xs={12} sm={5}>
+              <Typography variant="h3" component="h3" className={classes.header2}>
+                HISTORICAL
+              </Typography>
+              <Typography variant="subtitle1" component="p" className={classes.paragraph2}>
                 gal·li·pot
-                <br></br>
                 /ˈɡaləˌpät/
                 <br></br>
                 noun
               </Typography >
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <img src={window.location.origin + '/image/roots.jpg'} alt="roots" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Typography variant="h5" component="h5" className={classes.intro}>
-                HISTORICAL
+              <Typography variant="h6" component="p" className={classes.paragraph2}>
+                A small pot made 
+                <br></br>
+                from glazed earthenware or metal, 
+                  <br></br>
+                used by pharmacists to hold 
+                <br></br>
+                medicines or ointments.
               </Typography>
-              <Typography variant="h6" component="p" className={classes.paragraph}>
-                A small pot made from glazed earthenware or metal, used by pharmacists to hold medicines or ointments.
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <img src={window.location.origin + '/image/bee.jpg'} alt="bees pollinating"/>
             </Grid>
           </ThemeProvider>
           {/* <Grid item xs={12} sm={6}> */}
@@ -137,7 +156,7 @@ class LandingPage extends Component {
                 Login
               </button>
             </center> */}
-          {/* </Grid> */}
+          </Grid>
         </Grid>
       </div>
     );
