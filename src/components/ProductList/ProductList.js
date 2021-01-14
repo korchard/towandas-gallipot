@@ -24,7 +24,7 @@ function ProductList(props) {
 
     return (
       <div className={classes.root}>
-        <Typography>Products</Typography>
+        <Typography className={classes.header}>Products</Typography>
           <Grid container spacing={6} className={classes.gridContainer} justify="center">
             {props.store.product.map((item) => {
               return (

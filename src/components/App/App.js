@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { connect } from 'react-redux';
+import mapStoreToProps from '../../redux/mapStoreToProps';
 
 import AboutPage from '../AboutPage/AboutPage';
 import CartPage from '../CartPage/CartPage';
@@ -106,6 +107,8 @@ class App extends Component {
               path="/checkout"
               component={CheckoutPage}
             />
+            {(this.props.store.user.administrator) &&
+            <>
             <ProtectedRoute
               // logged in shows UserPage else shows LoginPage
               exact
@@ -124,7 +127,8 @@ class App extends Component {
               path="/admin-product-add"
               component={ProductAdminDisplay}
             />
-
+            </>
+            }
             {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
             be taken to the component and path supplied. */}
@@ -193,4 +197,4 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+export default connect(mapStoreToProps)(App);
