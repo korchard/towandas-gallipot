@@ -76,6 +76,10 @@ const styles = {
   };
 
 class ProductsItem extends Component {
+
+  componentDidMount = () => {
+    this.props.dispatch({ type: 'GET_PRODUCT' });
+  }
     
     state = {
         expanded: false,

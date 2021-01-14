@@ -19,12 +19,12 @@ function* addProduct (action) {
 // GET ROUTE
 function* getProduct() {
     try {
-      const config = {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true,
-      };
+      // const config = {
+      //   headers: { 'Content-Type': 'application/json' },
+      //   withCredentials: true,
+      // };
   
-      const response = yield axios.get('api/admin', config);
+      const response = yield axios.get('api/product'); // removed config from here
   
       yield put({ type: 'SET_PRODUCT', payload: response.data });
     } catch (error) {

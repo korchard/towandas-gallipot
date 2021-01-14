@@ -136,7 +136,7 @@ const NewNav = (props) => {
     // this is what the loginLinkData.path and loginLinkData.text are doing
     if (props.store.user.id != null) {
       loginLinkData.path = '/user';
-      loginLinkData.text = 'User Info';
+      loginLinkData.text = 'Profile';
     }
 
     const classes = useStyles();

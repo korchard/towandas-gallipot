@@ -7,7 +7,6 @@ require('dotenv').config();
 
 // GET ROUTE
 router.get('/', (req, res) => {
-    console.log('user', req.user);
     const queryText = `SELECT * FROM "product" ORDER BY type`;
     pool.query(queryText)
         .then((results) => {
