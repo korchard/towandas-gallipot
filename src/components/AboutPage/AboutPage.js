@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
+// create a variable for theme
 const theme = createMuiTheme();
 
 const styles = {
@@ -72,10 +73,14 @@ class AboutPage extends Component {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={5}>
-              <img src={window.location.origin + '/image/mason-jars.png'} alt="Steph, the herbalist" className={classes.image}/>
+              <img src={window.location.origin + '/image/mason-jars.png'} 
+                    alt="Steph, the herbalist" 
+                    className={classes.image}/>
             </Grid>
             <Grid item xs={12} sm={5}>
-              <img src={window.location.origin + '/image/steph.jpg'} alt="Steph, the herbalist" className={classes.image}/>
+              <img src={window.location.origin + '/image/steph.jpg'} 
+                    alt="Steph, the herbalist" 
+                    className={classes.image}/>
             </Grid>
             <Grid item xs={12} sm={5}>
               <Typography variant="p" component="p" className={classes.paragraph}>

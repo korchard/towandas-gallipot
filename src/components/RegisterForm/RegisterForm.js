@@ -54,6 +54,7 @@ class RegisterForm extends Component {
       email_address: ''
   };
 
+  // POST route to register a person
   registerUser = (event) => {
     event.preventDefault();
     this.props.dispatch({
@@ -70,13 +71,14 @@ class RegisterForm extends Component {
         phone_number: this.state.phone_number,
         email_address: this.state.email_address
       },
-    });
+    }); // end dispatch
   }; // end registerUser
 
+  // sets local state
   handleInputChangeFor = (propertyName) => (event) => {
     this.setState({
         [propertyName]: event.target.value,
-    });
+    }); // end setState
   } // end handleInputChange
 
   render() {
@@ -183,11 +185,7 @@ class RegisterForm extends Component {
                 </Grid>
               </Grid>
               <Button>
-                <input 
-                  className="btn" 
-                  type="submit" 
-                  name="submit"
-                  value="Register" />
+                <input className="btn" type="submit" name="submit" value="Register" />
               </Button>
             </CardContent>
             </Card>

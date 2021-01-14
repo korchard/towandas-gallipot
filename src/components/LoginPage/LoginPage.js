@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+
+// COMPONENTS
 import LoginForm from '../LoginForm/LoginForm';
 
 class LoginPage extends Component {
@@ -15,9 +17,8 @@ class LoginPage extends Component {
             className="btn btn_asLink"
             onClick={() => {
               this.props.history.push('/registration');
-            }}
-          >
-            Register
+            }}>
+              Register
           </button>
         </center>
       </div>

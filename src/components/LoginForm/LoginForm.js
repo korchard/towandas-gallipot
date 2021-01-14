@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { Card, CardContent, Button, TextField, Typography } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
+
+// STYLING
+import { Button, Card, CardContent, Grid, TextField, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
@@ -44,6 +45,7 @@ class LoginForm extends Component {
     password: '',
   };
 
+  // to set the session to the particular user
   login = (event) => {
     event.preventDefault();
 
@@ -54,17 +56,18 @@ class LoginForm extends Component {
           username: this.state.username,
           password: this.state.password,
         },
-      });
+      }); // end dispatch
     } else {
       this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
-    }
+    } // end conditinal
   }; // end login
 
+  // handles the input values and sets local state
   handleInputChangeFor = (propertyName) => (event) => {
     this.setState({
       [propertyName]: event.target.value,
-    });
-  };
+    }); // end setState
+  } // end handleInputChangeFor
 
   render() {
     const { classes } = this.props;

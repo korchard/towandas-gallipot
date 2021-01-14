@@ -81,6 +81,7 @@ const styles = {
 
 class ProductsItem extends Component {
 
+  // calls the product GET route
   componentDidMount = () => {
     this.props.dispatch({ type: 'GET_PRODUCT' });
   } // end ComponentDidMount
@@ -99,12 +100,14 @@ class ProductsItem extends Component {
         }
     }
   
+    // expands the card info for the products
     handleExpandClick = () => {
         this.setState({
             expanded: !this.state.expanded
-        });
+        }); // end setState
     } // end handleExpandClick
   
+    // DELETE route
     deleteItem = () => {
       console.log('delete item', this.props.item.id)
       swal({
@@ -113,18 +116,19 @@ class ProductsItem extends Component {
         icon: "warning",
         buttons: true,
         dangerMode: true,
-      })
+      }) // sweetalert to ensure a product is meant to be deleted
       .then((willDelete) => {
         if (willDelete) {
           swal("Poof! Your product is no longer for sale!", {
             icon: "success",
           }); 
+          // ACTUAL delete request
           this.props.dispatch({ type: 'DELETE_PRODUCT', 
                        payload: this.props.item.id })
         } else {
           swal("Your product is still for sale!");
-        }
-      });
+        } // end conditional
+      }); // end sweetalert
     } // end deleteItem
   
     // whichButton = () => {
@@ -141,6 +145,7 @@ class ProductsItem extends Component {
     //   }
     // }
   
+    // PUT route
     editItem = () => {
       console.log (`Edit Mode`, this.state.mode);
       console.log('item is', this.props.item);
@@ -148,15 +153,16 @@ class ProductsItem extends Component {
       this.setState({
           mode: 'save',
           open: true,
-      });
+      }); // end setState
     } // end editItem
 
+    // handles the pop-up modal
     hideModal = () => {
       console.log('mode', this.state.mode);
       this.setState({ 
         mode: 'edit',
         open: false 
-      });
+      }); // end setState
     } // end hideModal
 
   render() {
@@ -189,12 +195,10 @@ class ProductsItem extends Component {
               {this.props.store.user.administrator &&
                 <>
               {/* <>{this.whichButton()}</> */}
-                  <IconButton aria-label="edit"
-                      onClick={this.editItem}>
+                  <IconButton aria-label="edit" onClick={this.editItem}>
                       <EditIcon />
                   </IconButton>
-                  <IconButton aria-label="delete"
-                              onClick={this.deleteItem}>
+                  <IconButton aria-label="delete" onClick={this.deleteItem}>
                       <DeleteIcon />
                   </IconButton>
                 </>
@@ -206,7 +210,7 @@ class ProductsItem extends Component {
                     onClick={this.handleExpandClick}
                     aria-expanded={this.state.expanded}
                     aria-label="show more">
-                    <ExpandMoreIcon />
+                      <ExpandMoreIcon />
                   </IconButton>
                 </CardActions>
               <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
@@ -247,12 +251,10 @@ class ProductsItem extends Component {
             {this.props.store.user.administrator &&
             <>
             {/* <>{this.whichButton()}</> */}
-            <IconButton aria-label="edit"
-                onClick={this.editItem}>
+            <IconButton aria-label="edit" onClick={this.editItem}>
                 <EditIcon />
             </IconButton>
-            <IconButton aria-label="delete"
-                        onClick={this.deleteItem}>
+            <IconButton aria-label="delete" onClick={this.deleteItem}>
               <DeleteIcon />
             </IconButton>
             </>
@@ -263,20 +265,19 @@ class ProductsItem extends Component {
               })}
               onClick={this.handleExpandClick}
               aria-expanded={this.state.expanded}
-              aria-label="show more"
-            >
-              <ExpandMoreIcon />
+              aria-label="show more">
+                <ExpandMoreIcon />
             </IconButton>
           </CardActions>
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              <ThemeProvider theme={theme}>
-              <Typography paragraph>Ingredients:</Typography>
-              <Typography paragraph>
-                {this.props.item.description}
-              </Typography>
-              </ThemeProvider>
-            </CardContent>
+              <CardContent>
+                <ThemeProvider theme={theme}>
+                <Typography paragraph>Ingredients:</Typography>
+                <Typography paragraph>
+                  {this.props.item.description}
+                </Typography>
+                </ThemeProvider>
+              </CardContent>
           </Collapse>
         </Card>
           <Modal open={this.state.open} hideModal={this.hideModal} editItem={this.editItem}/>

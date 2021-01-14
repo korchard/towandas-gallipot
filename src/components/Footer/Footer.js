@@ -1,4 +1,6 @@
 import React from 'react';
+
+// STYLING
 import './Footer.css';
 
 // This is one of our simplest components

@@ -1,7 +1,9 @@
-import './Modal.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+
+// STYLING
+import './Modal.css';
 import { Card, CardContent, Button, TextField, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -28,9 +30,10 @@ const styles = {
   },
 }
 
-
 class Modal extends Component {
 
+  // sets the local state to the info sent to the product reducer on 
+  // ProductsItem page
     componentDidMount = () => {
         this.setState({
             product: {
@@ -42,8 +45,8 @@ class Modal extends Component {
                 image_path: this.props.store.edit.image_path,
                 type: this.props.store.edit.type,
             }
-        })
-    }
+        }); // end setState
+      } // end componentDidMount
 
     state = {
         product: {
@@ -56,6 +59,7 @@ class Modal extends Component {
         }
     }
 
+    // creating an object to set local state and send to PUT route
     updateProduct = (event, inputProperty) => {
         event.preventDefault();
         console.log('event happened', event.target.value);
@@ -65,21 +69,22 @@ class Modal extends Component {
                 ...this.state.product,
                 [inputProperty]: event.target.value
             }
-        })
-    }
+        }); // end setState
+    } // end updateProduct
 
+    // PUT route to update the specific product
     saveItem = () => {
         console.log('newProduct', this.state.product);
         this.props.dispatch({ type: 'UPDATE_PRODUCT', payload: this.state.product })
-        this.props.hideModal();
-    }
+        this.props.hideModal(); // call this function to close the modal
+    } // end saveItem
 
 render() {
   const showHideClassName = this.props.open ? "modal display-block" : "modal display-none";
   const { classes } = this.props;
+
   return (
     <div className={showHideClassName}>
-        
       <Card className="modal-main">
         <Typography gutterBottom variant="h5" component="h2" className={classes.header}>
           Edit Product

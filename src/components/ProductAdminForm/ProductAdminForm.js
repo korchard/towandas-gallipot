@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+
+// STYLING
 import { Card, CardContent, Button, TextField, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
+// calls the theme
 const theme = createMuiTheme();
 
 const styles = {
@@ -18,7 +21,6 @@ const styles = {
     // fontFamily: 'fantasy',
     radius: '5px',
     color: '#f8f8f8',
-    // height: '3vh',
   },
   form: {
     textAlign: 'center',
@@ -39,6 +41,7 @@ const styles = {
   },
 }
 
+// responsiveness
 theme.typography.h5 = {
   fontFamily: [
     'fantasy',
@@ -54,6 +57,7 @@ theme.typography.h5 = {
 };
 
 class ProductAdminForm extends Component {
+
   state = {
       name: '',
       description: '',
@@ -63,6 +67,7 @@ class ProductAdminForm extends Component {
       type: ''
   };
 
+  // POST route to add a new product
   addProduct = (event) => {
     event.preventDefault();
     this.props.dispatch({
@@ -75,14 +80,15 @@ class ProductAdminForm extends Component {
         image_path: this.state.image_path,
         type: this.state.type
       },
-    });
+    }); // end dispatch
   }; // end registerUser
 
+  // handles the input fields for adding a product
   handleInputChangeFor = (propertyName) => (event) => {
     this.setState({
         [propertyName]: event.target.value,
-    });
-  };
+    }); // end setState
+  } // end handleInputChangeFor
 
   render() {
     const { classes } = this.props;
@@ -98,10 +104,7 @@ class ProductAdminForm extends Component {
                     Add Product
                   </Typography>
                 </ThemeProvider>
-        {/* <Typography component="p" className={classes.required}>
-          *field is required
-        </Typography> */}
-        <CardContent>
+              <CardContent>
                <TextField
                   label="Name"
                   className={classes.textField}
@@ -147,17 +150,16 @@ class ProductAdminForm extends Component {
                   className={classes.textField}
                   onChange={this.handleInputChangeFor('type')}
                   required
-                  value={this.state.type}
-               />
-               <br></br><br></br>
-               <Button >
-                <input className="btn" type="submit" name="submit" value="Add" />
-               </Button>
-          </CardContent>
-        </Card>
-      </form>
-      </Grid>
-      </Grid>
+                  value={this.state.type}/>
+                <br></br><br></br>
+                <Button >
+                    <input className="btn" type="submit" name="submit" value="Add" />
+                </Button>
+              </CardContent>
+              </Card>
+            </form>
+          </Grid>
+        </Grid>
       </div>
     );
   }
