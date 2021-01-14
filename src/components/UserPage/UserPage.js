@@ -27,12 +27,14 @@ class UserPage extends Component {
 
     return (
       <div className={classes.root}>
-            <div className={classes.header}>
+          <div className={classes.header}>
               <h2 id="welcome">Welcome, {this.props.store.user.username}!</h2>
               <p className="paragraph">Your ID is: {this.props.store.user.id}</p>
                 <LogOutButton className="log-in" />
-            </div>
-              <img src={window.location.origin + '/image/flower-orange.png'} alt="orange flower" className="flower"/>
+          </div>
+              <img src={window.location.origin + '/image/flower-orange.png'} 
+                    alt="orange flower" 
+                    className="flower"/>
       </div>
     );
   }

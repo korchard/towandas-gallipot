@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+
+// STYLING
 import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import './LandingPage.css';
-// import RegisterForm from '../RegisterForm/RegisterForm';
 
+// create a variable for the theme
 const theme = createMuiTheme();
 
 const styles = {
@@ -92,6 +94,7 @@ const styles = {
 
 class LandingPage extends Component {
 
+  // routes the user to the login page when button is clicked
   onLogin = (event) => {
     this.props.history.push('/login');
   };

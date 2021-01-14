@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+
+// COMPONENTS
 import ProductsItem from '../ProductsItem/ProductsItem';
 
+// STYLING
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -20,9 +23,10 @@ const styles = {
 
 class ProductList extends Component {
 
+  // calls the GET route to display thee products
   componentDidMount = () => {
     this.props.dispatch({ type: 'GET_PRODUCT' });
-  }
+  } // end componentDidMount
 
   render() {
   const { classes } = this.props;
@@ -33,11 +37,7 @@ class ProductList extends Component {
           className={classes.header}>
             Products
         </Typography>
-          <Grid 
-            container 
-            spacing={6} 
-            className={classes.gridContainer} 
-            justify="center">
+          <Grid container spacing={6} className={classes.gridContainer} justify="center">
           {this.props.store.product.map((item) => {
               return (
                   <ProductsItem key= {item.id} item={item}/>
@@ -46,7 +46,7 @@ class ProductList extends Component {
           </Grid>
       </div>
     );
-}
+  }
 }
 
 export default connect(mapStoreToProps)(withStyles(styles)(ProductList));

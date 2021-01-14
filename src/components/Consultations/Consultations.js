@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 // STYLING
 import { Typography } from '@material-ui/core';
@@ -7,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
+// create a variable for the theme
 const theme = createMuiTheme();
 
 const styles = {
@@ -56,6 +58,11 @@ const styles = {
 }
 
 class Consultations extends Component {
+
+  // routes the user to the consult form when button is clicked
+  goToForm = () => {
+    this.props.history.push('/consult-form');
+  } // end goToForm
 
   render() {
     const { classes } = this.props;
@@ -121,7 +128,7 @@ class Consultations extends Component {
             </Grid>
             <Grid item xs={12}>
               <center>
-                <Button className={classes.button}>
+                <Button className={classes.button} onClick={this.goToForm}>
                   <input className="btn" type="button" value="Consultation Form" />
                 </Button>
               </center>
@@ -156,4 +163,4 @@ class Consultations extends Component {
   }
 }
 
-export default withStyles(styles)(Consultations);
+export default withStyles(styles)(withRouter(Consultations));

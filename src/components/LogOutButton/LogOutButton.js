@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
+// STYLING
 import './LogOutButton.css';
 
 const LogOutButton = (props) => (
@@ -7,10 +9,10 @@ const LogOutButton = (props) => (
     // This button shows up in multiple locations and is styled differently
     // because it's styled differently depending on where it is used, the className
     // is passed to it from it's parents through React props
-    className={props.className}
-    id="logOutButton"
-    onClick={() => props.dispatch({ type: 'LOGOUT' })}>
-      Log Out
+      className={props.className}
+      id="logOutButton"
+      onClick={() => props.dispatch({ type: 'LOGOUT' })}>
+          Log Out
   </button>
 );
 

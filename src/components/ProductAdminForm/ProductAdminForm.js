@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+
+// STYLING
 import { Card, CardContent, Button, TextField, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
+// calls the theme
 const theme = createMuiTheme();
 
 const styles = {
@@ -38,6 +41,7 @@ const styles = {
   },
 }
 
+// responsiveness
 theme.typography.h5 = {
   fontFamily: [
     'fantasy',
@@ -53,6 +57,7 @@ theme.typography.h5 = {
 };
 
 class ProductAdminForm extends Component {
+
   state = {
       name: '',
       description: '',
@@ -62,6 +67,7 @@ class ProductAdminForm extends Component {
       type: ''
   };
 
+  // POST route to add a new product
   addProduct = (event) => {
     event.preventDefault();
     this.props.dispatch({
@@ -74,14 +80,15 @@ class ProductAdminForm extends Component {
         image_path: this.state.image_path,
         type: this.state.type
       },
-    });
+    }); // end dispatch
   }; // end registerUser
 
+  // handles the input fields for adding a product
   handleInputChangeFor = (propertyName) => (event) => {
     this.setState({
         [propertyName]: event.target.value,
-    });
-  };
+    }); // end setState
+  } // end handleInputChangeFor
 
   render() {
     const { classes } = this.props;
