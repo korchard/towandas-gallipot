@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import Modal from '../Modal/Modal';
+import swal from 'sweetalert';
 
 import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -103,8 +104,24 @@ class ProductsItem extends Component {
   
     deleteItem = () => {
       console.log('delete item', this.props.item.id)
-      this.props.dispatch({ type: 'DELETE_PRODUCT', 
+      swal({
+        title: "Are you sure you want to remove this item?",
+        text: "Once deleted, you will not be able to recover and will need to re-add!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          swal("Poof! Your product is no longer for sale!", {
+            icon: "success",
+          }); 
+          this.props.dispatch({ type: 'DELETE_PRODUCT', 
                        payload: this.props.item.id })
+        } else {
+          swal("Your product is still for sale!");
+        }
+      });
     }
   
     // whichButton = () => {

@@ -42,9 +42,9 @@ const styles = {
     flexGrow: 1,
   },
   gridContainer: {
-    paddingLeft: '10%',
-    paddingRight: '10%',
-    paddingTop: '3%',
+    paddingLeft: '12%',
+    paddingRight: '12%',
+    paddingTop: '2%',
     marginBottom: '15px',
   },
   paragraph: {
@@ -63,35 +63,35 @@ const styles = {
   },
 }
 
-theme.typography.h2 = {
-  fontSize: '1rem',
-'@media (min-width:320px)': {
-  fontSize: '1rem',
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '1.5rem',
-  },
-};
+// theme.typography.h2 = {
+//   fontSize: '1rem',
+// '@media (min-width:320px)': {
+//   fontSize: '1rem',
+//   },
+//   [theme.breakpoints.up('md')]: {
+//     fontSize: '1.5rem',
+//   },
+// };
 
-theme.typography.h3 = {
-  fontSize: '1rem',
-'@media (min-width:320px)': {
-  fontSize: '1rem',
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '1.5rem',
-  },
-};
+// theme.typography.h3 = {
+//   fontSize: '1rem',
+// '@media (min-width:320px)': {
+//   fontSize: '1rem',
+//   },
+//   [theme.breakpoints.up('md')]: {
+//     fontSize: '1.5rem',
+//   },
+// };
 
-theme.typography.p = {
-  fontSize: '1rem',
-'@media (min-width:320px)': {
-    fontSize: '1rem',
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '1.5rem',
-  },
-};
+// theme.typography.p = {
+//   fontSize: '1rem',
+// '@media (min-width:320px)': {
+//     fontSize: '1rem',
+//   },
+//   [theme.breakpoints.up('md')]: {
+//     fontSize: '1.5rem',
+//   },
+// };
 
 class LandingPage extends Component {
 
@@ -136,11 +136,8 @@ class LandingPage extends Component {
               </Typography >
               <Typography variant="h6" component="p" className={classes.paragraph2}>
                 A small pot made 
-                <br></br>
                 from glazed earthenware or metal, 
-                  <br></br>
                 used by pharmacists to hold 
-                <br></br>
                 medicines or ointments.
               </Typography>
             </Grid>
