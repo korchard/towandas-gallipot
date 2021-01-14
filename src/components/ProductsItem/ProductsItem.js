@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import swal from 'sweetalert';
+
+// COMPONENTS
 import Modal from '../Modal/Modal';
 
+// STYLING
 import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -79,7 +83,7 @@ class ProductsItem extends Component {
 
   componentDidMount = () => {
     this.props.dispatch({ type: 'GET_PRODUCT' });
-  }
+  } // end ComponentDidMount
     
     state = {
         expanded: false,
@@ -99,13 +103,29 @@ class ProductsItem extends Component {
         this.setState({
             expanded: !this.state.expanded
         });
-    }
+    } // end handleExpandClick
   
     deleteItem = () => {
       console.log('delete item', this.props.item.id)
-      this.props.dispatch({ type: 'DELETE_PRODUCT', 
+      swal({
+        title: "Are you sure you want to remove this item?",
+        text: "Once deleted, you will not be able to recover and will need to re-add!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          swal("Poof! Your product is no longer for sale!", {
+            icon: "success",
+          }); 
+          this.props.dispatch({ type: 'DELETE_PRODUCT', 
                        payload: this.props.item.id })
-    }
+        } else {
+          swal("Your product is still for sale!");
+        }
+      });
+    } // end deleteItem
   
     // whichButton = () => {
     //   if (this.state.mode === 'edit') {
@@ -129,7 +149,7 @@ class ProductsItem extends Component {
           mode: 'save',
           open: true,
       });
-    }
+    } // end editItem
 
     hideModal = () => {
       console.log('mode', this.state.mode);
@@ -137,7 +157,7 @@ class ProductsItem extends Component {
         mode: 'edit',
         open: false 
       });
-    }
+    } // end hideModal
 
   render() {
     const { classes } = this.props;
@@ -146,79 +166,76 @@ class ProductsItem extends Component {
         <Grid item xs={12} sm={6} md={3}>
           {this.state.mode === 'edit' ?
             <Card className={classes.root}>
-            <ThemeProvider theme={theme}>
-              <CardHeader
-                title={this.props.item.name}
-              />
-            </ThemeProvider>
-            <CardMedia
-              className={classes.media}
-              image={this.props.item.image_path}
-              title={this.props.item.name}
-    
-            />
-            <CardContent>
               <ThemeProvider theme={theme}>
-              <Typography color="textSecondary" component="p">
-                {this.props.item.size} - ${this.props.item.cost} - {this.props.item.type}
-              </Typography>
+                <CardHeader
+                  title={this.props.item.name}
+                />
               </ThemeProvider>
-            </CardContent>
-            <CardActions disableSpacing>
-              <IconButton aria-label="add to cart">
-                <AddShoppingCartIcon />
-              </IconButton>
+                <CardMedia
+                  className={classes.media}
+                  image={this.props.item.image_path}
+                  title={this.props.item.name}/>
+                <CardContent>
+                  <ThemeProvider theme={theme}>
+                    <Typography color="textSecondary" component="p">
+                      {this.props.item.size} - ${this.props.item.cost} - {this.props.item.type}
+                    </Typography>
+                  </ThemeProvider>
+                </CardContent>
+                <CardActions disableSpacing>
+                  <IconButton aria-label="add to cart">
+                    <AddShoppingCartIcon />
+                  </IconButton>
               {this.props.store.user.administrator &&
-              <>
+                <>
               {/* <>{this.whichButton()}</> */}
-              <IconButton aria-label="edit"
-                  onClick={this.editItem}>
-                  <EditIcon />
-              </IconButton>
-              <IconButton aria-label="delete"
-                          onClick={this.deleteItem}>
-                <DeleteIcon />
-              </IconButton>
-              </>
+                  <IconButton aria-label="edit"
+                      onClick={this.editItem}>
+                      <EditIcon />
+                  </IconButton>
+                  <IconButton aria-label="delete"
+                              onClick={this.deleteItem}>
+                      <DeleteIcon />
+                  </IconButton>
+                </>
               }
-              <IconButton
-                className={clsx(classes.expand, {
-                  [classes.expandOpen]: this.state.expanded,
-                })}
-                onClick={this.handleExpandClick}
-                aria-expanded={this.state.expanded}
-                aria-label="show more"
-              >
-                <ExpandMoreIcon />
-              </IconButton>
-            </CardActions>
-            <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-              <CardContent>
-                <ThemeProvider theme={theme}>
-                <Typography paragraph>Ingredients:</Typography>
-                <Typography paragraph>
-                  {this.props.item.description}
-                </Typography>
-                </ThemeProvider>
-              </CardContent>
-            </Collapse>
-          </Card> :
+                  <IconButton
+                    className={clsx(classes.expand, {
+                      [classes.expandOpen]: this.state.expanded,
+                    })}
+                    onClick={this.handleExpandClick}
+                    aria-expanded={this.state.expanded}
+                    aria-label="show more">
+                    <ExpandMoreIcon />
+                  </IconButton>
+                </CardActions>
+              <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+                <CardContent>
+                  <ThemeProvider theme={theme}>
+                    <Typography paragraph>
+                      Ingredients:
+                    </Typography>
+                    <Typography paragraph>
+                      {this.props.item.description}
+                    </Typography>
+                  </ThemeProvider>
+                </CardContent>
+              </Collapse>
+            </Card> :
           <>
           <Card className={classes.root}>
-          <CardHeader
-            title={this.props.item.name}
-          />
-          <ThemeProvider theme={theme}>
-          <CardMedia
-            className={classes.media}
-            image={this.props.item.image_path}
-            title={this.props.item.name}
-            variant="h4"
-          />
-          </ThemeProvider>
-          <CardContent>
-            <ThemeProvider theme={theme}>
-            <Typography color="textSecondary" component="p">
+            <CardHeader
+              title={this.props.item.name}/>
+              <ThemeProvider theme={theme}>
+                <CardMedia
+                  className={classes.media}
+                  image={this.props.item.image_path}
+                  title={this.props.item.name}
+                  variant="h4"/>
+              </ThemeProvider>
+                <CardContent>
+                  <ThemeProvider theme={theme}>
+                    <Typography color="textSecondary" component="p">
               {this.props.item.size} - ${this.props.item.cost} - {this.props.item.type}
             </Typography>
             </ThemeProvider>

@@ -150,7 +150,7 @@ class App extends Component {
               component={LoginPage}
               authRedirect="/checkout"
             />
-            <ProtectedRoute
+            {/* <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/user"
               // - else shows CompletedOrdersAdmin at "/admin_completed_orders"
@@ -158,8 +158,8 @@ class App extends Component {
               path="/login"
               component={LoginPage}
               authRedirect="/admin-completed-orders"
-            />
-            <ProtectedRoute
+            /> */}
+            {/* <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/user"
               // - else shows IncompleteOrdersAdmin at "/admin_incomplete_orders"
@@ -167,8 +167,8 @@ class App extends Component {
               path="/login"
               component={LoginPage}
               authRedirect="/admin-incomplete-orders"
-            />
-            <ProtectedRoute
+            /> */}
+            {/* <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/user"
               // - else shows ProductAdminDisplay at "/admin_product_add"
@@ -176,7 +176,7 @@ class App extends Component {
               path="/login"
               component={LoginPage}
               authRedirect="/admin-product-add"
-            />
+            /> */}
             <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/user"

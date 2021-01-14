@@ -89,15 +89,15 @@ class ProductAdminForm extends Component {
 
     return (
       <div className={classes.root}>
-      <Grid container spacing={6} className={classes.gridContainer} justify="center">
-      <Grid item xs={12} sm={8} md={6}>
-      <form className={classes.form} onSubmit={this.addProduct}>
-        <Card>
-          <ThemeProvider theme={theme}>
-        <Typography gutterBottom variant="h5" component="h2" className={classes.header}>
-          Add Product
-        </Typography>
-        </ThemeProvider>
+        <Grid container spacing={6} className={classes.gridContainer} justify="center">
+          <Grid item xs={12} sm={8} md={6}>
+            <form className={classes.form} onSubmit={this.addProduct}>
+              <Card>
+                <ThemeProvider theme={theme}>
+                  <Typography gutterBottom variant="h5" component="h2" className={classes.header}>
+                    Add Product
+                  </Typography>
+                </ThemeProvider>
         {/* <Typography component="p" className={classes.required}>
           *field is required
         </Typography> */}
@@ -151,7 +151,7 @@ class ProductAdminForm extends Component {
                />
                <br></br><br></br>
                <Button >
-               <input className="btn" type="submit" name="submit" value="Add" />
+                <input className="btn" type="submit" name="submit" value="Add" />
                </Button>
           </CardContent>
         </Card>
