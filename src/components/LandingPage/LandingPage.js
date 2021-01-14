@@ -35,9 +35,6 @@ const styles = {
     textAlign: 'left',
     paddingLeft: '20px',
   },
-  // form: {
-  //   width: '100%',
-  // },
   root: {
     flexGrow: 1,
   },
@@ -143,17 +140,6 @@ class LandingPage extends Component {
               </Typography>
             </Grid>
           </ThemeProvider>
-          {/* <Grid item xs={12} sm={6}> */}
-            
-              {/* <RegisterForm className={classes.form}/>
-            <center>
-              <Typography className={classes.question}>
-                Already a Member?
-              </Typography>
-              <button className="btn btn_sizeSm" onClick={this.onLogin}>
-                Login
-              </button>
-            </center> */}
           </Grid>
         </Grid>
       </div>

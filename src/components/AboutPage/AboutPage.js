@@ -72,7 +72,7 @@ class AboutPage extends Component {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={5}>
-              <img src={window.location.origin + '/public/image/mason-jars.png'} alt="Steph, the herbalist" className={classes.image}/>
+              <img src={window.location.origin + '/image/mason-jars.png'} alt="Steph, the herbalist" className={classes.image}/>
             </Grid>
             <Grid item xs={12} sm={5}>
               <img src={window.location.origin + '/image/steph.jpg'} alt="Steph, the herbalist" className={classes.image}/>
@@ -92,16 +92,37 @@ class AboutPage extends Component {
                 and serve them sumac tea. 
               </Typography>
               <Typography variant="p" component="p" className={classes.paragraph}>
-                “Towanda! Righter of Wrongs, Queen Beyond Compare!”
+                My love of nature and animals continued into adulthood. As I embarked on 
+                my career as a pet groomer, it was here that I utilized my little knowledge 
+                of healing plants to soothe and treat my clients’ pets. Using oats, tea tree 
+                oil, raw tomato juice, lavender, and aloe vera became common in my daily 
+                practice. 
               </Typography>
               <Typography variant="p" component="p" className={classes.paragraph}>
-                “Towanda! Righter of Wrongs, Queen Beyond Compare!”
+                In 2019, I enrolled in the Herbal Studies program at Minneapolis Community 
+                and Technical College in Minneapolis, MN where I studied under the famed 
+                Erica Fargione. 
               </Typography>
               <Typography variant="p" component="p" className={classes.paragraph}>
-                “Towanda! Righter of Wrongs, Queen Beyond Compare!”
+                After graduating in May of 2020, in the wake of George Floyd’s death, 
+                I jumped into social justice work by creating and distributing formulations 
+                for PTSD, shock, trauma, exhaustion and COVID-19. In addition, I gathered 
+                and distributed bulk herbs for the mindful medicine making by, and for, 
+                the frontline workers, protesters, and the BIPOC and LGBTQIA+ communities. 
+                Summer of 2020, my time was spent mentored by local elders in the herbalist 
+                community where I have continued my growth.
               </Typography>
               <Typography variant="p" component="p" className={classes.paragraph}>
-                “Towanda! Righter of Wrongs, Queen Beyond Compare!”
+                Now, in 2021, as a COVID vaccine pushes its way into our population, 
+                and the stress of an overwhelmingly hostile year for the entire world 
+                comes to a close, I believe it is the right time to open up and focus 
+                more on my practice so I can continue to help people navigate the difficult 
+                road back to wellness and prosperity.
+              </Typography>
+              <Typography variant="p" component="p" className={classes.paragraph}>
+                I invite you to join me on this journey; to further explore this magical 
+                symbiosis between plants, humans and animals with the hopes that we can not 
+                only reconnect but start to heal from this wreckage together.
               </Typography>
             </Grid>
           </ThemeProvider>
