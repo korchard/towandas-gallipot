@@ -18,7 +18,6 @@ const styles = {
     // fontFamily: 'fantasy',
     radius: '5px',
     color: '#f8f8f8',
-    // height: '3vh',
   },
   form: {
     textAlign: 'center',
@@ -98,10 +97,7 @@ class ProductAdminForm extends Component {
                     Add Product
                   </Typography>
                 </ThemeProvider>
-        {/* <Typography component="p" className={classes.required}>
-          *field is required
-        </Typography> */}
-        <CardContent>
+              <CardContent>
                <TextField
                   label="Name"
                   className={classes.textField}
@@ -147,17 +143,16 @@ class ProductAdminForm extends Component {
                   className={classes.textField}
                   onChange={this.handleInputChangeFor('type')}
                   required
-                  value={this.state.type}
-               />
-               <br></br><br></br>
-               <Button >
-                <input className="btn" type="submit" name="submit" value="Add" />
-               </Button>
-          </CardContent>
-        </Card>
-      </form>
-      </Grid>
-      </Grid>
+                  value={this.state.type}/>
+                <br></br><br></br>
+                <Button >
+                    <input className="btn" type="submit" name="submit" value="Add" />
+                </Button>
+              </CardContent>
+              </Card>
+            </form>
+          </Grid>
+        </Grid>
       </div>
     );
   }
