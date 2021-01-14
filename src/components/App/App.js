@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { connect } from 'react-redux';
+import mapStoreToProps from '../../redux/mapStoreToProps';
 
 import AboutPage from '../AboutPage/AboutPage';
 import CartPage from '../CartPage/CartPage';
@@ -19,13 +20,13 @@ import Footer from '../Footer/Footer';
 import IncompleteOrdersAdmin from '../IncompleteOrdersAdmin/IncompleteOrdersAdmin';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
-import Nav from '../Nav/Nav';
+// import Nav from '../Nav/Nav';
+import NewNav from '../CustomNav/NewNav';
 import PreviousOrders from '../PreviousOrders/PreviousOrders';
 import ProductAdminDisplay from '../ProductAdminDisplay/ProductAdminDisplay';
-import ProductList from '../ProductsList/ProductsList';
+import ProductList from '../ProductList/ProductList';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import UserInfoAdmin from '../UserInfoAdmin/UserInfoAdmin';
 import UserPage from '../UserPage/UserPage';
 
 import './App.css';
@@ -39,8 +40,9 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Nav />
+          {/* <Nav /> */}
           {/* <CustomNav /> */}
+          <NewNav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -99,7 +101,34 @@ class App extends Component {
               path="/user"
               component={UserPage}
             />
-
+            <ProtectedRoute
+              // logged in shows UserPage else shows LoginPage
+              exact
+              path="/checkout"
+              component={CheckoutPage}
+            />
+            {(this.props.store.user.administrator) &&
+            <>
+            <ProtectedRoute
+              // logged in shows UserPage else shows LoginPage
+              exact
+              path="/admin-completed-orders"
+              component={CompletedOrdersAdmin}
+            />
+            <ProtectedRoute
+              // logged in shows UserPage else shows LoginPage
+              exact
+              path="/admin-incomplete-orders"
+              component={IncompleteOrdersAdmin}
+            />
+            <ProtectedRoute
+              // logged in shows UserPage else shows LoginPage
+              exact
+              path="/admin-product-add"
+              component={ProductAdminDisplay}
+            />
+            </>
+            }
             {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
             be taken to the component and path supplied. */}
@@ -118,7 +147,7 @@ class App extends Component {
               // - else shows CheckoutPage at "/checkout"
               exact
               path="/login"
-              component={CheckoutPage}
+              component={LoginPage}
               authRedirect="/checkout"
             />
             <ProtectedRoute
@@ -127,7 +156,7 @@ class App extends Component {
               // - else shows CompletedOrdersAdmin at "/admin_completed_orders"
               exact
               path="/login"
-              component={CompletedOrdersAdmin}
+              component={LoginPage}
               authRedirect="/admin-completed-orders"
             />
             <ProtectedRoute
@@ -136,7 +165,7 @@ class App extends Component {
               // - else shows IncompleteOrdersAdmin at "/admin_incomplete_orders"
               exact
               path="/login"
-              component={IncompleteOrdersAdmin}
+              component={LoginPage}
               authRedirect="/admin-incomplete-orders"
             />
             <ProtectedRoute
@@ -144,9 +173,9 @@ class App extends Component {
               // - if logged in, redirects to "/user"
               // - else shows ProductAdminDisplay at "/admin_product_add"
               exact
-              path="/admin-product-add"
-              component={ProductAdminDisplay}
-              // authRedirect="/admin-product-add"
+              path="/login"
+              component={LoginPage}
+              authRedirect="/admin-product-add"
             />
             <ProtectedRoute
               // with authRedirect:
@@ -156,15 +185,6 @@ class App extends Component {
               path="/registration"
               component={RegisterPage}
               authRedirect="/user"
-            />
-            <ProtectedRoute
-              // with authRedirect:
-              // - if logged in, redirects to "/user"
-              // - else shows UserInfoAdmin at "/admin_user_info"
-              exact
-              path="/login"
-              component={UserInfoAdmin}
-              authRedirect="/admin-user-info"
             />
 
             {/* If none of the other routes matched, we will show a 404. */}
@@ -177,4 +197,4 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+export default connect(mapStoreToProps)(App);

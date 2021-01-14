@@ -1,104 +1,218 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import LogOutButton from '../LogOutButton/LogOutButton';
+// import LogOutButton from '../LogOutButton/LogOutButton';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 import './CustomNav.css';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
+// import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+// import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+// import Menu from '@material-ui/core/Menu';
+// import MenuItem from '@material-ui/core/MenuItem';
+import clsx from 'clsx';
+import Drawer from '@material-ui/core/Drawer';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ListItem from '@material-ui/core/ListItem';
+// import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import { createMuiTheme } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-  grow: {
-    flexGrow: 1,
+
+const theme = createMuiTheme();
+const drawerWidth = 240;
+
+const style = {
+  header: {
+    marginLeft: '0',
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
+};
+
+const styles = {
+  root: {
+    display: 'flex',
+    marginLeft: '0',
+    marginBottom: '50px',
+    height: '170px',
+  },
+  header: {
+    backgroundImage: 'linear-gradient(to right, #7fad14, #395208)',
+    width: '100%',
+    color: '#f8f8f8',
+    overflow: 'hidden',
+    height: '170px',
+    marginLeft: '0',
+  },
+  logo: {
+    marginLeft: '0',
+    height: '170px',
+    width: 'auto',
+    float: 'left',
+  },
+  appBar: {
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginRight: drawerWidth,
   },
   title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
+    flexGrow: 1,
+    fontFamily: 'fantasy',
+    fontSize: '40px',
+    fontWeight: '700',
+    display: 'inline-block',
+    paddingLeft: '40px',
+    paddingTop: '25px',
   },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
+  link: {
+    textDecoration: 'none',
+    color: '#f2f2f2',
   },
-}));
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-start',
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginRight: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginRight: 0,
+  },
+};
 
-export default function CustomNav() {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
+theme.typography.h6 = {
+  fontSize: '1.2rem',
+'@media (min-width:600px)': {
+  fontSize: '1.2rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.5rem',
+  },
+};
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+class CustomNav extends Component {
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  state = {
+    open: false,
+  }
+  
+  handleDrawerOpen = () => {
+    this.setState({
+      open: true
+    });
+  }
 
-  return (
-    <div className={classes.grow}>
-      <AppBar position="static">
-        <Toolbar>
-        <IconButton
-            edge="start"
-            className={classes.menuButton}
+ handleDrawerClose = () => {
+    this.setState({
+      open: false
+    });
+  }
+
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <div className={classes.root}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: this.state.open,
+        })}
+      >
+        <Toolbar className={classes.header} style={style}>
+          <img src={window.location.origin + '/image/logo.jpg'} alt="herb witch logo" className={classes.logo}/>
+          <Typography variant="h6" noWrap className={classes.title}>
+            <Link to="/home" className={classes.link}>
+              Towanda's Gallipot
+            </Link>
+          </Typography>
+          <IconButton
             color="inherit"
             aria-label="open drawer"
-            aria-haspopup="true" 
-            onClick={handleClick}
+            edge="end"
+            onClick={this.handleDrawerOpen}
+            className={clsx(this.state.open && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
-            <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-            >
-                <MenuItem onClick={handleClose}>&nbsp;</MenuItem>
-                <MenuItem onClick={handleClose}>About Me</MenuItem>
-                <MenuItem onClick={handleClose}>Consultations</MenuItem>
-                <MenuItem onClick={handleClose}>Products</MenuItem>
-                <MenuItem onClick={handleClose}>Contact</MenuItem>
-                <MenuItem onClick={handleClose}>Cart</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
-            </Menu>
-          <Typography className={classes.title} variant="h6" noWrap>
-            <Link to="/home">
-                {/* <img src={window.location.origin + '/images/logo.jpg'} alt="herb witch logo" className="logo"/> */}
-                <h2 className="nav-title">Towanda's Gallipot</h2>
-            </Link>
-          </Typography>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 items in cart" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
-            <IconButton color="inherit">
-                <Typography>
-                    Login/Register
-                </Typography>
-            </IconButton>
-          </div>
         </Toolbar>
       </AppBar>
+      <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: this.state.open,
+        })}
+      >
+        <div className={classes.drawerHeader} />
+        </main>
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="right"
+        open={this.state.open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={this.handleDrawerClose}>
+            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+          {['About Me', 'Consultations', 'Products', 'Contact'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+      </Drawer>
     </div>
   );
 }
+}
+
+export default connect(mapStoreToProps)(withStyles(styles)(CustomNav));

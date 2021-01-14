@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import ProductAdminForm from '../ProductAdminForm/ProductAdminForm';
-import ProductList from '../ProductsList/ProductsList';
+import ProductList from '../ProductList/ProductList';
 
 class ProductAdminDisplay extends Component {
 
