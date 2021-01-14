@@ -6,9 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import './LandingPage.css';
-
-// CUSTOM COMPONENTS
-import RegisterForm from '../RegisterForm/RegisterForm';
+// import RegisterForm from '../RegisterForm/RegisterForm';
 
 const theme = createMuiTheme();
 
@@ -73,13 +71,13 @@ theme.typography.h3 = {
 };
 
 theme.typography.p = {
-fontSize: '1rem',
-'@media (min-width:320px)': {
   fontSize: '1rem',
-},
-[theme.breakpoints.up('md')]: {
-  fontSize: '1.5rem',
-},
+'@media (min-width:320px)': {
+    fontSize: '1rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.5rem',
+  },
 };
 
 class LandingPage extends Component {
@@ -94,34 +92,43 @@ class LandingPage extends Component {
     return (
       <div className={classes.root}>
         <Grid container spacing={4} className={classes.gridContainer} justify="center">
-          <Grid item xs={12} sm={6}>
-            <ThemeProvider>
+          <ThemeProvider theme={theme}>
+            <Grid item xs={12} sm={6}>
               <Typography variant="h3" component="h3" className={classes.header}>
                 WHAT'S IN A NAME?
               </Typography>
-              <Typography variant="p" component="p" className={classes.paragraph}>
+              <Typography variant="h6" component="p" className={classes.paragraph}>
                 “Towanda! Righter of Wrongs, Queen Beyond Compare!”
               </Typography>
-              <Typography variant="p" component="p" className={classes.paragraph}>
+              <Typography variant="h6" component="p" className={classes.paragraph}>
                 ~Evelyn Couch, Fried Green Tomatoes.
               </Typography>
-              <Typography variant="p" component="p" className={classes.paragraph}>
+              <Typography variant="h6" component="p" className={classes.paragraph}>
                 gal·li·pot
                 <br></br>
                 /ˈɡaləˌpät/
                 <br></br>
                 noun
               </Typography >
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <img src={window.location.origin + '/image/roots.jpg'} alt="roots" />
+            </Grid>
+            <Grid item xs={12} sm={6}>
               <Typography variant="h5" component="h5" className={classes.intro}>
                 HISTORICAL
               </Typography>
-              <Typography variant="p" component="p" className={classes.paragraph}>
+              <Typography variant="h6" component="p" className={classes.paragraph}>
                 A small pot made from glazed earthenware or metal, used by pharmacists to hold medicines or ointments.
               </Typography>
-            </ThemeProvider>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-              <RegisterForm className={classes.form}/>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <img src={window.location.origin + '/image/bee.jpg'} alt="bees pollinating"/>
+            </Grid>
+          </ThemeProvider>
+          {/* <Grid item xs={12} sm={6}> */}
+            
+              {/* <RegisterForm className={classes.form}/>
             <center>
               <Typography className={classes.question}>
                 Already a Member?
@@ -129,8 +136,8 @@ class LandingPage extends Component {
               <button className="btn btn_sizeSm" onClick={this.onLogin}>
                 Login
               </button>
-            </center>
-          </Grid>
+            </center> */}
+          {/* </Grid> */}
         </Grid>
       </div>
     );

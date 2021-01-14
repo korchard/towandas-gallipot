@@ -4,7 +4,6 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import './UserPage.css';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 
 const styles = {
   root: {
@@ -24,11 +23,11 @@ class UserPage extends Component {
 
     return (
       <div className={classes.root}>
-            <Typography className={classes.header}>
+            <div className={classes.header}>
               <h2 id="welcome">Welcome, {this.props.store.user.username}!</h2>
-              <h4>Your ID is: {this.props.store.user.id}</h4>
+              <p className="paragraph">Your ID is: {this.props.store.user.id}</p>
                 <LogOutButton className="log-in" />
-            </Typography>
+            </div>
               <img src={window.location.origin + '/image/flower-orange.png'} alt="orange flower" className="flower"/>
       </div>
     );

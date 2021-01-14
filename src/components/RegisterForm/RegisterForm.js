@@ -17,7 +17,7 @@ const styles = {
   },
   form: {
     textAlign: 'center',
-    width: '60%',
+    width: '80%',
   },
   textField: {
     marginTop: '1rem',

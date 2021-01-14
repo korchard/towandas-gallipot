@@ -24,10 +24,10 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
+// import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 
-const theme = createMuiTheme();
+// const theme = createMuiTheme();
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -58,8 +58,8 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     fontFamily: 'fantasy',
-    fontSize: '40px',
     fontWeight: '700',
+    fontSize: '2.5em',
     display: 'inline-block',
     paddingLeft: '40px',
     paddingTop: '25px',
@@ -115,15 +115,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-theme.typography.h6 = {
-    fontSize: '1.2rem',
-  '@media (min-width:600px)': {
-    fontSize: '1.2rem',
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '1.5rem',
-    },
-  };
+// theme.typography.h6 = {
+//     fontSize: '3.5rem',
+//   '@media (min-width:320px)': {
+//     fontSize: '1.5rem',
+//     },
+//     [theme.breakpoints.up('md')]: {
+//       fontSize: '3.5rem',
+//     },
+//   };
 
 const NewNav = (props) => {
     let loginLinkData = {
@@ -213,11 +213,15 @@ const adminList = [
       >
         <Toolbar className={classes.header}>
           <img src={window.location.origin + '/image/logo.jpg'} alt="herb witch logo" className={classes.logo}/>
-          <Typography variant="h6" noWrap className={classes.title}>
-            <Link to="/home" className={classes.link}>
+          {/* <ThemeProvider theme={theme}> */}
+          <Typography variant="h6" noWrap className={classes.title} component="h6">
+          {/* <ThemeProvider theme={theme}> */}
+            <Link to="/home" className={classes.link} variant="h6">
               Towanda's Gallipot
             </Link>
+            {/* </ThemeProvider> */}
           </Typography>
+          {/* </ThemeProvider> */}
             <div className="nav-right">
                     <Link className="nav-link" to={loginLinkData.path}>
                         {/* Show this link if they are logged in or not,
