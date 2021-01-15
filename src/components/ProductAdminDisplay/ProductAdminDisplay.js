@@ -21,17 +21,17 @@ const styles = {
 
 class ProductAdminDisplay extends Component {
 
-  // calld the GET route to render products
-  componentDidMount = () => {
-    this.props.dispatch({ type: 'GET_PRODUCT' }); 
-  } // end componentDidMount
+  // // calld the GET route to render products
+  // componentDidMount = () => {
+  //   this.props.dispatch({ type: 'GET_PRODUCT' }); 
+  // } // end componentDidMount
 
   render() {
     const { classes } = this.props;
 
     return (
       <div >
-        <Grid container className={classes.gridContainer} justify="center">
+        <Grid container justify="center">
           <Grid item xs={12} sm={4} className={classes.form}>
             <ProductAdminForm />
           </Grid>

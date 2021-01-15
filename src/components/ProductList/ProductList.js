@@ -4,6 +4,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // COMPONENTS
 import ProductsItem from '../ProductsItem/ProductsItem';
+import ProductsText from '../ProductsItem/ProductsText';
 
 // STYLING
 import { withStyles } from '@material-ui/core/styles';
@@ -20,7 +21,6 @@ const styles = {
     paddingTop: '5%',
   },
   header: {
-    margin: 'auto',
     width: '100%',
     radius: '5px',
     color: '#648b16',
@@ -28,21 +28,15 @@ const styles = {
     fontFamily: 'fantasy',
     fontWeight: '700',
     textAlign: 'center',
-    paddingRight: '20px',
-  },
-  paragraph: {
-    marginBottom: '10px',
-    marginTop: '10px',
-    textAlign: 'center',
   },
 };
 
 class ProductList extends Component {
 
-  // // calls the GET route to display thee products
-  // componentDidMount = () => {
-  //   this.props.dispatch({ type: 'GET_PRODUCT' });
-  // } // end componentDidMount
+  // calls the GET route to display thee products
+  componentDidMount = () => {
+    this.props.dispatch({ type: 'GET_PRODUCT' });
+  } // end componentDidMount
 
   render() {
   const { classes } = this.props;
@@ -52,22 +46,14 @@ class ProductList extends Component {
         <Typography className={classes.header}>
             Products
         </Typography>
-        <Typography variant="subtitle1" component="p" className={classes.paragraph}>
-            Please feel free to contact me for requests of custom tinctures and formulations.
-        </Typography>
-        <Typography variant="subtitle1" component="p" className={classes.paragraph}>
-            Single Herb Tincture - 1 oz - $20.00 <br></br>
-            Single Herb Tincture - 2 oz - $35.00 <br></br>
-            Multi-Herb Formulation - 1 oz - $35.00 <br></br>
-            Multi-Herb Formulation - 2 oz - $65.00 <br></br>
-        </Typography>
-          <Grid container spacing={4} className={classes.gridContainer} justify="center">
-          {this.props.store.product.map((item) => {
-              return (
-                  <ProductsItem key= {item.id} item={item}/>
-              );
-          })} 
-          </Grid>
+          <ProductsText />
+            <Grid container spacing={4} className={classes.gridContainer} justify="center">
+              {this.props.store.product.map((item) => {
+                  return (
+                      <ProductsItem key= {item.id} item={item}/>
+                  );
+              })} 
+            </Grid>
       </div>
     );
   }

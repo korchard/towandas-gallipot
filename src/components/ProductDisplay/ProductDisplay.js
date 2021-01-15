@@ -21,10 +21,10 @@ const styles = {
 
 class ProductDisplay extends Component {
 
-  // calld the GET route to render products
-  componentDidMount = () => {
-    this.props.dispatch({ type: 'GET_PRODUCT' }); 
-  } // end componentDidMount
+//   // calld the GET route to render products
+//   componentDidMount = () => {
+//     this.props.dispatch({ type: 'GET_PRODUCT' }); 
+//   } // end componentDidMount
 
   render() {
     const { classes } = this.props;

@@ -15,7 +15,7 @@ const styles = {
   gridContainer: {
     paddingLeft: '5%',
     paddingRight: '5%',
-    paddingBottom: '5%',
+    paddingBottom: '3%',
   },
   header: {
     radius: '5px',
@@ -40,8 +40,10 @@ class ProductSearch extends Component {
     }
 
   // calls the GET route to display thee products
-  componentDidMount = () => {
+  componentDidMount = (id) => {
     this.props.dispatch({ type: 'GET_SEARCH' });
+    this.props.dispatch({ type: 'GET_SEARCH', payload: this.state.search }); // GET search
+    // this.props.dispatch({ type: 'GET_SEARCH', payload: this.props.match.params }) // category GET
   } // end componentDidMount
 
   // handles the input fields for adding a product
@@ -52,7 +54,7 @@ class ProductSearch extends Component {
   } // end handleInputChangeFor
 
   searchProducts = () => {
-      console.log('search is', this.state.search)
+    console.log('search is', this.state.search)
     this.props.dispatch({ type: 'GET_SEARCH', payload: this.state.search }); // GET search
     this.setState({
         search: ''
@@ -60,7 +62,7 @@ class ProductSearch extends Component {
   } // end searchProducts
 
   clearSearch = () => {
-    this.props.dispatch({ type: 'GET_PRODUCT', payload: this.state.search }); // GET search
+    this.props.dispatch({ type: 'GET_PRODUCT' }); // GET search
 } // end searchProducts
 
   render() {
@@ -69,26 +71,25 @@ class ProductSearch extends Component {
     return (
       <div className={classes.root}>
         <center>
-          <Grid container spacing={4} className={classes.gridContainer} justify="center">
-              <Grid item xs={12}>
-                <Typography className={classes.header}>
-                    Search
-                </Typography>
-                <TextField
-                        label="Find Something?"
-                        className={classes.textField}
-                        onChange={this.handleInputChangeFor('search')}
-                        required
-                        value={this.state.search}/>
-                <Button onClick={this.searchProducts}>
-                    <input className="btn" type="submit" name="submit" value="Find" />
-                </Button>
-                <Button onClick={this.clearSearch}>
-                    <input className="btn" type="submit" name="submit" value="Clear" />
-                </Button>
+            <Grid container spacing={4} className={classes.gridContainer} justify="center">
+                <Grid item xs={12}>
+                    <Typography className={classes.header}>
+                        Search
+                    </Typography>
+                    <TextField
+                            label="Find Something?"
+                            className={classes.textField}
+                            onChange={this.handleInputChangeFor('search')}
+                            value={this.state.search}/>
+                    <Button onClick={this.searchProducts}>
+                        <input className="btn" type="submit" value="Find" />
+                    </Button>
+                    <Button onClick={this.clearSearch}>
+                        <input className="btn" type="submit" value="Clear" />
+                    </Button>
+                </Grid>
             </Grid>
-          </Grid>
-          </center>
+        </center>
       </div>
     );
   }
