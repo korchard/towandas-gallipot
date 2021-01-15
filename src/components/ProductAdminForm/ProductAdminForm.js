@@ -110,40 +110,35 @@ class ProductAdminForm extends Component {
                   className={classes.textField}
                   onChange={this.handleInputChangeFor('name')}
                   required
-                  value={this.state.name}
-               />
+                  value={this.state.name}/>
                <br></br><br></br>
                <TextField
                   label="Description - ingredients"
                   className={classes.textField}
                   onChange={this.handleInputChangeFor('description')}
                   required
-                  value={this.state.description}
-               />
+                  value={this.state.description}/>
                <br></br><br></br>
                <TextField
                   label="Size"
                   className={classes.textField}
                   onChange={this.handleInputChangeFor('size')}
                   required
-                  value={this.state.size}
-               />
+                  value={this.state.size}/>
                <br></br><br></br>
                <TextField
                   label="Cost"
                   className={classes.textField}
                   onChange={this.handleInputChangeFor('cost')}
                   required
-                  value={this.state.cost}
-               />
+                  value={this.state.cost}/>
                <br></br><br></br>
                <TextField
                   label="Image Path"
                   className={classes.textField}
                   onChange={this.handleInputChangeFor('image_path')}
                   required
-                  value={this.state.image_path}
-               />
+                  value={this.state.image_path}/>
                <br></br><br></br>
                <TextField
                   label="Type"
