@@ -34,9 +34,9 @@ const styles = {
     flexGrow: 1,
   },
   gridContainer: {
-    paddingLeft: '40px',
-    paddingRight: '40px',
-    paddingTop: '60px',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    paddingTop: '5%',
     // width: '60%',
   },
 }
@@ -95,8 +95,8 @@ class ProductAdminForm extends Component {
 
     return (
       <div className={classes.root}>
-        <Grid container spacing={6} className={classes.gridContainer} justify="center">
-          <Grid item xs={12} sm={8} md={6}>
+        <Grid container className={classes.gridContainer} justify="center">
+          <Grid item xs={12} sm={10}>
             <form className={classes.form} onSubmit={this.addProduct}>
               <Card>
                 <ThemeProvider theme={theme}>

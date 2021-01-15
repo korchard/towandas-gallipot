@@ -29,7 +29,7 @@ const theme = createMuiTheme();
 const styles = {
     root: {
       maxWidth: 345,
-      minWidth: 225,
+      minWidth: 200,
     },
     media: {
       height: 0,
@@ -80,24 +80,11 @@ const styles = {
   };
 
 class ProductsItem extends Component {
-
-  // calls the product GET route
-  componentDidMount = () => {
-    this.props.dispatch({ type: 'GET_PRODUCT' });
-  } // end ComponentDidMount
     
     state = {
         expanded: false,
         mode: 'edit',
         open: false,
-        product: {
-            name: '',
-            description: '',
-            size: '',
-            cost: '',
-            imagee_path: '',
-            type: ''
-        }
     }
   
     // expands the card info for the products
@@ -165,6 +152,11 @@ class ProductsItem extends Component {
       }); // end setState
     } // end hideModal
 
+    purhcaseItem = (id) => {
+      console.log('item id', id);
+      this.props.dispatch({ type: 'ADD_TO_CART', payload: id });
+    }
+
   render() {
     const { classes } = this.props;
 
@@ -189,7 +181,7 @@ class ProductsItem extends Component {
                   </ThemeProvider>
                 </CardContent>
                 <CardActions disableSpacing>
-                  <IconButton aria-label="add to cart">
+                  <IconButton aria-label="add to cart" onClick={() => this.purhcaseItem(this.props.item)}>
                     <AddShoppingCartIcon />
                   </IconButton>
               {this.props.store.user.administrator &&

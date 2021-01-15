@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // COMPONENTS
-import ProductAdminForm from '../ProductAdminForm/ProductAdminForm';
 import ProductList from '../ProductList/ProductList';
+import ProductSearch from '../ProductSearch/ProductSearch';
+import ProductsText from '../ProductsItem/ProductsText';
 
 // STYLING
 import Grid from '@material-ui/core/Grid';
@@ -15,7 +16,7 @@ const styles = {
   root: {
     flexGrow: 1,
   },
-  form: {
+  search: {
     width: '90%',
   },
   header: {
@@ -26,26 +27,27 @@ const styles = {
     fontFamily: 'fantasy',
     fontWeight: '700',
     textAlign: 'center',
-    paddingTop: '8%',
+    paddingTop: '15px',
   },
 }
 
-class ProductAdminDisplay extends Component {
+class ProductDisplay extends Component {
 
   render() {
     const { classes } = this.props;
 
     return (
       <div >
-        <Grid container justify="center">
-          <Grid item xs={12} sm={4} className={classes.form}>
-            <ProductAdminForm />
+        <Grid container className={classes.gridContainer} justify="center">
+          <Grid item xs={12} className={classes.search}>
+            <ProductSearch />
           </Grid>
-          <Grid item xs={12} sm={8}>
+          <Grid item xs={12}>
             <Typography className={classes.header}>
                 Products
             </Typography>
-            <ProductList />
+                <ProductsText />
+                <ProductList />
           </Grid>
         </Grid>
       </div>
@@ -53,4 +55,4 @@ class ProductAdminDisplay extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(ProductAdminDisplay));
+export default connect(mapStoreToProps)(withStyles(styles)(ProductDisplay));

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import swal from 'sweetalert';
 
 // STYLING
 import { Card, CardContent, Button, TextField, Typography } from '@material-ui/core';
@@ -68,6 +69,12 @@ class ContactPage extends Component {
 // POST route to add a new product
 sendMessage = (event) => {
   event.preventDefault();
+  swal({
+    title: "Your message has been sent!",
+    text: "I will get back to you as soon as possible!",
+    icon: "success",
+    button: "Woot!",
+  }); // sweetalert to verify email was sent
   this.props.dispatch({
     type: 'SEND_MESSAGE',
     payload: {

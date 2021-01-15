@@ -25,7 +25,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import NewNav from '../CustomNav/NewNav';
 import PreviousOrders from '../PreviousOrders/PreviousOrders';
 import ProductAdminDisplay from '../ProductAdminDisplay/ProductAdminDisplay';
-import ProductList from '../ProductList/ProductList';
+import ProductDisplay from '../ProductDisplay/ProductDisplay';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import UserPage from '../UserPage/UserPage';
@@ -83,9 +83,9 @@ class App extends Component {
               component={LandingPage}/>
             <Route
               // shows ProductList at all times (logged in or not)
-              exact
+              // exact
               path="/product"
-              component={ProductList}/>
+              component={ProductDisplay}/>
 
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -123,6 +123,13 @@ class App extends Component {
               exact
               path="/admin-product-add"
               component={ProductAdminDisplay}/>
+            <ProtectedRoute
+              // with authRedirect:
+              // - if logged in, redirects to "/user"
+              // - else shows LoginPage at /login
+              exact
+              path="/user"
+              component={UserPage}/>
             </>
             }
             {/* When a value is supplied for the authRedirect prop the user will
