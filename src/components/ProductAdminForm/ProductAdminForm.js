@@ -60,25 +60,21 @@ class ProductAdminForm extends Component {
 
   state = {
       name: '',
-      description: '',
-      size: '',
-      cost: '',
-      image_path: '',
-      type: ''
+      email_address: '',
+      subject: '',
+      message: '',
   };
 
   // POST route to add a new product
   addProduct = (event) => {
     event.preventDefault();
     this.props.dispatch({
-      type: 'ADD_PRODUCT',
+      type: 'SEND_MESSAGE',
       payload: {
         name: this.state.name,
-        description: this.state.description,
-        size: this.state.size,
-        cost: this.state.cost,
-        image_path: this.state.image_path,
-        type: this.state.type
+        description: this.state.email_address,
+        size: this.state.subject,
+        cost: this.state.message,
       },
     }); // end dispatch
   }; // end registerUser
@@ -105,57 +101,46 @@ class ProductAdminForm extends Component {
                   </Typography>
                 </ThemeProvider>
               <CardContent>
-               <TextField
-                  label="Name"
-                  className={classes.textField}
-                  onChange={this.handleInputChangeFor('name')}
-                  required
-                  value={this.state.name}
-               />
-               <br></br><br></br>
-               <TextField
-                  label="Description - ingredients"
-                  className={classes.textField}
-                  onChange={this.handleInputChangeFor('description')}
-                  required
-                  value={this.state.description}
-               />
-               <br></br><br></br>
-               <TextField
-                  label="Size"
-                  className={classes.textField}
-                  onChange={this.handleInputChangeFor('size')}
-                  required
-                  value={this.state.size}
-               />
-               <br></br><br></br>
-               <TextField
-                  label="Cost"
-                  className={classes.textField}
-                  onChange={this.handleInputChangeFor('cost')}
-                  required
-                  value={this.state.cost}
-               />
-               <br></br><br></br>
-               <TextField
-                  label="Image Path"
-                  className={classes.textField}
-                  onChange={this.handleInputChangeFor('image_path')}
-                  required
-                  value={this.state.image_path}
-               />
-               <br></br><br></br>
-               <TextField
-                  label="Type"
-                  className={classes.textField}
-                  onChange={this.handleInputChangeFor('type')}
-                  required
-                  value={this.state.type}/>
-                <br></br><br></br>
-                <Button >
-                    <input className="btn" type="submit" name="submit" value="Add" />
-                </Button>
-              </CardContent>
+                <Grid container justify="center">
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                        label="Name"
+                        className={classes.textField}
+                        onChange={this.handleInputChangeFor('name')}
+                        required
+                        value={this.state.name}/>
+                      <br></br><br></br>
+                    <TextField
+                      label="Email Address"
+                      className={classes.textField}
+                      onChange={this.handleInputChangeFor('description')}
+                      required
+                      value={this.state.description}/>
+                      <br></br><br></br>
+                    <TextField
+                      label="Subject"
+                      className={classes.textField}
+                      onChange={this.handleInputChangeFor('size')}
+                      required
+                      value={this.state.size}/>
+                      <br></br><br></br>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      label="Message"
+                      className={classes.textField}
+                      onChange={this.handleInputChangeFor('cost')}
+                      required
+                      multiline 
+                      row={5}
+                      value={this.state.cost}/>
+                      <br></br><br></br>
+                  <Button >
+                      <input className="btn" type="submit" name="submit" value="Send" />
+                  </Button>
+                  </Grid>
+                  </Grid>
+                </CardContent>
               </Card>
             </form>
           </Grid>
