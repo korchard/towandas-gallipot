@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { withRouter } from 'react-router-dom';
 
+// COMPONENTS
+import LogOutButton from '../LogOutButton/LogOutButton';
+
+// STYLING
 import './CustomNav.css';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,8 +15,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-// import Menu from '@material-ui/core/Menu';
-// import MenuItem from '@material-ui/core/MenuItem';
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -204,108 +205,105 @@ const adminList = [
 
     return (
       <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
-        <Toolbar className={classes.header}>
-          <img src={window.location.origin + '/image/logo.jpg'} alt="herb witch logo" className={classes.logo}/>
-          {/* <ThemeProvider theme={theme}> */}
-          <Typography variant="h6" noWrap className={classes.title} component="h6">
-          {/* <ThemeProvider theme={theme}> */}
-            <Link to="/home" className={classes.link} variant="h6">
-              Towanda's Gallipot
-            </Link>
-            {/* </ThemeProvider> */}
-          </Typography>
-          {/* </ThemeProvider> */}
-            <div className="nav-right">
+        <CssBaseline />
+          <AppBar
+            position="fixed"
+            className={clsx(classes.appBar, {
+              [classes.appBarShift]: open,
+            })}>
+            <Toolbar className={classes.header}>
+                <img src={window.location.origin + '/image/logo.jpg'} alt="herb witch logo" className={classes.logo}/>
+                  {/* <ThemeProvider theme={theme}> */}
+                    <Typography variant="h6" noWrap className={classes.title} component="h6">
+                  {/* <ThemeProvider theme={theme}> */}
+                    <Link to="/home" className={classes.link} variant="h6">
+                        Towanda's Gallipot
+                    </Link>
+                  {/* </ThemeProvider> */}
+                    </Typography>
+                  {/* </ThemeProvider> */}
+                <div className="nav-right">
                     <Link className="nav-link" to={loginLinkData.path}>
                         {/* Show this link if they are logged in or not,
                         but call this link 'Home' if they are logged in,
                         and call this link 'Login / Register' if they are not */}
                         {loginLinkData.text}
                     </Link>
-                     {/* Show the link to the info page and the logout button if the user is logged in */}
+          {/* Show the link to the info page and the logout button if the user is logged in */}
                     {props.store.user.id && (
                         <>
-                        <LogOutButton className="nav-link" />
+                          <LogOutButton className="nav-link" />
                         </>
                     )}
                     <Link className="nav-link" to="/cart">
                         <ShoppingCartIcon/>
                     </Link>
             
-                <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    edge="end"
-                    onClick={handleDrawerOpen}
-                    className={clsx(open && classes.hide)}>
-                        <MenuIcon />
-                </IconButton>
-            </div>
-        </Toolbar>
-    </AppBar>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <div className={classes.drawerHeader} />
-        </main>
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="right"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </div>
-        <List>
-          {itemsList.map((item, index) => {
-              const {text, onClick} = item;
-              return (
-            <ListItem button key={text} onClick={onClick}>
-              <ListItemText primary={text} />
-            </ListItem>
-          )
-          })}
-        </List>
-        <Divider />
-        {props.store.user.administrator === false && (
-                <List>
-                    {loggedInList.map((item, index) => {
-                        const {text, onClick} = item;
-                        return (
-                        <ListItem button key={text} onClick={onClick}>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    )})}
-                </List>
-        )}
-        {props.store.user.administrator === true && (
-                <List>
-                    {adminList.map((item, index) => {
-                        const {text, onClick} = item;
-                        return (
-                        <ListItem button key={text} onClick={onClick}>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    )})}
-                </List>
-        )}
-      </Drawer>
-    </div>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        edge="end"
+                        onClick={handleDrawerOpen}
+                        className={clsx(open && classes.hide)}>
+                            <MenuIcon />
+                    </IconButton>
+                </div>
+            </Toolbar>
+          </AppBar>
+            <main
+              className={clsx(classes.content, {
+                [classes.contentShift]: open,
+              })}>
+                <div className={classes.drawerHeader} />
+            </main>
+          <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            anchor="right"
+            open={open}
+            classes={{
+              paper: classes.drawerPaper,
+            }}>
+                <div className={classes.drawerHeader}>
+                  <IconButton onClick={handleDrawerClose}>
+                    {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                  </IconButton>
+                </div>
+            <List>
+              {itemsList.map((item, index) => {
+                  const {text, onClick} = item;
+                  return (
+                <ListItem button key={text} onClick={onClick}>
+                  <ListItemText primary={text} />
+                </ListItem>
+                )
+              })}
+            </List>
+              <Divider />
+            {props.store.user.administrator === false && (
+                    <List>
+                        {loggedInList.map((item, index) => {
+                            const {text, onClick} = item;
+                            return (
+                            <ListItem button key={text} onClick={onClick}>
+                                <ListItemText primary={text} />
+                            </ListItem>
+                        )})}
+                    </List>
+            )}
+            {props.store.user.administrator === true && (
+                    <List>
+                        {adminList.map((item, index) => {
+                            const {text, onClick} = item;
+                            return (
+                            <ListItem button key={text} onClick={onClick}>
+                                <ListItemText primary={text} />
+                            </ListItem>
+                        )})}
+                    </List>
+            )}
+          </Drawer>
+      </div>
   );
 }
 
