@@ -1,0 +1,89 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import mapStoreToProps from '../../redux/mapStoreToProps';
+
+// STYLING
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { Button, TextField } from '@material-ui/core';
+
+const styles = {
+  root: {
+    flexGrow: 1,
+  },
+  gridContainer: {
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    paddingBottom: '5%',
+  },
+  header: {
+    radius: '5px',
+    color: '#648b16',
+    fontSize: '2em',
+    fontFamily: 'fantasy',
+    fontWeight: '700',
+    display: 'inline-block',
+  },
+  textField: {
+    width: '40%',
+    backgroundColor: '#f8f8f8',
+    marginLeft: '3%',
+    marginRight: '3%',
+  },
+};
+
+class ProductSearch extends Component {
+
+    state = { 
+        search: ''
+    }
+
+  // calls the GET route to display thee products
+  componentDidMount = () => {
+    this.props.dispatch({ type: 'GET_SEARCH' });
+  } // end componentDidMount
+
+  // handles the input fields for adding a product
+  handleInputChangeFor = (propertyName) => (event) => {
+    this.setState({
+        [propertyName]: event.target.value,
+    }); // end setState
+  } // end handleInputChangeFor
+
+  searchProducts = () => {
+    this.props.dispatch({ type: 'GET_SEARCH', payload: this.state.search }); // GET search
+    this.setState({
+        search: ''
+    }) // end setState
+  } // end searchMovie
+
+  render() {
+  const { classes } = this.props;
+
+    return (
+      <div className={classes.root}>
+        <center>
+          <Grid container spacing={4} className={classes.gridContainer} justify="center">
+              <Grid item xs={12}>
+                <Typography className={classes.header}>
+                    Search
+                </Typography>
+                <TextField
+                        label="Find Something?"
+                        className={classes.textField}
+                        onChange={this.handleInputChangeFor('search')}
+                        required
+                        value={this.state.search}/>
+                <Button >
+                    <input className="btn" type="submit" name="submit" value="Find" />
+                </Button>
+            </Grid>
+          </Grid>
+          </center>
+      </div>
+    );
+  }
+}
+
+export default connect(mapStoreToProps)(withStyles(styles)(ProductSearch));

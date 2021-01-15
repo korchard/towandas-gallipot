@@ -29,7 +29,7 @@ const theme = createMuiTheme();
 const styles = {
     root: {
       maxWidth: 345,
-      minWidth: 225,
+      minWidth: 200,
     },
     media: {
       height: 0,

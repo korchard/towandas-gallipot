@@ -15,10 +15,21 @@ const styles = {
     flexGrow: 1,
   },
   gridContainer: {
-    paddingLeft: '40px',
-    paddingRight: '40px',
-    paddingTop: '60px',
-  }
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    paddingTop: '5%',
+  },
+  header: {
+    margin: 'auto',
+    width: '100%',
+    radius: '5px',
+    color: '#648b16',
+    fontSize: '2em',
+    fontFamily: 'fantasy',
+    fontWeight: '700',
+    textAlign: 'center',
+    paddingRight: '20px',
+  },
 };
 
 class ProductList extends Component {
@@ -33,11 +44,10 @@ class ProductList extends Component {
 
     return (
       <div className={classes.root}>
-        <Typography 
-          className={classes.header}>
+        <Typography className={classes.header}>
             Products
         </Typography>
-          <Grid container spacing={6} className={classes.gridContainer} justify="center">
+          <Grid container spacing={4} className={classes.gridContainer} justify="center">
           {this.props.store.product.map((item) => {
               return (
                   <ProductsItem key= {item.id} item={item}/>

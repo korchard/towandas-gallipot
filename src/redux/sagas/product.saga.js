@@ -32,6 +32,19 @@ function* getProduct() {
     }
 } // end getProduct
 
+// GET ROUTE - for search
+function* getSearch(action) {
+  console.log('search', action.payload );
+  try {
+      const response = yield axios.get(`/api/product/search/${action.payload}`);
+      // sends search items to the reducer
+      yield put({ type: 'SET_SEARCH', payload: response.data })
+      console.log('getSearch', response.data);
+  } catch (error) {
+    console.log('Bad news bears...error with INDEX GET SEARCH', error);
+  }
+} // end getSearch
+
 // DELETE ROUTE
 function* deleteProduct (action) {
     try {
@@ -68,6 +81,7 @@ function* productSaga() {
   yield takeEvery('GET_PRODUCT', getProduct);
   yield takeEvery('DELETE_PRODUCT', deleteProduct);
   yield takeEvery('UPDATE_PRODUCT', editProduct);
+  yield takeEvery('GET_SEARCH', getSearch);
 }
 
 export default productSaga;

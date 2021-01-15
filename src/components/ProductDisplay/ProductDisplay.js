@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // COMPONENTS
-import ProductAdminForm from '../ProductAdminForm/ProductAdminForm';
 import ProductList from '../ProductList/ProductList';
+import ProductSearch from '../ProductSearch/ProductSearch';
 
 // STYLING
 import Grid from '@material-ui/core/Grid';
@@ -14,12 +14,12 @@ const styles = {
   root: {
     flexGrow: 1,
   },
-  form: {
+  search: {
     width: '90%',
   },
 }
 
-class ProductAdminDisplay extends Component {
+class ProductDisplay extends Component {
 
   // calld the GET route to render products
   componentDidMount = () => {
@@ -32,10 +32,10 @@ class ProductAdminDisplay extends Component {
     return (
       <div >
         <Grid container className={classes.gridContainer} justify="center">
-          <Grid item xs={12} sm={4} className={classes.form}>
-            <ProductAdminForm />
+          <Grid item xs={12} className={classes.search}>
+            <ProductSearch />
           </Grid>
-          <Grid item xs={12} sm={8}>
+          <Grid item xs={12}>
             <ProductList />
           </Grid>
         </Grid>
@@ -44,4 +44,4 @@ class ProductAdminDisplay extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(ProductAdminDisplay));
+export default connect(mapStoreToProps)(withStyles(styles)(ProductDisplay));
