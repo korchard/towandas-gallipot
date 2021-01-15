@@ -72,9 +72,9 @@ sendMessage = (event) => {
     type: 'SEND_MESSAGE',
     payload: {
       name: this.state.name,
-      description: this.state.email_address,
-      size: this.state.subject,
-      cost: this.state.message,
+      email_address: this.state.email_address,
+      subject: this.state.subject,
+      message: this.state.message,
     },
   }); // end dispatch
 }; // end registerUser
@@ -93,7 +93,7 @@ handleInputChangeFor = (propertyName) => (event) => {
       <div className={classes.root}>
         <Grid container spacing={6} className={classes.gridContainer} justify="center">
           <Grid item xs={12} md={6}>
-            <form className={classes.form} onSubmit={this.addProduct}>
+            <form className={classes.form} onSubmit={this.sendMessage}>
               <Card>
                 <ThemeProvider theme={theme}>
                   <Typography gutterBottom variant="h5" component="h2" className={classes.header}>
