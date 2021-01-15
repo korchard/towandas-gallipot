@@ -4,12 +4,10 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // COMPONENTS
 import ProductsItem from '../ProductsItem/ProductsItem';
-import ProductsText from '../ProductsItem/ProductsText';
 
 // STYLING
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 
 const styles = {
   root: {
@@ -19,15 +17,6 @@ const styles = {
     paddingLeft: '5%',
     paddingRight: '5%',
     paddingTop: '5%',
-  },
-  header: {
-    width: '100%',
-    radius: '5px',
-    color: '#648b16',
-    fontSize: '2em',
-    fontFamily: 'fantasy',
-    fontWeight: '700',
-    textAlign: 'center',
   },
 };
 
@@ -43,17 +32,13 @@ class ProductList extends Component {
 
     return (
       <div className={classes.root}>
-        <Typography className={classes.header}>
-            Products
-        </Typography>
-          <ProductsText />
-            <Grid container spacing={4} className={classes.gridContainer} justify="center">
+          <Grid container spacing={4} className={classes.gridContainer} justify="center">
               {this.props.store.product.map((item) => {
                   return (
                       <ProductsItem key= {item.id} item={item}/>
                   );
               })} 
-            </Grid>
+          </Grid>
       </div>
     );
   }

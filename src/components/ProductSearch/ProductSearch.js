@@ -40,8 +40,7 @@ class ProductSearch extends Component {
     }
 
   // calls the GET route to display thee products
-  componentDidMount = (id) => {
-    this.props.dispatch({ type: 'GET_SEARCH' });
+  componentDidMount = (search) => {
     this.props.dispatch({ type: 'GET_SEARCH', payload: this.state.search }); // GET search
     // this.props.dispatch({ type: 'GET_SEARCH', payload: this.props.match.params }) // category GET
   } // end componentDidMount
@@ -63,7 +62,7 @@ class ProductSearch extends Component {
 
   clearSearch = () => {
     this.props.dispatch({ type: 'GET_PRODUCT' }); // GET search
-} // end searchProducts
+  } // end searchProducts
 
   render() {
   const { classes } = this.props;

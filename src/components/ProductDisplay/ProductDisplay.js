@@ -5,10 +5,12 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 // COMPONENTS
 import ProductList from '../ProductList/ProductList';
 import ProductSearch from '../ProductSearch/ProductSearch';
+import ProductsText from '../ProductsItem/ProductsText';
 
 // STYLING
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 const styles = {
   root: {
@@ -17,14 +19,19 @@ const styles = {
   search: {
     width: '90%',
   },
+  header: {
+    width: '100%',
+    radius: '5px',
+    color: '#648b16',
+    fontSize: '2em',
+    fontFamily: 'fantasy',
+    fontWeight: '700',
+    textAlign: 'center',
+    paddingTop: '15px',
+  },
 }
 
 class ProductDisplay extends Component {
-
-//   // calld the GET route to render products
-//   componentDidMount = () => {
-//     this.props.dispatch({ type: 'GET_PRODUCT' }); 
-//   } // end componentDidMount
 
   render() {
     const { classes } = this.props;
@@ -36,7 +43,11 @@ class ProductDisplay extends Component {
             <ProductSearch />
           </Grid>
           <Grid item xs={12}>
-            <ProductList />
+            <Typography className={classes.header}>
+                Products
+            </Typography>
+                <ProductsText />
+                <ProductList />
           </Grid>
         </Grid>
       </div>

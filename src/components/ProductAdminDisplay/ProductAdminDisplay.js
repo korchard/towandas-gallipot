@@ -9,6 +9,7 @@ import ProductList from '../ProductList/ProductList';
 // STYLING
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 const styles = {
   root: {
@@ -17,14 +18,19 @@ const styles = {
   form: {
     width: '90%',
   },
+  header: {
+    width: '100%',
+    radius: '5px',
+    color: '#648b16',
+    fontSize: '2em',
+    fontFamily: 'fantasy',
+    fontWeight: '700',
+    textAlign: 'center',
+    paddingTop: '8%',
+  },
 }
 
 class ProductAdminDisplay extends Component {
-
-  // // calld the GET route to render products
-  // componentDidMount = () => {
-  //   this.props.dispatch({ type: 'GET_PRODUCT' }); 
-  // } // end componentDidMount
 
   render() {
     const { classes } = this.props;
@@ -36,6 +42,9 @@ class ProductAdminDisplay extends Component {
             <ProductAdminForm />
           </Grid>
           <Grid item xs={12} sm={8}>
+            <Typography className={classes.header}>
+                Products
+            </Typography>
             <ProductList />
           </Grid>
         </Grid>
