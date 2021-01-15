@@ -81,10 +81,10 @@ const styles = {
 
 class ProductsItem extends Component {
 
-  // calls the product GET route
-  componentDidMount = () => {
-    this.props.dispatch({ type: 'GET_PRODUCT' });
-  } // end ComponentDidMount
+  // // calls the product GET route
+  // componentDidMount = () => {
+  //   this.props.dispatch({ type: 'GET_PRODUCT' });
+  // } // end ComponentDidMount
     
     state = {
         expanded: false,

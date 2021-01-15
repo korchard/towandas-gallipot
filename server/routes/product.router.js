@@ -17,6 +17,20 @@ router.get('/', (req, res) => {
         })
 });
 
+// GET ROUTE - for SEARCH
+router.get('/search/:search', (req, res) => {
+  let search = req.params.search; // identifys search item
+  console.log('router search', search);
+  const queryText = `SELECT * FROM "product" WHERE "name" ILIKE '%' || $1 || '%' LIMIT 12;`;
+  
+  pool.query(queryText, [search])
+    .then((result) => { res.send(result.rows); })
+    .catch((error) => {
+      console.log('Bad news bears, error in GET', error);
+      res.sendStatus(500);
+    });
+}); // end GET ROUTE - for SEARCH
+
 // POST ROUTE
 router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('body', req.body);

@@ -52,6 +52,7 @@ class ProductSearch extends Component {
   } // end handleInputChangeFor
 
   searchProducts = () => {
+      console.log('search is', this.state.search)
     this.props.dispatch({ type: 'GET_SEARCH', payload: this.state.search }); // GET search
     this.setState({
         search: ''
@@ -75,7 +76,7 @@ class ProductSearch extends Component {
                         onChange={this.handleInputChangeFor('search')}
                         required
                         value={this.state.search}/>
-                <Button >
+                <Button onClick={this.searchProducts}>
                     <input className="btn" type="submit" name="submit" value="Find" />
                 </Button>
             </Grid>

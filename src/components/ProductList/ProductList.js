@@ -34,10 +34,10 @@ const styles = {
 
 class ProductList extends Component {
 
-  // calls the GET route to display thee products
-  componentDidMount = () => {
-    this.props.dispatch({ type: 'GET_PRODUCT' });
-  } // end componentDidMount
+  // // calls the GET route to display thee products
+  // componentDidMount = () => {
+  //   this.props.dispatch({ type: 'GET_PRODUCT' });
+  // } // end componentDidMount
 
   render() {
   const { classes } = this.props;
