@@ -39,11 +39,10 @@ class ProductSearch extends Component {
         search: ''
     }
 
-  // calls the GET route to display thee products
-  componentDidMount = (search) => {
-    this.props.dispatch({ type: 'GET_SEARCH', payload: this.state.search }); // GET search
-    // this.props.dispatch({ type: 'GET_SEARCH', payload: this.props.match.params }) // category GET
-  } // end componentDidMount
+  // // calls the GET route to display thee products
+  // componentDidMount = () => {
+  //   this.props.dispatch({ type: 'GET_SEARCH' }); // GET search
+  // } // end componentDidMount
 
   // handles the input fields for adding a product
   handleInputChangeFor = (propertyName) => (event) => {

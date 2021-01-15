@@ -39,6 +39,7 @@ function* getSearch(action) {
       const response = yield axios.get(`/api/product/search/${action.payload}`);
       // sends search items to the reducer
       yield put({ type: 'SET_SEARCH', payload: response.data })
+      yield put({ type: 'SET_SEARCHED', payload: response.data })
       console.log('getSearch', response.data);
   } catch (error) {
     console.log('Bad news bears...error with INDEX GET SEARCH', error);
