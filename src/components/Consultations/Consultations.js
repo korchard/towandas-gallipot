@@ -153,7 +153,7 @@ class Consultations extends Component {
                 basis.  
               </Typography>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={3}>
               <img src={window.location.origin + '/image/flower-purple.png'} alt="purple flowers" className={classes.image}/>
             </Grid>
           </ThemeProvider>

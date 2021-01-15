@@ -77,7 +77,14 @@ sendMessage = (event) => {
       message: this.state.message,
     },
   }); // end dispatch
-}; // end registerUser
+  // clears the inputs
+  this.setState({
+    name: '',
+    email_address: '',
+    subject: '',
+    message: '',
+  }); // end setState
+} // end registerUser
 
 // handles the input fields for sending a message
 handleInputChangeFor = (propertyName) => (event) => {
