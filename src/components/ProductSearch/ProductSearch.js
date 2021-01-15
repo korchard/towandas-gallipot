@@ -57,7 +57,11 @@ class ProductSearch extends Component {
     this.setState({
         search: ''
     }) // end setState
-  } // end searchMovie
+  } // end searchProducts
+
+  clearSearch = () => {
+    this.props.dispatch({ type: 'GET_PRODUCT', payload: this.state.search }); // GET search
+} // end searchProducts
 
   render() {
   const { classes } = this.props;
@@ -78,6 +82,9 @@ class ProductSearch extends Component {
                         value={this.state.search}/>
                 <Button onClick={this.searchProducts}>
                     <input className="btn" type="submit" name="submit" value="Find" />
+                </Button>
+                <Button onClick={this.clearSearch}>
+                    <input className="btn" type="submit" name="submit" value="Clear" />
                 </Button>
             </Grid>
           </Grid>
