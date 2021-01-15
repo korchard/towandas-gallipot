@@ -18,7 +18,7 @@ const styles = {
   },
   form: {
     textAlign: 'center',
-    width: '80%',
+    // width: '80%',
   },
   textField: {
     marginTop: '1rem',
@@ -87,6 +87,7 @@ class RegisterForm extends Component {
     return (
       <div className={classes.root}>
         <Grid container spacing={4} className={classes.gridContainer} justify="center">
+          <Grid item xs={12} sm={10} md={6}>
           <form className={classes.form} onSubmit={this.registerUser}>
             <Card className={classes.card}>
               <Typography component="h2" className={classes.header}>
@@ -190,6 +191,7 @@ class RegisterForm extends Component {
             </CardContent>
             </Card>
           </form>
+          </Grid>
         </Grid>
       </div>
     );
