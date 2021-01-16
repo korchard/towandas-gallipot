@@ -7,9 +7,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Button, TextField } from '@material-ui/core';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+// import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
-const theme = createMuiTheme();
+// const theme = createMuiTheme();
 
 const styles = {
   root: {
@@ -23,7 +23,7 @@ const styles = {
   header: {
     radius: '5px',
     color: '#648b16',
-    // fontSize: '2em',
+    fontSize: '2em',
     fontFamily: 'fantasy',
     fontWeight: '700',
     display: 'inline-block',
@@ -36,29 +36,15 @@ const styles = {
   },
 };
 
-// theme.typography.h2 = {
-//   fontFamily: [
-//     'fantasy',
-//     'serif',
-//   ].join(','),
-//   fontSize: '.8rem',
-// '@media (min-width:600px)': {
-//   fontSize: '.8rem',
+// theme.typography.h5 = {
+//   fontSize: '1rem',
+//   '@media (min-width:600px)': {
+//     fontSize: '1rem',
 //   },
 //   [theme.breakpoints.up('md')]: {
 //     fontSize: '2rem',
 //   },
 // };
-
-theme.typography.h4 = {
-  fontSize: '1.2rem',
-  '@media (min-width:600px)': {
-    fontSize: '1.2rem',
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '2rem',
-  },
-};
 
 class ProductSearch extends Component {
 
@@ -95,11 +81,11 @@ class ProductSearch extends Component {
 
     return (
       <div className={classes.root}>
-        <ThemeProvider theme={theme}>
+        {/* <ThemeProvider theme={theme}> */}
         <center>
             <Grid container spacing={4} className={classes.gridContainer} justify="center">
                 <Grid item xs={12}>
-                    <Typography className={classes.header} variant="h4">
+                    <Typography className={classes.header} variant="h5">
                         Search
                     </Typography>
                     <TextField
@@ -116,7 +102,7 @@ class ProductSearch extends Component {
                 </Grid>
             </Grid>
         </center>
-        </ThemeProvider>
+        {/* </ThemeProvider> */}
       </div>
     );
   }
