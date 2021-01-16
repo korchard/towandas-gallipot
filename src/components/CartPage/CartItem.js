@@ -4,7 +4,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // STYLING
 import { withStyles } from '@material-ui/core/styles';
-// import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -15,7 +15,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
-// const theme = createMuiTheme();
+const theme = createMuiTheme();
 
 const styles = {
   root: {
@@ -75,17 +75,12 @@ const styles = {
 
 class CartPage extends Component {
 
-  componentDidMount = () => {
-    this.props.dispatch({ type: 'ADD_TO_CART' });
-  }
-
   render() {
     const { classes } = this.props;
 
-    return (
-        <div>
-            {/* {this.props.store.cart {  */}
-                  <Grid item xs={12} sm={6}>
+        return (
+            <div>
+                <Grid item xs={12} sm={6} theme={theme}>
                     <Card className={classes.root}>
                       <div className={classes.details}>
                         <CardContent className={classes.content}>
@@ -113,8 +108,7 @@ class CartPage extends Component {
                           image={this.props.item.image_path}
                           title={this.props.item.name}/>
                        </Card>
-                    </Grid>
-              {/* }}  */}
+                </Grid>
             </div>
         );
   }

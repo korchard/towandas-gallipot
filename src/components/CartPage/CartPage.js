@@ -3,14 +3,11 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // COMPONENTS
-import CartItem from './CartItem';
+// import CartItem from './CartItem';
 
 // STYLING
 import { withStyles } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-
-const theme = createMuiTheme();
+// import Grid from '@material-ui/core/Grid';
 
 const styles = {
     gridContainer: {
@@ -27,18 +24,21 @@ class CartPage extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    // const { classes } = this.props;
 
     return (
       <div>
+        {JSON.stringify(this.props.store.cart)}
+        {/* {(this.props.store.cart !== undefined) ?
           <Grid container spacing={4} className={classes.gridContainer}>
               {this.props.store.cart.map((item) => {
-                JSON.stringify(this.props.store.cart)
                 return(
-                  <CartItem key= {item.id} item={item}/>
+                  <CartItem key={item.id} item={item}/>
                  );
               })} 
-          </Grid>
+          </Grid> :
+          <h2>No items are found in the cart</h2>
+        } */}
       </div>
     );
   }
