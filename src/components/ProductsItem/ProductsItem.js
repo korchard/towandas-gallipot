@@ -60,9 +60,9 @@ const styles = {
         'fantasy',
         'serif',
       ].join(','),
-      fontSize: '1rem',
+      fontSize: '1.3rem',
     '@media (min-width:600px)': {
-      fontSize: '1rem',
+      fontSize: '1.3rem',
       },
       [theme.breakpoints.up('md')]: {
         fontSize: '1.5rem',
