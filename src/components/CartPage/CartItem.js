@@ -6,7 +6,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
+import Paper from '@material-ui/core/Paper';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
@@ -20,6 +20,7 @@ const theme = createMuiTheme();
 const styles = {
   root: {
     display: 'flex',
+    width: 800,
   },
   details: {
     display: 'flex',
@@ -29,7 +30,7 @@ const styles = {
     flex: '1 0 auto',
   },
   cover: {
-    width: 151,
+    width: 200,
     float: 'right',
   },
   controls: {
@@ -73,26 +74,15 @@ const styles = {
 //     },
 //   };
 
-const getCookie = (cookieName) => {
-    // Get name followed by anything except a semicolon
-    const cookieString = RegExp(''+cookieName+'[^;]+').exec(document.cookie);
-    // Return everything after the equal sign, or an empty string if the cookie name not found
-    return decodeURIComponent(!!cookieString ? cookieString.toString().replace(/^[^=]+./,'') : '');
-  }
-
 class CartPage extends Component {
-
-    state = {
-        cartItems: getCookie('cart') || 0,
-      }
 
   render() {
     const { classes } = this.props;
 
         return (
             <div>
-                <Grid item xs={12} sm={6} theme={theme}>
-                    <Card className={classes.root}>
+                <Grid item xs={12} theme={theme}>
+                    <Paper className={classes.root}>
                       <div className={classes.details}>
                         <CardContent className={classes.content}>
                           <Typography component="h5" variant="h5">
@@ -118,7 +108,7 @@ class CartPage extends Component {
                           className={classes.cover}
                           image={this.props.item.image_path}
                           title={this.props.item.name}/>
-                       </Card>
+                       </Paper>
                 </Grid>
             </div>
         );

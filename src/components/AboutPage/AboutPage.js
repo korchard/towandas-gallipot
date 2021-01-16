@@ -96,7 +96,7 @@ class AboutPage extends Component {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={5}>
-              <Typography variant="h6" component="p" className={classes.header2}>
+              <Typography variant="h6" component="h6" className={classes.header2}>
                 Picture me with pruning shears in one hand and a basket in the other, 
                 skipping through open fields yelling “Towanda the Avenger!” as I collect 
                 plant medicine for my modern day gallipots (aka mason jars).

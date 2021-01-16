@@ -65,6 +65,8 @@ class ProductSearch extends Component {
           search: getCookie('search')
         });
       }
+      this.searchProducts();
+      console.log('refresh', this.state.search);
     }
 
   // handles the input fields for adding a product
@@ -79,6 +81,7 @@ class ProductSearch extends Component {
     const newSearch = (this.state.search);
     document.cookie = `search=${newSearch}`
     this.props.dispatch({ type: 'GET_SEARCH', payload: newSearch }); // GET search
+    this.props.dispatch({ type: 'SET_COOKIE', payload: {cookie: newSearch} });
     this.setState({
         search: ''
     }) // end setState
@@ -86,8 +89,9 @@ class ProductSearch extends Component {
 
   clearSearch = () => {
     this.props.dispatch({ type: 'GET_PRODUCT' }); // GET search
-    document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    this.componentDidMount();
+    this.props.dispatch({ type: 'RESET_COOKIE' });
+    document.cookie = "search=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    // this.componentDidMount();
   } // end searchProducts
 
   render() {

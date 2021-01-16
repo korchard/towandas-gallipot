@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import { PickerOverlay } from 'filestack-react';
 
 // STYLING
 import { Card, CardContent, Button, TextField, Typography } from '@material-ui/core';
@@ -64,8 +65,16 @@ class ProductAdminForm extends Component {
       size: '',
       cost: '',
       image_path: '',
-      type: ''
+      type: '',
+      url: '',
+      imageUploadOpen: false,
   };
+
+  openImageUpload = () => {
+    this.setState({
+        imageUploadOpen: true
+    })
+  }
 
   // POST route to add a new product
   addProduct = (event) => {
@@ -140,12 +149,21 @@ class ProductAdminForm extends Component {
                   required
                   value={this.state.cost}/>
                <br></br><br></br>
-               <TextField
+               {this.state.imageUploadOpen && 
+                <PickerOverlay 
+                    apikey='INSERT_API_KEY_HERE'
+                    onSuccess={(res) => {
+                    console.log('in onSuccess', res)
+                    this.props.dispatch({type: 'SET_IMAGE', payload: res.filesUploaded[0].url}) }
+                  }/>
+                }
+                <Button onClick={this.openImageUpload}>Upload Image</Button>
+               {/* <TextField
                   label="Image Path"
                   className={classes.textField}
                   onChange={this.handleInputChangeFor('image_path')}
                   required
-                  value={this.state.image_path}/>
+                  value={this.state.image_path}/> */}
                <br></br><br></br>
                <TextField
                   label="Type"
