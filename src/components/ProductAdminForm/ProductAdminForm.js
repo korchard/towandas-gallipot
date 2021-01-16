@@ -81,6 +81,14 @@ class ProductAdminForm extends Component {
         type: this.state.type
       },
     }); // end dispatch
+    this.setState({
+      name: '',
+      description: '',
+      size: '',
+      cost: '',
+      image_path: '',
+      type: ''
+    })
   }; // end registerUser
 
   // handles the input fields for adding a product

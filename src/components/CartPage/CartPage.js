@@ -2,33 +2,46 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
+// COMPONENTS
+// import CartItem from './CartItem';
+
 // STYLING
 import { withStyles } from '@material-ui/core/styles';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
+// import Grid from '@material-ui/core/Grid';
+
+const styles = {
+    gridContainer: {
+      paddingLeft: '5%',
+      paddingRight: '5%',
+      paddingTop: '5%',
+    },
+  }
 
 class CartPage extends Component {
 
+  componentDidMount = () => {
+    this.props.dispatch({ type: 'ADD_TO_CART' });
+  }
+
   render() {
+    // const { classes } = this.props;
+
     return (
       <div>
-        
+        {JSON.stringify(this.props.store.cart)}
+        {/* {(this.props.store.cart !== undefined) ?
+          <Grid container spacing={4} className={classes.gridContainer}>
+              {this.props.store.cart.map((item) => {
+                return(
+                  <CartItem key={item.id} item={item}/>
+                 );
+              })} 
+          </Grid> :
+          <h2>No items are found in the cart</h2>
+        } */}
       </div>
     );
   }
 }
 
-export default connect(mapStoreToProps)(CartPage);
+export default connect(mapStoreToProps)(withStyles(styles)(CartPage));
