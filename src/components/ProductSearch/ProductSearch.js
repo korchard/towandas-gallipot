@@ -65,6 +65,8 @@ class ProductSearch extends Component {
           search: getCookie('search')
         });
       }
+      this.searchProducts(this.state.search);
+      console.log('refresh', this.state.search);
     }
 
   // handles the input fields for adding a product
@@ -86,7 +88,7 @@ class ProductSearch extends Component {
 
   clearSearch = () => {
     this.props.dispatch({ type: 'GET_PRODUCT' }); // GET search
-    document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "search=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     this.componentDidMount();
   } // end searchProducts
 
