@@ -69,13 +69,13 @@ const styles = {
       },
   };
   
-  theme.typography.p = {
-    fontSize: '1rem',
+  theme.typography.body1 = {
+    fontSize: '.9rem',
     '@media (min-width:600px)': {
-      fontSize: '1rem',
+      fontSize: '.9rem',
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: '1.5rem',
+      fontSize: '1rem',
     },
   };
 
@@ -166,19 +166,15 @@ class ProductsItem extends Component {
             <Card className={classes.root}>
               <ThemeProvider theme={theme}>
                 <CardHeader
-                  title={this.props.item.name}
-                />
-              </ThemeProvider>
+                  title={this.props.item.name}/>
                 <CardMedia
                   className={classes.media}
                   image={this.props.item.image_path}
                   title={this.props.item.name}/>
                 <CardContent>
-                  <ThemeProvider theme={theme}>
-                    <Typography color="textSecondary" component="p">
+                    <Typography color="textSecondary" component="p" variant="body1">
                       {this.props.item.size} - ${this.props.item.cost} - {this.props.item.type}
                     </Typography>
-                  </ThemeProvider>
                 </CardContent>
                 <CardActions disableSpacing>
                   <IconButton aria-label="add to cart" onClick={() => this.purhcaseItem(this.props.item)}>
@@ -207,16 +203,15 @@ class ProductsItem extends Component {
                 </CardActions>
               <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                  <ThemeProvider theme={theme}>
-                    <Typography paragraph>
+                    <Typography paragraph variant="body1">
                       Ingredients:
                     </Typography>
                     <Typography paragraph>
                       {this.props.item.description}
                     </Typography>
-                  </ThemeProvider>
                 </CardContent>
               </Collapse>
+              </ThemeProvider>
             </Card> :
           <>
           <Card className={classes.root}>
@@ -228,13 +223,10 @@ class ProductsItem extends Component {
                   image={this.props.item.image_path}
                   title={this.props.item.name}
                   variant="h4"/>
-              </ThemeProvider>
                 <CardContent>
-                  <ThemeProvider theme={theme}>
-                    <Typography color="textSecondary" component="p">
+                    <Typography color="textSecondary" component="p" variant="body1">
               {this.props.item.size} - ${this.props.item.cost} - {this.props.item.type}
             </Typography>
-            </ThemeProvider>
           </CardContent>
           <CardActions disableSpacing>
             <IconButton aria-label="add to cart">
@@ -263,14 +255,13 @@ class ProductsItem extends Component {
           </CardActions>
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
               <CardContent>
-                <ThemeProvider theme={theme}>
-                <Typography paragraph>Ingredients:</Typography>
-                <Typography paragraph>
+                <Typography paragraph variant="body1">Ingredients:</Typography>
+                <Typography paragraph variant="body1">
                   {this.props.item.description}
                 </Typography>
-                </ThemeProvider>
               </CardContent>
           </Collapse>
+          </ThemeProvider>
         </Card>
           <Modal open={this.state.open} hideModal={this.hideModal} editItem={this.editItem}/>
          </>}

@@ -26,10 +26,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
-// import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+// import { createMuiTheme, MuiThemeProvider, responsiveFontSizes } from '@material-ui/core/styles';
 
 
-// const theme = createMuiTheme();
+// let theme = createMuiTheme();
+// theme = responsiveFontSizes(theme);
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -206,6 +207,7 @@ const adminList = [
 
     return (
       <div className={classes.root}>
+        {/* <MuiThemeProvider theme={theme}> */}
         <CssBaseline />
           <AppBar
             position="fixed"
@@ -214,15 +216,11 @@ const adminList = [
             })}>
             <Toolbar className={classes.header}>
                 <img src={window.location.origin + '/image/logo.jpg'} alt="herb witch logo" className={classes.logo}/>
-                  {/* <ThemeProvider theme={theme}> */}
                     <Typography variant="h6" noWrap className={classes.title} component="h6">
-                  {/* <ThemeProvider theme={theme}> */}
                     <Link to="/home" className={classes.link} variant="h6">
                         Towanda's Gallipot
                     </Link>
-                  {/* </ThemeProvider> */}
                     </Typography>
-                  {/* </ThemeProvider> */}
                 <div className="nav-right">
                     <Link className="nav-link" to={loginLinkData.path}>
                         {/* Show this link if they are logged in or not,
@@ -306,6 +304,7 @@ const adminList = [
                     </List>
             )}
           </Drawer>
+          {/* </MuiThemeProvider> */}
       </div>
   );
 }
