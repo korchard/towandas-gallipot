@@ -42,7 +42,7 @@ const styles = {
 }
 
 // responsiveness
-theme.typography.h5 = {
+theme.typography.h3 = {
   fontFamily: [
     'fantasy',
     'serif',
@@ -108,7 +108,7 @@ class ProductAdminForm extends Component {
             <form className={classes.form} onSubmit={this.addProduct}>
               <Card>
                 <ThemeProvider theme={theme}>
-                  <Typography gutterBottom variant="h5" component="h5" className={classes.header}>
+                  <Typography gutterBottom variant="h3" component="h3" className={classes.header}>
                     Add Product
                   </Typography>
               <CardContent>

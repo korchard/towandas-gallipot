@@ -42,7 +42,7 @@ const styles = {
   },
 }
 
-theme.typography.h2 = {
+theme.typography.h3 = {
   fontFamily: [
     'fantasy',
     'serif',
@@ -118,7 +118,7 @@ class RegisterForm extends Component {
           <Grid item xs={12} sm={10} md={6}>
           <form className={classes.form} onSubmit={this.registerUser}>
             <Card className={classes.card}>
-              <Typography component="h2" className={classes.header} variant="h2">
+              <Typography component="h3" className={classes.header} variant="h3">
                 Register 
               </Typography>
               {this.props.store.errors.registrationMessage && (

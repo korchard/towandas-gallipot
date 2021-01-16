@@ -16,13 +16,11 @@ import CompletedOrdersAdmin from '../CompletedOrdersAdmin/CompletedOrdersAdmin';
 import Consultations from '../Consultations/Consultations';
 import ConsultForm from '../ConsultForm/ConsultForm';
 import ContactPage from '../ContactPage/ContactPage';
-// import CustomNav from '../CustomNav/CustomNav';
+import CustomNav from '../CustomNav/CustomNav';
 import Footer from '../Footer/Footer';
 import IncompleteOrdersAdmin from '../IncompleteOrdersAdmin/IncompleteOrdersAdmin';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
-// import Nav from '../Nav/Nav';
-import NewNav from '../CustomNav/NewNav';
 import PreviousOrders from '../PreviousOrders/PreviousOrders';
 import ProductAdminDisplay from '../ProductAdminDisplay/ProductAdminDisplay';
 import ProductDisplay from '../ProductDisplay/ProductDisplay';
@@ -43,9 +41,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          {/* <Nav /> */}
-          {/* <CustomNav /> */}
-          <NewNav />
+          <CustomNav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />

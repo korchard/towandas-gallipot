@@ -45,7 +45,7 @@ theme.typography.body1 = {
     fontSize: '.7rem',
   },
   [theme.breakpoints.up('md')]: {
-    fontSize: '1.2rem',
+    fontSize: '1rem',
   },
 };
 

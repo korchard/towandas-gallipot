@@ -16,7 +16,7 @@ const styles = {
     marginBottom: '30px',
     radius: '5px',
     color: '#648b16',
-    fontSize: '2em',
+    // fontSize: '2em',
     fontFamily: 'fantasy',
     fontWeight: '700',
     textAlign: 'center',
@@ -29,7 +29,7 @@ const styles = {
     marginTop: '10%',
     radius: '5px',
     color: '#648b16',
-    fontSize: '1.5em',
+    // fontSize: '1.5em',
     fontFamily: 'fantasy',
     textAlign: 'right',
     paddingRight: '20px',
@@ -50,6 +50,36 @@ const styles = {
     paddingLeft: '20px',
   },
 }
+
+theme.typography.h6 = {
+  fontSize: '1rem',
+'@media (min-width:320px)': {
+  fontSize: '1rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.5rem',
+  },
+};
+
+theme.typography.h3 = {
+  fontSize: '1.5rem',
+'@media (min-width:320px)': {
+  fontSize: '1.5rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '2rem',
+  },
+};
+
+theme.typography.p = {
+  fontSize: '.7rem',
+'@media (min-width:320px)': {
+    fontSize: '.7rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1rem',
+  },
+};
 
 class AboutPage extends Component {
 

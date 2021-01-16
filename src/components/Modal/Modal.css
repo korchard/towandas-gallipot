@@ -13,9 +13,9 @@
 }
 
 .modal-main {
-    position:fixed;
+    position: fixed;
     width: 60%;
-    top: 50%;
+    top: 60%;
     left: 50%;
     /* height: 70vh; */
     height: auto;

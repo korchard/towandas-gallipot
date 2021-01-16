@@ -46,16 +46,26 @@ const styles = {
 //   },
 // };
 
+const getCookie = (cookieName) => {
+  // Get name followed by anything except a semicolon
+  const cookieString = RegExp(''+cookieName+'[^;]+').exec(document.cookie);
+  // Return everything after the equal sign, or an empty string if the cookie name not found
+  return decodeURIComponent(!!cookieString ? cookieString.toString().replace(/^[^=]+./,'') : '');
+}
+
 class ProductSearch extends Component {
 
     state = { 
-        search: ''
+        search: getCookie('search') || '',
     }
 
-  // // calls the GET route to display thee products
-  // componentDidMount = () => {
-  //   this.props.dispatch({ type: 'GET_SEARCH' }); // GET search
-  // } // end componentDidMount
+    componentDidMount = () => {
+      if (this.state.search !== '') {
+        this.setState({
+          search: getCookie('search')
+        });
+      }
+    }
 
   // handles the input fields for adding a product
   handleInputChangeFor = (propertyName) => (event) => {
@@ -66,7 +76,9 @@ class ProductSearch extends Component {
 
   searchProducts = () => {
     console.log('search is', this.state.search)
-    this.props.dispatch({ type: 'GET_SEARCH', payload: this.state.search }); // GET search
+    const newSearch = (this.state.search);
+    document.cookie = `search=${newSearch}`
+    this.props.dispatch({ type: 'GET_SEARCH', payload: newSearch }); // GET search
     this.setState({
         search: ''
     }) // end setState
@@ -74,6 +86,8 @@ class ProductSearch extends Component {
 
   clearSearch = () => {
     this.props.dispatch({ type: 'GET_PRODUCT' }); // GET search
+    document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    this.componentDidMount();
   } // end searchProducts
 
   render() {

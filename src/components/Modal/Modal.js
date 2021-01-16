@@ -6,6 +6,9 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import './Modal.css';
 import { Card, CardContent, Button, TextField, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+// import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
+// const theme = createMuiTheme();
 
 const styles = {
   header: {
@@ -29,6 +32,20 @@ const styles = {
     backgroundColor: '#f8f8f8',
   },
 }
+
+// theme.typography.h3 = {
+//   fontFamily: [
+//     'fantasy',
+//     'serif',
+//   ].join(','),
+//   fontSize: '1.5rem',
+// '@media (min-width:600px)': {
+//   fontSize: '1.5rem',
+//   },
+//   [theme.breakpoints.up('md')]: {
+//     fontSize: '2rem',
+//   },
+// };
 
 class Modal extends Component {
 
@@ -85,8 +102,9 @@ render() {
 
   return (
     <div className={showHideClassName}>
+      {/* <ThemeProvider theme={theme}> */}
       <Card className="modal-main">
-        <Typography gutterBottom variant="h5" component="h2" className={classes.header}>
+        <Typography gutterBottom variant="h3" component="h3" className={classes.header}>
           Edit Product
         </Typography>
         <CardContent>
@@ -157,6 +175,7 @@ render() {
              </form>
            </CardContent>
       </Card>
+      {/* </ThemeProvider> */}
     </div>
   );
 }};

@@ -57,7 +57,7 @@ class ProductDisplay extends Component {
             <ProductSearch />
           </Grid>
           <Grid item xs={12}>
-            <Typography className={classes.header} variant="h5">
+            <Typography className={classes.header}>
                 Products
             </Typography>
                 <ProductsText />

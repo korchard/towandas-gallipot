@@ -41,7 +41,7 @@ const styles = {
   },
 }
 
-theme.typography.h2 = {
+theme.typography.h3 = {
   fontFamily: [
     'fantasy',
     'serif',
@@ -106,7 +106,7 @@ class LoginForm extends Component {
           <Grid item xs={12} sm={8} md={4}>
             <form className={classes.form} onSubmit={this.login}>
               <Card className={classes.card}>
-                <Typography component="h2" className={classes.header} variant="h2">
+                <Typography component="h3" className={classes.header} variant="h3">
                   Login 
                 </Typography>
               {this.props.store.errors.loginMessage && (
