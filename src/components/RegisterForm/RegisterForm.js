@@ -5,6 +5,9 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 // STYLING
 import { Button, Card, CardContent, Grid, TextField, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
+const theme = createMuiTheme();
 
 const styles = {
   header: {
@@ -38,6 +41,30 @@ const styles = {
     width: '100%',
   },
 }
+
+theme.typography.h2 = {
+  fontFamily: [
+    'fantasy',
+    'serif',
+  ].join(','),
+  fontSize: '1rem',
+'@media (min-width:600px)': {
+  fontSize: '1rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '2rem',
+  },
+};
+
+theme.typography.body1 = {
+  fontSize: '.7rem',
+  '@media (min-width:600px)': {
+    fontSize: '.7rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1rem',
+  },
+};
 
 class RegisterForm extends Component {
 
@@ -86,15 +113,16 @@ class RegisterForm extends Component {
 
     return (
       <div className={classes.root}>
+        <ThemeProvider theme={theme}>
         <Grid container spacing={4} className={classes.gridContainer} justify="center">
           <Grid item xs={12} sm={10} md={6}>
           <form className={classes.form} onSubmit={this.registerUser}>
             <Card className={classes.card}>
-              <Typography component="h2" className={classes.header}>
+              <Typography component="h2" className={classes.header} variant="h2">
                 Register 
               </Typography>
               {this.props.store.errors.registrationMessage && (
-                <Typography className="alert" role="alert">
+                <Typography className="alert" role="alert" variant="body1">
                   {this.props.store.errors.registrationMessage}
                 </Typography>
               )}
@@ -193,6 +221,7 @@ class RegisterForm extends Component {
           </form>
           </Grid>
         </Grid>
+        </ThemeProvider>
       </div>
     );
   }
