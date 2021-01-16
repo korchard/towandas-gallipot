@@ -23,8 +23,11 @@ const styles = {
 class ProductList extends Component {
 
   // calls the GET route to display thee products
-  componentDidMount = () => {
-    this.props.dispatch({ type: 'GET_PRODUCT' });
+  componentDidUpdate = () => {
+    console.log('productlist component', this.props.store.search);
+    if (this.props.store.search.length !== 0) {
+      // this.props.dispatch({ type: 'GET_PRODUCT' });
+    }
   } // end componentDidMount
 
   render() {

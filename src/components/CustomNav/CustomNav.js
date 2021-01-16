@@ -123,10 +123,7 @@ theme.typography.h3 = {
     fontSize: '2rem',
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: '3.5rem',
-    },
-    [theme.breakpoints.up('xs')]: {
-      fontSize: '3rem',
+      fontSize: '2rem',
     },
   };
 
@@ -201,7 +198,7 @@ const loggedInList = [
 
 const adminList = [
     {
-        text: 'Edit Products', 
+        text: 'Add/Edit Products', 
         onClick: () => props.history.push('/admin-product-add'),
     }, 
     {

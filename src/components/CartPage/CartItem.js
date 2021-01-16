@@ -73,18 +73,7 @@ const styles = {
 //     },
 //   };
 
-const getCookie = (cookieName) => {
-    // Get name followed by anything except a semicolon
-    const cookieString = RegExp(''+cookieName+'[^;]+').exec(document.cookie);
-    // Return everything after the equal sign, or an empty string if the cookie name not found
-    return decodeURIComponent(!!cookieString ? cookieString.toString().replace(/^[^=]+./,'') : '');
-  }
-
 class CartPage extends Component {
-
-    state = {
-        cartItems: getCookie('cart') || 0,
-      }
 
   render() {
     const { classes } = this.props;
