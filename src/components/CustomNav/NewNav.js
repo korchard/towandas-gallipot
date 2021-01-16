@@ -25,6 +25,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import Badge from '@material-ui/core/Badge';
 // import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 
@@ -236,7 +237,9 @@ const adminList = [
                         </>
                     )}
                     <Link className="nav-link" to="/cart">
+                      <Badge badgeContent={props.store.cart.length}>
                         <ShoppingCartIcon/>
+                      </Badge>
                     </Link>
             
                     <IconButton
