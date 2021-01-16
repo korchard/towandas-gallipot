@@ -23,10 +23,12 @@ const styles = {
 class ProductList extends Component {
 
   // calls the GET route to display thee products
-  componentDidUpdate = () => {
+  componentDidMount = () => {
     console.log('productlist component', this.props.store.search);
-    if (this.props.store.search.length !== 0) {
-      // this.props.dispatch({ type: 'GET_PRODUCT' });
+    if (this.props.store.search?.[0] === undefined) {
+      this.props.dispatch({ type: 'GET_PRODUCT' });
+    } else {
+      this.props.dispatch({ type: 'GET_SEARCH', payload: this.props.store.search.cookie });
     }
   } // end componentDidMount
 

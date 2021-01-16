@@ -81,7 +81,7 @@ class ProductSearch extends Component {
     const newSearch = (this.state.search);
     document.cookie = `search=${newSearch}`
     this.props.dispatch({ type: 'GET_SEARCH', payload: newSearch }); // GET search
-    this.props.dispatch({ type: 'SET_COOKIE', payload: newSearch });
+    this.props.dispatch({ type: 'SET_COOKIE', payload: {cookie: newSearch} });
     this.setState({
         search: ''
     }) // end setState
@@ -89,6 +89,7 @@ class ProductSearch extends Component {
 
   clearSearch = () => {
     this.props.dispatch({ type: 'GET_PRODUCT' }); // GET search
+    this.props.dispatch({ type: 'RESET_COOKIE' });
     document.cookie = "search=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     // this.componentDidMount();
   } // end searchProducts
