@@ -60,9 +60,9 @@ const styles = {
         'fantasy',
         'serif',
       ].join(','),
-      fontSize: '1rem',
+      fontSize: '1.2rem',
     '@media (min-width:600px)': {
-      fontSize: '1rem',
+      fontSize: '1.2rem',
       },
       [theme.breakpoints.up('md')]: {
         fontSize: '1.5rem',
@@ -161,12 +161,13 @@ class ProductsItem extends Component {
     const { classes } = this.props;
 
     return (
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={10} sm={6} md={3}>
           {this.state.mode === 'edit' ?
             <Card className={classes.root}>
               <ThemeProvider theme={theme}>
                 <CardHeader
-                  title={this.props.item.name}/>
+                  title={this.props.item.name}
+                  variant="h5"/>
                 <CardMedia
                   className={classes.media}
                   image={this.props.item.image_path}

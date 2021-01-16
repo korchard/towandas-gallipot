@@ -7,6 +7,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Button, TextField } from '@material-ui/core';
+// import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
+// const theme = createMuiTheme();
 
 const styles = {
   root: {
@@ -33,16 +36,36 @@ const styles = {
   },
 };
 
+// theme.typography.h5 = {
+//   fontSize: '1rem',
+//   '@media (min-width:600px)': {
+//     fontSize: '1rem',
+//   },
+//   [theme.breakpoints.up('md')]: {
+//     fontSize: '2rem',
+//   },
+// };
+
+const getCookie = (cookieName) => {
+  // Get name followed by anything except a semicolon
+  const cookieString = RegExp(''+cookieName+'[^;]+').exec(document.cookie);
+  // Return everything after the equal sign, or an empty string if the cookie name not found
+  return decodeURIComponent(!!cookieString ? cookieString.toString().replace(/^[^=]+./,'') : '');
+}
+
 class ProductSearch extends Component {
 
     state = { 
-        search: ''
+        search: getCookie('search') || '',
     }
 
-  // // calls the GET route to display thee products
-  // componentDidMount = () => {
-  //   this.props.dispatch({ type: 'GET_SEARCH' }); // GET search
-  // } // end componentDidMount
+    componentDidMount = () => {
+      if (this.state.search !== '') {
+        this.setState({
+          search: getCookie('search')
+        });
+      }
+    }
 
   // handles the input fields for adding a product
   handleInputChangeFor = (propertyName) => (event) => {
@@ -53,7 +76,9 @@ class ProductSearch extends Component {
 
   searchProducts = () => {
     console.log('search is', this.state.search)
-    this.props.dispatch({ type: 'GET_SEARCH', payload: this.state.search }); // GET search
+    const newSearch = (this.state.search);
+    document.cookie = `search=${newSearch}`
+    this.props.dispatch({ type: 'GET_SEARCH', payload: newSearch }); // GET search
     this.setState({
         search: ''
     }) // end setState
@@ -61,6 +86,8 @@ class ProductSearch extends Component {
 
   clearSearch = () => {
     this.props.dispatch({ type: 'GET_PRODUCT' }); // GET search
+    document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    this.componentDidMount();
   } // end searchProducts
 
   render() {
@@ -68,10 +95,11 @@ class ProductSearch extends Component {
 
     return (
       <div className={classes.root}>
+        {/* <ThemeProvider theme={theme}> */}
         <center>
             <Grid container spacing={4} className={classes.gridContainer} justify="center">
                 <Grid item xs={12}>
-                    <Typography className={classes.header}>
+                    <Typography className={classes.header} variant="h5">
                         Search
                     </Typography>
                     <TextField
@@ -88,6 +116,7 @@ class ProductSearch extends Component {
                 </Grid>
             </Grid>
         </center>
+        {/* </ThemeProvider> */}
       </div>
     );
   }

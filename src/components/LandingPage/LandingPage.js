@@ -20,7 +20,7 @@ const styles = {
     marginTop: '10%',
     radius: '5px',
     color: '#648b16',
-    fontSize: '2em',
+    // fontSize: '2em',
     fontFamily: 'fantasy',
     textAlign: 'right',
     paddingRight: '20px',
@@ -32,7 +32,7 @@ const styles = {
     marginTop: '10%',
     radius: '5px',
     color: '#648b16',
-    fontSize: '2em',
+    // fontSize: '2em',
     fontFamily: 'fantasy',
     textAlign: 'left',
     paddingLeft: '20px',
@@ -62,35 +62,35 @@ const styles = {
   },
 }
 
-// theme.typography.h2 = {
-//   fontSize: '1rem',
-// '@media (min-width:320px)': {
-//   fontSize: '1rem',
-//   },
-//   [theme.breakpoints.up('md')]: {
-//     fontSize: '1.5rem',
-//   },
-// };
+theme.typography.h6 = {
+  fontSize: '1rem',
+'@media (min-width:320px)': {
+  fontSize: '1rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.5rem',
+  },
+};
 
-// theme.typography.h3 = {
-//   fontSize: '1rem',
-// '@media (min-width:320px)': {
-//   fontSize: '1rem',
-//   },
-//   [theme.breakpoints.up('md')]: {
-//     fontSize: '1.5rem',
-//   },
-// };
+theme.typography.h3 = {
+  fontSize: '1.5rem',
+'@media (min-width:320px)': {
+  fontSize: '1.5rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '2rem',
+  },
+};
 
-// theme.typography.p = {
-//   fontSize: '1rem',
-// '@media (min-width:320px)': {
-//     fontSize: '1rem',
-//   },
-//   [theme.breakpoints.up('md')]: {
-//     fontSize: '1.5rem',
-//   },
-// };
+theme.typography.p = {
+  fontSize: '.7rem',
+'@media (min-width:320px)': {
+    fontSize: '.7rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1rem',
+  },
+};
 
 class LandingPage extends Component {
 
