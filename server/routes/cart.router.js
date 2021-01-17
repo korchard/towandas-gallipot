@@ -6,9 +6,13 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // GET ROUTE
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('user', req.user);
-    const queryText = `SELECT * FROM "cart" 
-                       JOIN "product" ON cart.product_id = product.id
-                       WHERE "user_id" = $1;`;
+    const queryText = `SELECT product.id, product.name, product.description, 
+                        product.size, product.image_path, product.type, SUM(cart.quantity), 
+                        COALESCE(SUM(cart.quantity * cart.total_cost), cart.total_cost) 
+                        FROM product
+                        LEFT JOIN cart ON cart.product_id = product.id
+                        WHERE cart.user_id = $1
+                        GROUP BY product.id, cart.product_id, cart.quantity, cart.total_cost;`;
     pool.query(queryText, [req.user.id])
         .then((results) => {
           res.send(results.rows);
@@ -25,7 +29,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('user', req.user);
 
     const queryText = `INSERT INTO "cart" (product_id, quantity, total_cost, user_id)
-                     VALUES ( $1, $2, $3, $4 )`;
+                       VALUES ( $1, $2, $3, $4 )`;
     pool.query(queryText, [req.body.product_id, req.body.quantity, req.body.total_cost, 
                            req.user.id])
         .then(() => res.sendStatus(201))

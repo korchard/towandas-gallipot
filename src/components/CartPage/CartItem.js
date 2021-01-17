@@ -34,8 +34,8 @@ const styles = {
     float: 'left',
   },
   controls: {
-    display: 'flex',
-    alignItems: 'center',
+    // display: 'flex',
+    alignItems: 'right',
     paddingLeft: theme.spacing(1),
     paddingBottom: theme.spacing(1),
   },
@@ -103,7 +103,10 @@ class CartPage extends Component {
                           <Typography variant="subtitle1" color="textSecondary">
                             {this.props.item.description}
                           </Typography>
-                        </CardContent>
+                          <Typography variant="subtitle1" color="textSecondary">
+                            {this.props.item.quantity}
+                          </Typography>
+                        {/* </CardContent> */}
                           <div className={classes.controls}>
                             <IconButton aria-label="previous">
                               <AddCircleIcon/>
@@ -115,6 +118,7 @@ class CartPage extends Component {
                                 <DeleteIcon />
                             </IconButton>
                           </div>
+                          </CardContent>
                       </div>
                        </Paper>
                 </Grid>
