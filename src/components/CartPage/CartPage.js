@@ -57,7 +57,7 @@ class CartPage extends Component {
       <div>
         {(this.props.store.cart.length > 0) ?
           <Grid container spacing={4} className={classes.gridContainer}>
-            <Grid item xs={12} sm={8}>
+            <Grid item xs={10} sm={8}>
               {this.props.store.cart.map((item) => {
                   return (
                       <CartItem key= {item.id} item={item}/>

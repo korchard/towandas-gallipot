@@ -99,6 +99,10 @@ class LandingPage extends Component {
     this.props.history.push('/login');
   };
 
+  componentDidMount = () => {
+    this.props.dispatch({ type: 'GET_CART' });
+  }
+
   render() {
     const { classes } = this.props;
 

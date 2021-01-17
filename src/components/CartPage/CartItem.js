@@ -21,10 +21,14 @@ const styles = {
   root: {
     display: 'flex',
     width: 800,
+    height: 'auto',
+    maxHeight: 200,
+    marginBottom: '5%',
   },
   details: {
     display: 'flex',
     flexDirection: 'column',
+    width: 400,
   },
   content: {
     flex: '1 0 auto',
@@ -34,7 +38,7 @@ const styles = {
     float: 'left',
   },
   controls: {
-    // display: 'flex',
+    display: 'flex',
     alignItems: 'right',
     paddingLeft: theme.spacing(1),
     paddingBottom: theme.spacing(1),
@@ -55,7 +59,17 @@ const styles = {
       fontFamily: 'fantasy',
       textAlign: 'left',
       paddingLeft: '20px',
+      paddingTop: '20px',
     },
+    subtext: {
+      paddingLeft: '20px',
+      paddingTop: '2%',
+    },
+    subtext2: {
+      paddingRight: '20px',
+      paddingTop: '2%',
+      float: 'right',
+    }
   }
 
   theme.typography.h5 = {
@@ -100,14 +114,18 @@ class CartPage extends Component {
                           <Typography component="h5" variant="h5" className={classes.header}>
                             {this.props.item.name}
                           </Typography>
-                          <Typography variant="subtitle1" color="textSecondary">
-                            {this.props.item.description}
+                          <Typography variant="subtitle1" className={classes.subtext}>
+                            {this.props.item.size}
                           </Typography>
-                          <Typography variant="subtitle1" color="textSecondary">
-                            {this.props.item.quantity}
+                          <Typography variant="subtitle1" className={classes.subtext}>
+                            quantity - {this.props.item.sum}
                           </Typography>
-                        {/* </CardContent> */}
-                          <div className={classes.controls}>
+                          <Typography variant="subtitle1" className={classes.subtext2}>
+                            Total - ${this.props.item.coalesce}
+                          </Typography>
+                          </CardContent>
+                      </div>
+                      <div className={classes.controls}>
                             <IconButton aria-label="previous">
                               <AddCircleIcon/>
                             </IconButton>
@@ -118,8 +136,6 @@ class CartPage extends Component {
                                 <DeleteIcon />
                             </IconButton>
                           </div>
-                          </CardContent>
-                      </div>
                        </Paper>
                 </Grid>
             </div>

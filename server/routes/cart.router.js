@@ -6,8 +6,8 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // GET ROUTE
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('user', req.user);
-    const queryText = `SELECT product.id, product.name, product.description, 
-                        product.size, product.image_path, product.type, SUM(cart.quantity), 
+    const queryText = `SELECT product.id, product.name, product.size, product.image_path, 
+                        product.type, SUM(cart.quantity), 
                         COALESCE(SUM(cart.quantity * cart.total_cost), cart.total_cost) 
                         FROM product
                         LEFT JOIN cart ON cart.product_id = product.id

@@ -66,6 +66,10 @@ class ContactPage extends Component {
     message: '',
 };
 
+componentDidMount = () => {
+  this.props.dispatch({ type: 'GET_CART' });
+}
+
 // POST route to add a new product
 sendMessage = (event) => {
   event.preventDefault();
