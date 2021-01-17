@@ -100,7 +100,7 @@ class LandingPage extends Component {
   };
 
   componentDidMount = () => {
-    this.props.dispatch({ type: 'GET_CART' });
+    this.props.dispatch({ type: 'GET_CART_ITEMS' });
   }
 
   render() {

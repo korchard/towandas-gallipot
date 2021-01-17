@@ -1,19 +1,39 @@
+import { combineReducers } from 'redux';
+
 const cartReducer = (state = [], action) => {
     switch (action.type) {
       case 'SET_CART':
+        return action.payload;
+      case 'SET_CART_ITEMS':
+        return action.payload;
+      case 'SET_CART_TOTAL':
         return action.payload;
       default:
         return state;
     }
   }; 
 
-// const cartReducer = (state = [], action) => {
-//    if (state === null) {
-//      return state;
-//    } else if (action.type === 'SET_CART') {
-//      return [...state, action.payload];
-//    }
-//    return state;
-// }; 
+const itemsReducer = (state = [], action) => {
+    switch (action.type) {
+      case 'SET_CART_ITEMS':
+        return action.payload;
+      default:
+        return state;
+    }
+  }; 
 
-export default cartReducer;
+const totalReducer = (state = [], action) => {
+    switch (action.type) {
+      case 'SET_CART_TOTAL':
+        return action.payload;
+      default:
+        return state;
+    }
+  }; 
+
+
+export default combineReducers({
+  cartReducer,
+  itemsReducer,
+  totalReducer,
+});

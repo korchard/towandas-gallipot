@@ -47,7 +47,7 @@ const styles = {
 class ProductDisplay extends Component {
 
   componentDidMount = () => {
-    this.props.dispatch({ type: 'GET_CART' });
+    this.props.dispatch({ type: 'GET_CART_ITEMS' });
   }
 
   render() {

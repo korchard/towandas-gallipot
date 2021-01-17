@@ -10,6 +10,8 @@ import './CartPage.css'
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import CardContent from '@material-ui/core/CardContent';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 const theme = createMuiTheme();
@@ -27,6 +29,23 @@ const styles = {
       padding: '3%',
       radius: '5px',
     },
+    header2: {
+      margin: 'auto',
+      fontFamily: 'fantasy',
+      textAlign: 'center',
+      fontSize: '2em',
+      padding: '3%',
+      radius: '5px',
+    },
+    root: {
+      marginBottom: '5%',
+    },
+    orderDetails: {
+      marginLeft: '5%',
+    },
+    subtitle1: {
+      paddingBottom: '5%',
+    }
   }
 
   theme.typography.h3 = {
@@ -47,6 +66,8 @@ class CartPage extends Component {
 
   componentDidMount = () => {
     this.props.dispatch({ type: 'GET_CART' });
+    // this.props.dispatch({ type: 'GET_CART_ITEMS' });
+    // this.props.dispatch({ type: 'GET_CART_TOTAL' });
   }
 
   render() {
@@ -57,14 +78,38 @@ class CartPage extends Component {
       <div>
         {(this.props.store.cart.length > 0) ?
           <Grid container spacing={4} className={classes.gridContainer}>
-            <Grid item xs={10} sm={8}>
+            <Grid item xs={12} sm={7}>
               {this.props.store.cart.map((item) => {
                   return (
                       <CartItem key= {item.id} item={item}/>
                   );
               })} 
             </Grid>
-          </Grid> :
+            <Grid item xs={12} sm={4} className={classes.orderDetails}>
+                <Paper className={classes.root}>
+                  <CardContent>
+                    <Typography component="h3" className={classes.header2}>
+                      Order Summary
+                    </Typography>
+                    <br></br>
+                    <Typography component="subtitle1" className={classes.subtitle1}>
+                      Subtotal: ${this.props.store.cart.coalese}
+                    </Typography>
+                    <br></br><br></br>
+                    <Typography component="subtitle1" className={classes.subtitle1}>
+                      Shipping Cost:  --- calculated upon checkout ---
+                    </Typography>
+                    <br></br><br></br>
+                    <Typography component="h3" className={classes.header2}>
+                      Total: ${this.props.store.cart.coalese}
+                    </Typography>
+                  </CardContent>
+                </Paper>
+            </Grid>
+          </Grid> 
+          
+          
+          :
           <center>
             <ThemeProvider theme={theme}>
                 <Typography component="h3" className={classes.header} variant="h3">

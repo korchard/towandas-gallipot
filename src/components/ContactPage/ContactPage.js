@@ -67,7 +67,7 @@ class ContactPage extends Component {
 };
 
 componentDidMount = () => {
-  this.props.dispatch({ type: 'GET_CART' });
+  this.props.dispatch({ type: 'GET_CART_ITEMS' });
 }
 
 // POST route to add a new product

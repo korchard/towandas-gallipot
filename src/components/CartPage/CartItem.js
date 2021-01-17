@@ -20,7 +20,7 @@ const theme = createMuiTheme();
 const styles = {
   root: {
     display: 'flex',
-    width: 800,
+    width: '100%',
     height: 'auto',
     maxHeight: 200,
     marginBottom: '5%',
@@ -55,7 +55,7 @@ const styles = {
     header: {
       margin: 'auto',
       radius: '5px',
-      fontSize: '2em',
+      // fontSize: '2em',
       fontFamily: 'fantasy',
       textAlign: 'left',
       paddingLeft: '20px',

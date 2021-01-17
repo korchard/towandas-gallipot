@@ -30,11 +30,45 @@ function* getCart() {
     } catch (error) {
       console.log('Bad news bears...error in cart saga get', error);
     }
-} // end getProduct
+} // end getCart
+
+// GET ROUTE
+function* getCartItems() {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+
+    const response = yield axios.get('api/cart/items', config);
+
+    yield put({ type: 'SET_CART_ITEMS', payload: response.data });
+  } catch (error) {
+    console.log('Bad news bears...error in cart saga get', error);
+  }
+} // end getCart
+
+// GET ROUTE
+function* getCartTotal() {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+
+    const response = yield axios.get('api/cart/total', config);
+
+    yield put({ type: 'SET_CART_TOTAL', payload: response.data });
+  } catch (error) {
+    console.log('Bad news bears...error in cart saga get', error);
+  }
+} // end getCart
 
 function* productSaga() {
   yield takeEvery('ADD_TO_CART', addToCart);
   yield takeEvery('GET_CART', getCart);
+  yield takeEvery('GET_CART_ITEMS', getCartItems);
+  yield takeEvery('GET_CART_TOTAL', getCartTotal);
 }
 
 export default productSaga;

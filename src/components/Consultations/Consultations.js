@@ -92,7 +92,7 @@ theme.typography.p = {
 class Consultations extends Component {
 
   componentDidMount = () => {
-    this.props.dispatch({ type: 'GET_CART' });
+    this.props.dispatch({ type: 'GET_CART_ITEMS' });
   }
 
   // routes the user to the consult form when button is clicked
