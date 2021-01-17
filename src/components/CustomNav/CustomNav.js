@@ -244,7 +244,7 @@ const adminList = [
                         </>
                     )}
                     <Link className="nav-link" to="/cart">
-                      <Badge badgeContent={props.store.cart[0]?.count}>
+                      <Badge badgeContent={props.store.cart.itemsReducer[0]?.count}>
                         <ShoppingCartIcon/>
                       </Badge>
                     </Link>

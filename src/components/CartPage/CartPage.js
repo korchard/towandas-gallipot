@@ -66,8 +66,8 @@ class CartPage extends Component {
 
   componentDidMount = () => {
     this.props.dispatch({ type: 'GET_CART' });
-    // this.props.dispatch({ type: 'GET_CART_ITEMS' });
-    // this.props.dispatch({ type: 'GET_CART_TOTAL' });
+    this.props.dispatch({ type: 'GET_CART_ITEMS' });
+    this.props.dispatch({ type: 'GET_CART_TOTAL' });
   }
 
   render() {
@@ -76,10 +76,10 @@ class CartPage extends Component {
     return (
 
       <div>
-        {(this.props.store.cart.length > 0) ?
+        {(this.props.store.cart.cartReducer.length > 0) ?
           <Grid container spacing={4} className={classes.gridContainer}>
             <Grid item xs={12} sm={7}>
-              {this.props.store.cart.map((item) => {
+              {this.props.store.cart.cartReducer.map((item) => {
                   return (
                       <CartItem key= {item.id} item={item}/>
                   );

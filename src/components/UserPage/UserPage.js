@@ -50,6 +50,11 @@ theme.typography.body1 = {
 };
 
 class UserPage extends Component {
+
+  componentDidMount = () => {
+    this.props.dispatch({ type: 'GET_CART_ITEMS' });
+  }
+  
   // this component doesn't do much to start, just renders some user info to the DOM
   render() {
     const { classes } = this.props;
