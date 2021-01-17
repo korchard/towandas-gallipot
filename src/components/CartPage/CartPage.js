@@ -45,15 +45,15 @@ const styles = {
 
 class CartPage extends Component {
 
-  // componentDidMount = () => {
-  //   this.props.dispatch({ type: 'ADD_TO_CART' });
-  // }
+  componentDidMount = () => {
+    this.props.dispatch({ type: 'GET_CART' });
+  }
 
   render() {
     const { classes } = this.props;
 
     return (
-      
+
       <div>
         {(this.props.store.cart.length > 0) ?
           <Grid container spacing={4} className={classes.gridContainer}>

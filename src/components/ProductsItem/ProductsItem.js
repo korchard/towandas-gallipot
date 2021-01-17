@@ -146,6 +146,7 @@ class ProductsItem extends Component {
 
     purhcaseItem = (id) => {
       console.log('item id', id);
+      console.log('user', this.props.store.user.id);
       
       if (this.props.store.user.id === undefined) {
         swal({
@@ -159,7 +160,6 @@ class ProductsItem extends Component {
             product_id: this.props.item.id,
             quantity: 1,
             total_cost: this.props.item.cost,
-            user_id: this.props.store.user.id,
           } 
         });
       }
