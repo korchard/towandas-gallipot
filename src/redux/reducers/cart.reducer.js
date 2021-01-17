@@ -27,9 +27,19 @@ const totalReducer = (state = [], action) => {
     }
   }; 
 
+const shippingReducer = (state = [], action) => {
+    switch (action.type) {
+      case 'SET_SHIPPING':
+        return action.payload;
+      default:
+        return state;
+    }
+  }; 
+
 
 export default combineReducers({
   cartReducer,
   itemsReducer,
   totalReducer,
+  shippingReducer,
 });

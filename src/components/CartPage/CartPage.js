@@ -39,6 +39,7 @@ const styles = {
     },
     root: {
       marginBottom: '5%',
+      minWidth: 300,
     },
     orderDetails: {
       marginLeft: '5%',
@@ -68,6 +69,7 @@ class CartPage extends Component {
     this.props.dispatch({ type: 'GET_CART' });
     this.props.dispatch({ type: 'GET_CART_ITEMS' });
     this.props.dispatch({ type: 'GET_CART_TOTAL' });
+    this.props.dispatch({ type: 'GET_SHIPPING' });
   }
 
   render() {
@@ -93,7 +95,8 @@ class CartPage extends Component {
                     </Typography>
                     <br></br>
                     <Typography component="subtitle1" className={classes.subtitle1}>
-                      Subtotal: ${this.props.store.cart.totalReducer[0]?.sum}
+                      Subtotal:........................
+                       ${this.props.store.cart.totalReducer[0]?.sum}
                     </Typography>
                     <br></br><br></br>
                     <Typography component="subtitle1" className={classes.subtitle1}>
