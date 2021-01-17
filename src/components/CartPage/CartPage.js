@@ -10,6 +10,8 @@ import './CartPage.css'
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import CardContent from '@material-ui/core/CardContent';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 const theme = createMuiTheme();
@@ -27,6 +29,24 @@ const styles = {
       padding: '3%',
       radius: '5px',
     },
+    header2: {
+      margin: 'auto',
+      fontFamily: 'fantasy',
+      textAlign: 'center',
+      fontSize: '2em',
+      padding: '3%',
+      radius: '5px',
+    },
+    root: {
+      marginBottom: '5%',
+      minWidth: 300,
+    },
+    orderDetails: {
+      marginLeft: '5%',
+    },
+    subtitle1: {
+      paddingBottom: '5%',
+    }
   }
 
   theme.typography.h3 = {
@@ -43,48 +63,56 @@ const styles = {
     },
   };
 
-  const getCookie = (cookieName) => {
-    // Get name followed by anything except a semicolon
-    const cookieString = RegExp(''+cookieName+'[^;]+').exec(document.cookie);
-    // Return everything after the equal sign, or an empty string if the cookie name not found
-    return decodeURIComponent(!!cookieString ? cookieString.toString().replace(/^[^=]+./,'') : '');
-  }
-
 class CartPage extends Component {
 
-  state = {
-    cartItems: getCookie('cart') || 0,
-    usernameId: getCookie(this.props.store.user.id) || '',
-  }
-
   componentDidMount = () => {
-    if (this.state.usernameId !== ''){
-      this.setState({
-        usernameId: getCookie(this.props.store.user.id)
-      });
-    }
-  }
-
-  removeCookie = () => {
-    document.cookie = "usernameId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    this.componentDidMount();
+    this.props.dispatch({ type: 'GET_CART' });
+    this.props.dispatch({ type: 'GET_CART_ITEMS' });
+    this.props.dispatch({ type: 'GET_CART_TOTAL' });
+    this.props.dispatch({ type: 'GET_SHIPPING' });
   }
 
   render() {
     const { classes } = this.props;
 
     return (
+
       <div>
-        {(this.props.store.cart.length > 0) ?
+        {(this.props.store.cart.cartReducer.length > 0) ?
           <Grid container spacing={4} className={classes.gridContainer}>
-            <Grid item xs={12} sm={8}>
-              {this.props.store.cart.map((item) => {
+            <Grid item xs={12} sm={7}>
+              {this.props.store.cart.cartReducer.map((item) => {
                   return (
                       <CartItem key= {item.id} item={item}/>
                   );
               })} 
             </Grid>
-          </Grid> :
+            <Grid item xs={12} sm={4} className={classes.orderDetails}>
+                <Paper className={classes.root}>
+                  <CardContent>
+                    <Typography component="h3" className={classes.header2}>
+                      Order Summary
+                    </Typography>
+                    <br></br>
+                    <Typography component="subtitle1" className={classes.subtitle1}>
+                      Subtotal:........................
+                       ${this.props.store.cart.totalReducer[0]?.sum}
+                    </Typography>
+                    <br></br><br></br>
+                    <Typography component="subtitle1" className={classes.subtitle1}>
+                      Shipping Cost:  --- calculated upon checkout ---
+                    </Typography>
+                    <br></br><br></br>
+                    <Typography component="h3" className={classes.header2}>
+                      Total: ${this.props.store.cart.totalReducer[0]?.sum}
+                    </Typography>
+                  </CardContent>
+                </Paper>
+            </Grid>
+          </Grid> 
+          
+          
+          :
           <center>
             <ThemeProvider theme={theme}>
                 <Typography component="h3" className={classes.header} variant="h3">

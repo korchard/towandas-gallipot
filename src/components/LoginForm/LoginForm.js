@@ -47,7 +47,7 @@ theme.typography.h3 = {
     'serif',
   ].join(','),
   fontSize: '1.5rem',
-'@media (min-width:600px)': {
+'@media (min-width:320px)': {
   fontSize: '1.5rem',
   },
   [theme.breakpoints.up('md')]: {

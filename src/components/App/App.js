@@ -27,6 +27,9 @@ import ProductDisplay from '../ProductDisplay/ProductDisplay';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import UserPage from '../UserPage/UserPage';
+// import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
+// const theme = createMuiTheme();
 
 import './App.css';
 

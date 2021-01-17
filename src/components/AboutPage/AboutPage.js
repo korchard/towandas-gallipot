@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // STYLING
 import { Typography } from '@material-ui/core';
@@ -82,6 +84,10 @@ theme.typography.p = {
 };
 
 class AboutPage extends Component {
+
+  componentDidMount = () => {
+    this.props.dispatch({ type: 'GET_CART_ITEMS' });
+  }
 
   render() {
     const { classes } = this.props;
@@ -167,5 +173,5 @@ class AboutPage extends Component {
   }
 }
 
-export default withStyles(styles)(AboutPage);
+export default connect(mapStoreToProps)(withStyles(styles)(AboutPage));
 

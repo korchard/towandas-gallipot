@@ -118,9 +118,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 theme.typography.h3 = {
-    fontSize: '2rem',
-  '@media (min-width:600px)': {
-    fontSize: '2rem',
+    fontSize: '1.5rem',
+  '@media (min-width:320px)': {
+    fontSize: '1.5rem',
     },
     [theme.breakpoints.up('md')]: {
       fontSize: '2rem',
@@ -244,7 +244,7 @@ const adminList = [
                         </>
                     )}
                     <Link className="nav-link" to="/cart">
-                      <Badge badgeContent={props.store.cart.length}>
+                      <Badge badgeContent={props.store.cart.itemsReducer[0]?.count}>
                         <ShoppingCartIcon/>
                       </Badge>
                     </Link>

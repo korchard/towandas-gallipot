@@ -43,17 +43,17 @@ const styles = {
 }
 
 // responsiveness
-theme.typography.h3 = {
+theme.typography.h4 = {
   fontFamily: [
     'fantasy',
     'serif',
   ].join(','),
-  fontSize: '1.5rem',
-'@media (min-width:600px)': {
-  fontSize: '1.5rem',
+  fontSize: '1.2rem',
+'@media (min-width:320px)': {
+  fontSize: '1.2rem',
   },
   [theme.breakpoints.up('md')]: {
-    fontSize: '2rem',
+    fontSize: '1.5rem',
   },
 };
 
@@ -117,7 +117,7 @@ class ProductAdminForm extends Component {
             <form className={classes.form} onSubmit={this.addProduct}>
               <Card>
                 <ThemeProvider theme={theme}>
-                  <Typography gutterBottom variant="h3" component="h3" className={classes.header}>
+                  <Typography gutterBottom variant="h4" component="h4" className={classes.header}>
                     Add Product
                   </Typography>
               <CardContent>

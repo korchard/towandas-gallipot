@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // STYLING
 import { Typography } from '@material-ui/core';
@@ -88,6 +90,10 @@ theme.typography.p = {
 };
 
 class Consultations extends Component {
+
+  componentDidMount = () => {
+    this.props.dispatch({ type: 'GET_CART_ITEMS' });
+  }
 
   // routes the user to the consult form when button is clicked
   goToForm = () => {
@@ -193,4 +199,4 @@ class Consultations extends Component {
   }
 }
 
-export default withStyles(styles)(withRouter(Consultations));
+export default connect(mapStoreToProps)(withStyles(styles)(withRouter(Consultations)));

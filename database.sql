@@ -47,3 +47,13 @@ CREATE TABLE "order_detail" (
 	total_cost DECIMAL(20, 2),
 	order_id INT REFERENCES "order"
 );
+
+DROP TABLE "cart";
+
+CREATE TABLE "cart" (
+	id SERIAL PRIMARY KEY,
+	product_id INT REFERENCES "product",
+	quantity INTEGER,
+	total_cost DECIMAL(20, 2),
+	user_id INT REFERENCES "user"
+);
