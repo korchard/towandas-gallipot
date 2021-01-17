@@ -45,14 +45,6 @@ const styles = {
     expandOpen: {
       transform: 'rotate(180deg)',
     },
-    // paper: {
-    //   position: 'absolute',
-    //   width: 400,
-    //   backgroundColor: theme.palette.background.paper,
-    //   border: '2px solid #000',
-    //   boxShadow: theme.shadows[5],
-    //   padding: theme.spacing(2, 4, 3),
-    // },
   }
 
   theme.typography.h5 = {
@@ -154,7 +146,23 @@ class ProductsItem extends Component {
 
     purhcaseItem = (id) => {
       console.log('item id', id);
-      this.props.dispatch({ type: 'ADD_TO_CART', payload: id });
+      
+      if (this.props.store.user.id === undefined) {
+        swal({
+          title: "Are you logged in?",
+          text: "Please log in or register in order to make purchases and save items into your cart!",
+          icon: "info",
+          button: "Thank you!",
+        });
+      } else {
+        this.props.dispatch({ type: 'ADD_TO_CART', payload: {
+            product_id: this.props.item.id,
+            quantity: 1,
+            total_cost: this.props.item.cost,
+            user_id: this.props.store.user.id,
+          } 
+        });
+      }
     }
 
   render() {

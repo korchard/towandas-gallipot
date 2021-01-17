@@ -43,13 +43,13 @@ const styles = {
 }
 
 // responsiveness
-theme.typography.h2 = {
+theme.typography.h3 = {
   fontFamily: [
     'fantasy',
     'serif',
   ].join(','),
   fontSize: '1.5rem',
-'@media (min-width:600px)': {
+'@media (min-width:320px)': {
   fontSize: '1.5rem',
   },
   [theme.breakpoints.up('md')]: {
@@ -110,7 +110,7 @@ handleInputChangeFor = (propertyName) => (event) => {
             <form className={classes.form} onSubmit={this.sendMessage}>
               <Card>
                 <ThemeProvider theme={theme}>
-                  <Typography gutterBottom variant="h2" component="h2" className={classes.header}>
+                  <Typography gutterBottom variant="h3" component="h3" className={classes.header}>
                     Send a Message
                   </Typography>
                 </ThemeProvider>

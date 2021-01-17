@@ -31,7 +31,7 @@ const styles = {
   },
   cover: {
     width: 200,
-    float: 'right',
+    float: 'left',
   },
   controls: {
     display: 'flex',
@@ -48,21 +48,29 @@ const styles = {
       paddingRight: '5%',
       paddingTop: '5%',
     },
+    header: {
+      margin: 'auto',
+      radius: '5px',
+      fontSize: '2em',
+      fontFamily: 'fantasy',
+      textAlign: 'left',
+      paddingLeft: '20px',
+    },
   }
 
-//   theme.typography.h5 = {
-//       fontFamily: [
-//         'fantasy',
-//         'serif',
-//       ].join(','),
-//       fontSize: '1rem',
-//     '@media (min-width:600px)': {
-//       fontSize: '1rem',
-//       },
-//       [theme.breakpoints.up('md')]: {
-//         fontSize: '1.5rem',
-//       },
-//   };
+  theme.typography.h5 = {
+      fontFamily: [
+        'fantasy',
+        'serif',
+      ].join(','),
+      fontSize: '1rem',
+    '@media (min-width:600px)': {
+      fontSize: '1rem',
+      },
+      [theme.breakpoints.up('md')]: {
+        fontSize: '1.5rem',
+      },
+  };
   
 //   theme.typography.p = {
 //     fontSize: '1rem',
@@ -83,9 +91,13 @@ class CartPage extends Component {
             <div>
                 <Grid item xs={12} theme={theme}>
                     <Paper className={classes.root}>
+                    <CardMedia
+                          className={classes.cover}
+                          image={this.props.item.image_path}
+                          title={this.props.item.name}/>
                       <div className={classes.details}>
                         <CardContent className={classes.content}>
-                          <Typography component="h5" variant="h5">
+                          <Typography component="h5" variant="h5" className={classes.header}>
                             {this.props.item.name}
                           </Typography>
                           <Typography variant="subtitle1" color="textSecondary">
@@ -104,10 +116,6 @@ class CartPage extends Component {
                             </IconButton>
                           </div>
                       </div>
-                        <CardMedia
-                          className={classes.cover}
-                          image={this.props.item.image_path}
-                          title={this.props.item.name}/>
                        </Paper>
                 </Grid>
             </div>
