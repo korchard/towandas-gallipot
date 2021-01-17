@@ -23,7 +23,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         })
 });
 
-// GET ROUTE
+// GET ROUTE - for item total to display in navbar
 router.get('/items', rejectUnauthenticated, (req, res) => {
     console.log('user', req.user);
     const queryText = `SELECT COUNT(cart.quantity) FROM product
@@ -39,10 +39,10 @@ router.get('/items', rejectUnauthenticated, (req, res) => {
         })
 });
 
-// GET ROUTE
+// GET ROUTE - to calculate total cost of items
 router.get('/total', rejectUnauthenticated, (req, res) => {
   console.log('user', req.user);
-  const queryText = `SELECT COUNT(cart.quantity) FROM product
+  const queryText = `SELECT SUM(cart.quantity * product.cost) FROM product
                       LEFT JOIN cart ON cart.product_id = product.id
                       WHERE cart.user_id = $1;`
   pool.query(queryText, [req.user.id])

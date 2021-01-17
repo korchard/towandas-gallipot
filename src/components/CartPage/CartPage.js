@@ -93,7 +93,7 @@ class CartPage extends Component {
                     </Typography>
                     <br></br>
                     <Typography component="subtitle1" className={classes.subtitle1}>
-                      Subtotal: ${this.props.store.cart.coalese}
+                      Subtotal: ${this.props.store.cart.totalReducer[0]?.sum}
                     </Typography>
                     <br></br><br></br>
                     <Typography component="subtitle1" className={classes.subtitle1}>
@@ -101,7 +101,7 @@ class CartPage extends Component {
                     </Typography>
                     <br></br><br></br>
                     <Typography component="h3" className={classes.header2}>
-                      Total: ${this.props.store.cart.coalese}
+                      Total: ${this.props.store.cart.totalReducer[0]?.sum}
                     </Typography>
                   </CardContent>
                 </Paper>
