@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import CardContent from '@material-ui/core/CardContent';
+import { Button } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 const theme = createMuiTheme();
@@ -65,6 +66,10 @@ const styles = {
 
 class CartPage extends Component {
 
+  state = {
+    checkout: false
+  }
+
   componentDidMount = () => {
     this.props.dispatch({ type: 'GET_CART' });
     this.props.dispatch({ type: 'GET_CART_ITEMS' });
@@ -72,12 +77,12 @@ class CartPage extends Component {
     this.props.dispatch({ type: 'GET_SHIPPING' });
   }
 
-  // getPostagePrice = () => {
-  //   fetch(`/https://secure.shippingapis.com/ShippingAPI.dllAPI=RateV4&amp&XML=${xml}`)
-  //   .then(response => response.text())
-  //   .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
-  //   .then(data => console.log(data));
-  // }
+  checkout = () => {
+    this.setState({
+      checkout: true
+    })
+    this.props.history.push('/checkout');
+  }
 
   render() {
     const { classes } = this.props;
@@ -113,12 +118,11 @@ class CartPage extends Component {
                     <Typography component="h3" className={classes.header2}>
                       Total: ${this.props.store.cart.totalReducer[0]?.sum}
                     </Typography>
+                    <Button onClick={this.checkout}>Checkout</Button>
                   </CardContent>
                 </Paper>
             </Grid>
           </Grid> 
-          
-          
           :
           <center>
             <ThemeProvider theme={theme}>

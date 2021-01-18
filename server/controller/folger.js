@@ -8,4 +8,5 @@ const fetchingFolger = async(url) => {
         console.log('Bad news bears with folgers get request...', error);
     }
 }
+
 module.exports = fetchingFolger;
