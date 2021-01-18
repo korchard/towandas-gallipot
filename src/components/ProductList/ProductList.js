@@ -24,6 +24,7 @@ class ProductList extends Component {
 
   // calls the GET route to display thee products
   componentDidMount = () => {
+    // this.props.dispatch({ type: 'GET_CART_ITEMS' });
     console.log('productlist component', this.props.store.search);
     if (this.props.store.search?.[0] === undefined) {
       this.props.dispatch({ type: 'GET_PRODUCT' });

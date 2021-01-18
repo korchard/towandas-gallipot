@@ -72,6 +72,13 @@ class CartPage extends Component {
     this.props.dispatch({ type: 'GET_SHIPPING' });
   }
 
+  // getPostagePrice = () => {
+  //   fetch(`/https://secure.shippingapis.com/ShippingAPI.dllAPI=RateV4&amp&XML=${xml}`)
+  //   .then(response => response.text())
+  //   .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+  //   .then(data => console.log(data));
+  // }
+
   render() {
     const { classes } = this.props;
 

@@ -79,6 +79,10 @@ class ProductsItem extends Component {
         open: false,
     }
   
+    componentDidMount = () => {
+      this.props.dispatch({ type: 'GET_CART_ITEMS '});
+    }
+
     // expands the card info for the products
     handleExpandClick = () => {
         this.setState({
@@ -162,7 +166,10 @@ class ProductsItem extends Component {
             total_cost: this.props.item.cost,
           } 
         });
-      }
+        // this.props.dispatch({ type: 'GET_CART_ITEMS '});
+        this.componentDidMount(); 
+      } 
+      // this.componentDidMount(); // ------------------------------ WANT CART ITEMS TO UPDATE WHEN BUTTON IS CLICKED
     }
 
   render() {
