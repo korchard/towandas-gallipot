@@ -4,6 +4,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // COMPONENTS
 import CartItem from './CartItem';
+import PayPal from '../CheckoutPage/PayPal';
 
 // STYLING
 import './CartPage.css'
@@ -81,20 +82,32 @@ class CartPage extends Component {
     this.setState({
       checkout: true
     })
-    this.props.history.push('/checkout');
   }
 
   calculateShipping = () => {
+    let shipping = null;
+    if (this.props.store.cart.totalReducer[0]?.sum <= 20.00) {
+      shipping = 5.00; 
+    } else if (this.props.store.cart.totalReducer[0]?.sum <= 50.00) {
+      shipping = 8.00;
+    } else if (this.props.store.cart.totalReducer[0]?.sum <= 100.00) {
+      shipping = 10.00;
+    } else if (this.props.store.cart.totalReducer[0]?.sum > 100.00) {
+      shipping = 0.00;
+    }
+    return shipping;
+  }
+
+  calculateTotal = () => {
     let total = null;
-    console.log('shipping', this.props.store.cart.totalReducer[0].sum);
-    if (this.props.store.cart.totalReducer[0].sum <= 20.00) {
-      total = 5.00;
-    } else if (this.props.store.cart.totalReducer[0].sum <= 50.00) {
-      total = 8.00;
-    } else if (this.props.store.cart.totalReducer[0].sum <= 100.00) {
-      total = 10.00;
-    } else if (this.props.store.cart.totalReducer[0].sum >= 100.00) {
-      total = 0.00;
+    if (this.props.store.cart.totalReducer[0]?.sum <= 20.00) {
+      total = (Number(5.00) + Number(this.props.store.cart.totalReducer[0]?.sum)); 
+    } else if (this.props.store.cart.totalReducer[0]?.sum <= 50.00) {
+      total = (Number(8.00) + Number(this.props.store.cart.totalReducer[0]?.sum)); 
+    } else if (this.props.store.cart.totalReducer[0]?.sum <= 100.00) {
+      total = (Number(10.00) + Number(this.props.store.cart.totalReducer[0]?.sum)); 
+    } else if (this.props.store.cart.totalReducer[0]?.sum > 100.00) {
+      total = this.props.store.cart.totalReducer[0]?.sum; 
     }
     return total;
   }
@@ -122,19 +135,22 @@ class CartPage extends Component {
                     </Typography>
                     <br></br>
                     <Typography component="subtitle1" className={classes.subtitle1}>
-                      Subtotal:........................
+                      Subtotal................................
                        ${this.props.store.cart.totalReducer[0]?.sum}
                     </Typography>
                     <br></br><br></br>
                     <Typography component="subtitle1" className={classes.subtitle1}>
-                      Shipping Cost:........................
+                      Shipping Cost........................
                        <>${this.calculateShipping()}</>
                     </Typography>
                     <br></br><br></br>
                     <Typography component="h3" className={classes.header2}>
-                      Total: ${this.props.store.cart.totalReducer[0]?.sum}
+                      Total: ${this.calculateTotal()}
                     </Typography>
+                    {(this.state.checkout) ? 
+                    <PayPal /> :
                     <Button onClick={this.checkout}>Checkout</Button>
+                    }
                   </CardContent>
                 </Paper>
             </Grid>

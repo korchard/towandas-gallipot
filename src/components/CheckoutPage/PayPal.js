@@ -7,13 +7,15 @@ function PayPal(props) {
   const paypal = useRef()
 
   useEffect(() => {
+    // console.log('cart', props.store.cart.cartReducer);
+    // console.log('total', props.store.cart.totalReducer);
     window.paypal.Buttons({
       createOrder: (data, actions, error) => {
         return actions.order.create({
           intent: "CAPTURE",
           purchase_units: [
             {
-              description: this.props.store.cart.name,
+              // description: props.store.cart.name,
               amount: {
                 currency_code: "USD",
                 value: 100.00,
