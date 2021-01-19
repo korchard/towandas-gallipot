@@ -92,7 +92,22 @@ router.post('/', rejectUnauthenticated, (req, res) => {
   });
 });
 
-// DELETE ROUTE
+// DELETE ROUTE - to delete single item from the cart
+router.delete('/adjust/:id', rejectUnauthenticated, (req, res) => {
+  console.log('user', req.user);
+  console.log('req.params', req.params);
+
+  const queryText = `DELETE FROM "cart" WHERE id = $1`;
+  pool.query(queryText, [req.params.id])
+        .then(() => { res.sendStatus(200); })
+        .catch((err) => {
+          console.log('Bad news bears error in server DELETE cart ---->', error)
+          res.sendStatus(500);
+        });
+
+});
+
+// DELETE ROUTE -- for cart reset
 router.delete('/', rejectUnauthenticated, (req, res) => {
     console.log('user', req.user);
 

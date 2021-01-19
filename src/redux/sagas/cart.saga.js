@@ -64,6 +64,21 @@ function* getCartTotal() {
   }
 } // end getCart
 
+// DELETE ROUTE -- to remove cart item
+function* deleteItem (action) {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+  
+    yield axios.delete(`api/cart/adjust/${action.payload}`, config);
+    yield put({ type: 'GET_CART' });
+  } catch (error) {
+    console.log('Bad news bears...error in cart saga delete', error);
+  }
+} // end deleteItem
+
 // DELETE ROUTE -- to remove cart items after purchase
 function* resetCart () {
   try {
@@ -117,6 +132,7 @@ function* productSaga() {
   yield takeEvery('GET_CART_TOTAL', getCartTotal);
   yield takeEvery('ADD_ITEM', addItem);
   yield takeEvery('SUBTRACT_ITEM', subtractItem);
+  yield takeEvery('DELETE_ITEM', deleteItem);
   yield takeEvery('RESET_CART', resetCart);
 }
 
