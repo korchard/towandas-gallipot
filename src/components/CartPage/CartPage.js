@@ -80,7 +80,7 @@ class CartPage extends Component {
 
   checkout = () => {
     this.setState({
-      checkout: true
+      checkout: !this.state.checkout
     })
   }
 
@@ -149,7 +149,7 @@ class CartPage extends Component {
                       Total: ${this.calculateTotal()}
                     </Typography>
                     {(this.state.checkout) ? 
-                    <PayPal checkout={this.state.checkout}/> :
+                    <PayPal checkout={this.checkout}/> :
                     <Button onClick={this.checkout}>Checkout</Button>
                     }
                   </CardContent>

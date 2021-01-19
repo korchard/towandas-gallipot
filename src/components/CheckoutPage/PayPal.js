@@ -1,9 +1,10 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import swal from 'sweetalert';
 
-function PayPal() {
+function PayPal(props) {
   
-  // const [checkout, setCheckout] = useState(false);
+  const { checkout } = props;
   const payment = useSelector(store => store.cart.paymentReducer) 
   const paypal = useRef()
   console.log('payment', payment);
@@ -28,12 +29,23 @@ function PayPal() {
       onApprove: async (data, actions) => {
         const order = await actions.order.capture()
         console.log('sucessful order', order);
-        alert('Payment was successful!');
-        // setCheckout(true);
+        swal({
+          title: "Payment successful!",
+          text: "Thank you for supporting Towanda's Gallipot!",
+          icon: "success",
+          button: "Woot!",
+        });
+        checkout();
       },
       onError: (error) => {
         console.log(error);
-        alert('Payment was unsuccessful! Please try again or reach out to the herbalist.')
+        swal({
+          title: "Your payment has not gone through yet!",
+          text: "Please try again or reach out to the Herbalist!",
+          icon: "error",
+          button: "Thank you!",
+        });
+        checkout();
       }
     }).render(paypal.current)
   }, [])
