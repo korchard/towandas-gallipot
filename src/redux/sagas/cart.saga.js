@@ -16,22 +16,6 @@ function* addToCart(action) {
     }
 } // end addToCart
 
-// POST ROUTE
-function* addItem(action) {
-  // try {
-  //   const config = {
-  //     headers: { 'Content-Type': 'application/json' },
-  //     withCredentials: true,
-  //   };
-
-    console.log('id to update', action.payload);
-  //   yield axios.post('api/cart', action.payload, config);
-  //   yield put({ type: 'GET_CART' });
-  // } catch (error) {
-  //   console.log('Bad news bears...error in cart saga post', error);
-  // }
-} // end addToCart
-
 // GET ROUTE -- to get cart items
 function* getCart() {
     try {
@@ -110,7 +94,22 @@ function* resetCart () {
   } catch (error) {
     console.log('Bad news bears...error in cart saga delete', error);
   }
-} // end editProduct
+} // end resetCart
+
+// PUT ROUTE
+function* addItem (action) {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+  
+    yield axios.put(`api/cart/add/${action.payload}`, config);
+    yield put({ type: 'GET_CART' });
+  } catch (error) {
+    console.log('Bad news bears...error in cart saga put', error);
+  }
+} // end addItem
 
 function* productSaga() {
   yield takeEvery('ADD_TO_CART', addToCart);
