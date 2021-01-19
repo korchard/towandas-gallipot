@@ -74,7 +74,7 @@ class CartPage extends Component {
     this.props.dispatch({ type: 'GET_CART' });
     this.props.dispatch({ type: 'GET_CART_ITEMS' });
     this.props.dispatch({ type: 'GET_CART_TOTAL' });
-    this.props.dispatch({ type: 'GET_SHIPPING' });
+    // this.props.dispatch({ type: 'GET_SHIPPING' });
   }
 
   checkout = () => {
@@ -82,6 +82,21 @@ class CartPage extends Component {
       checkout: true
     })
     this.props.history.push('/checkout');
+  }
+
+  calculateShipping = () => {
+    let total = null;
+    console.log('shipping', this.props.store.cart.totalReducer[0].sum);
+    if (this.props.store.cart.totalReducer[0].sum <= 20.00) {
+      total = 5.00;
+    } else if (this.props.store.cart.totalReducer[0].sum <= 50.00) {
+      total = 8.00;
+    } else if (this.props.store.cart.totalReducer[0].sum <= 100.00) {
+      total = 10.00;
+    } else if (this.props.store.cart.totalReducer[0].sum >= 100.00) {
+      total = 0.00;
+    }
+    return total;
   }
 
   render() {
@@ -112,7 +127,8 @@ class CartPage extends Component {
                     </Typography>
                     <br></br><br></br>
                     <Typography component="subtitle1" className={classes.subtitle1}>
-                      Shipping Cost:  --- calculated upon checkout ---
+                      Shipping Cost:........................
+                       <>${this.calculateShipping()}</>
                     </Typography>
                     <br></br><br></br>
                     <Typography component="h3" className={classes.header2}>
