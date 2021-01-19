@@ -75,7 +75,6 @@ class CartPage extends Component {
     this.props.dispatch({ type: 'GET_CART' });
     this.props.dispatch({ type: 'GET_CART_ITEMS' });
     this.props.dispatch({ type: 'GET_CART_TOTAL' });
-    // this.props.dispatch({ type: 'GET_SHIPPING' });
   }
 
   checkout = () => {

@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from "react-router";
 import swal from 'sweetalert';
 
 function PayPal(props) {
@@ -7,6 +8,7 @@ function PayPal(props) {
   const { checkout } = props;
   const payment = useSelector(store => store.cart.paymentReducer) 
   const paypal = useRef()
+  const history = useHistory();
   console.log('payment', payment);
 
   useEffect(() => {
@@ -36,6 +38,7 @@ function PayPal(props) {
           button: "Woot!",
         });
         checkout();
+        history.push({ pathname:  "/checkout" })
       },
       onError: (error) => {
         console.log(error);
