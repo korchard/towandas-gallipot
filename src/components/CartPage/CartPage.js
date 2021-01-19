@@ -145,7 +145,7 @@ class CartPage extends Component {
                     </Typography>
                     <br></br><br></br>
                     <Typography component="h3" className={classes.header2}>
-                      Total: ${this.calculateTotal()}
+                      Total: ${this.calculateTotal()}.00
                     </Typography>
                     {(this.state.checkout) ? 
                     <PayPal checkout={this.checkout}/> :
