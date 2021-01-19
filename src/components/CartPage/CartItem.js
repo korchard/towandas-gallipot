@@ -11,7 +11,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import EditIcon from '@material-ui/icons/Edit';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
@@ -98,6 +98,19 @@ const styles = {
 
 class CartPage extends Component {
 
+  addItem = (id) => {
+    console.log('add', id);
+    // this.dispatch({ type: })
+  }
+
+  subtractItem = (id) => {
+    console.log('subtract', id);
+  }
+
+  deleteItem = (id) => {
+    console.log('delete', id);
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -126,13 +139,13 @@ class CartPage extends Component {
                           </CardContent>
                       </div>
                       <div className={classes.controls}>
-                            <IconButton aria-label="previous">
+                            <IconButton aria-label="add" onClick={() => this.addItem(this.props.item.id)}>
                               <AddCircleIcon/>
                             </IconButton>
-                            <IconButton aria-label="edit" onClick={this.editItem}>
-                                <EditIcon />
+                            <IconButton aria-label="minus" onClick={() => this.subtractItem(this.props.item.id)}>
+                                <RemoveCircleIcon />
                             </IconButton>
-                            <IconButton aria-label="delete" onClick={this.deleteItem}>
+                            <IconButton aria-label="delete" onClick={() => this.deleteItem(this.props.item.id)}>
                                 <DeleteIcon />
                             </IconButton>
                           </div>
