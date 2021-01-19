@@ -149,8 +149,20 @@ class CartPage extends Component {
                       Total: ${this.calculateTotal()}.00
                     </Typography>
                     {(this.state.checkout) ? 
-                    <PayPal checkout={this.checkout}/> :
-                    <Button onClick={this.checkout}>Checkout</Button>
+                    <>
+                    <PayPal checkout={this.checkout}/> 
+                    <center>
+                      <Button className={classes.button} onClick={this.checkout}>
+                        <input className="btn" type="button" value="Disregard Checkout" />
+                      </Button>
+                    </center>
+                    </>
+                    :
+                    <center>
+                      <Button className={classes.button} onClick={this.checkout}>
+                        <input className="btn" type="button" value="Checkout" />
+                      </Button>
+                    </center>
                     }
                   </CardContent>
                 </Paper>
