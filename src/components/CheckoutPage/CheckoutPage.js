@@ -52,10 +52,18 @@ class CheckoutPage extends Component {
         }
     };
 
+    getItems = () => {
+        let itemArrayId = [];
+        for (let i = 0; i < this.props.store.cart.cartReducer.length; i++) {
+            itemArrayId.push(this.props.store.cart.cartReducer[i].id)
+        }
+        return itemArrayId;
+    }
+
     componentDidMount = () => {
         this.props.dispatch({ type: 'SEND_ORDER', payload: {
             order: {
-                product_items: this.props.store.cart.cartReducer,
+                product_items: this.getItems(),
                 product_cost: Number(this.props.store.cart.totalReducer[0]?.sum),
                 shipping_cost: this.props.store.cart.shippingReducer,
                 total_cost: this.props.store.cart.paymentReducer
