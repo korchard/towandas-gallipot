@@ -71,21 +71,19 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
-// // DELETE ROUTE
-// router.delete('/:id', rejectUnauthenticated, (req, res) => {
-//     console.log('user', req.user);
-//     if (req.user.id === 1 || req.user.id === 2) { 
-//     const queryText = `DELETE FROM "product" WHERE id = $1`;
-//     pool.query(queryText, [req.params.id])
-//           .then(() => { res.sendStatus(200); })
-//           .catch((err) => {
-//             console.log('Bad news bears error in server DELETE product ---->', error)
-//             res.sendStatus(500);
-//           });
-//       } else { 
-//         console.log(`User with id of ${req.user.id} is unauthorized to delete`)
-//       }
-// });
+// DELETE ROUTE
+router.delete('/', rejectUnauthenticated, (req, res) => {
+    console.log('user', req.user);
+
+    const queryText = `DELETE FROM "cart" WHERE user_id = $1`;
+    pool.query(queryText, [req.user.id])
+          .then(() => { res.sendStatus(200); })
+          .catch((err) => {
+            console.log('Bad news bears error in server DELETE cart ---->', error)
+            res.sendStatus(500);
+          });
+
+});
 
 // // PUT ROUTE
 // router.put('/:id', rejectUnauthenticated, (req, res) => {

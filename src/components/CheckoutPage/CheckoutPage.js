@@ -37,9 +37,9 @@ class CheckoutPage extends Component {
 
     componentDidMount = () => {
         this.props.dispatch({ type: 'RESET_CART' });
-        this.props.dispatch({ type: 'RESET_CART_ITEMS' });
-        this.props.dispatch({ type: 'RESET_CART_TOTAL' });
-        this.props.dispatch({ type: 'RESET_PAYMENT_TOTAL' });
+        // this.props.dispatch({ type: 'RESET_CART_ITEMS' });
+        // this.props.dispatch({ type: 'RESET_CART_TOTAL' });
+        // this.props.dispatch({ type: 'RESET_PAYMENT_TOTAL' });
     }
 
   render() {

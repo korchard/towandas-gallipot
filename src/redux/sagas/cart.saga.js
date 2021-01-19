@@ -64,11 +64,27 @@ function* getCartTotal() {
   }
 } // end getCart
 
+// DELETE ROUTE -- to remove cart items after purchase
+function* resetCart () {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+  
+    yield axios.delete(`api/cart`, config);
+    yield put({ type: 'GET_CART' });
+  } catch (error) {
+    console.log('Bad news bears...error in cart saga delete', error);
+  }
+} // end editProduct
+
 function* productSaga() {
   yield takeEvery('ADD_TO_CART', addToCart);
   yield takeEvery('GET_CART', getCart);
   yield takeEvery('GET_CART_ITEMS', getCartItems);
   yield takeEvery('GET_CART_TOTAL', getCartTotal);
+  yield takeEvery('RESET_CART', resetCart);
 }
 
 export default productSaga;
