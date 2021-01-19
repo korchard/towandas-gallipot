@@ -27,7 +27,7 @@ const totalReducer = (state = [], action) => {
     }
   }; 
 
-const paymentReducer = (state = [], action) => {
+const paymentReducer = (state = 0, action) => {
     switch (action.type) {
       case 'SET_PAYMENT_TOTAL':
         return action.payload;

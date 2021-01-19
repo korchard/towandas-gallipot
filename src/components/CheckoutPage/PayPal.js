@@ -1,14 +1,15 @@
-import React, { useRef, useEffect } from 'react';
-import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+import React, { useRef, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-function PayPal(props) {
+function PayPal() {
   
+  // const [checkout, setCheckout] = useState(false);
+  const payment = useSelector(store => store.cart.paymentReducer) 
   const paypal = useRef()
+  console.log('payment', payment);
 
-  useEffect((props) => {
-    // console.log('cart', props.store.cart.cartReducer);
-    // console.log('total', props.store.cart.totalReducer);
+  useEffect(() => {
+
     window.paypal.Buttons({
       createOrder: (data, actions, error) => {
         return actions.order.create({
@@ -18,7 +19,7 @@ function PayPal(props) {
               description: "Towanda's Gallipot",
               amount: {
                 currency_code: "USD",
-                value: props.store.cart.paymentReducer,
+                value: payment,
               }
             }
           ]
@@ -27,9 +28,12 @@ function PayPal(props) {
       onApprove: async (data, actions) => {
         const order = await actions.order.capture()
         console.log('sucessful order', order);
+        alert('Payment was successful!');
+        // setCheckout(true);
       },
       onError: (error) => {
         console.log(error);
+        alert('Payment was unsuccessful! Please try again or reach out to the herbalist.')
       }
     }).render(paypal.current)
   }, [])
@@ -41,5 +45,5 @@ function PayPal(props) {
   );
 }
 
-export default connect(mapStoreToProps)(PayPal);
+export default PayPal;
 

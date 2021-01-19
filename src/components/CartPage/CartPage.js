@@ -87,13 +87,13 @@ class CartPage extends Component {
   calculateShipping = () => {
     let shipping = null;
     if (this.props.store.cart.totalReducer[0]?.sum <= 20.00) {
-      shipping = 5.00; 
+      shipping = '5.00'; 
     } else if (this.props.store.cart.totalReducer[0]?.sum <= 50.00) {
-      shipping = 8.00;
+      shipping = '8.00';
     } else if (this.props.store.cart.totalReducer[0]?.sum <= 100.00) {
-      shipping = 10.00;
+      shipping = '10.00';
     } else if (this.props.store.cart.totalReducer[0]?.sum > 100.00) {
-      shipping = 0.00;
+      shipping = '0.00';
     }
     return shipping;
   }
@@ -107,7 +107,7 @@ class CartPage extends Component {
     } else if (this.props.store.cart.totalReducer[0]?.sum <= 100.00) {
       total = (Number(10.00) + Number(this.props.store.cart.totalReducer[0]?.sum)); 
     } else if (this.props.store.cart.totalReducer[0]?.sum > 100.00) {
-      total = this.props.store.cart.totalReducer[0]?.sum; 
+      total = Number(this.props.store.cart.totalReducer[0]?.sum); 
     }
     this.props.dispatch({ type: 'SET_PAYMENT_TOTAL', payload: total });
     return total;
@@ -149,7 +149,7 @@ class CartPage extends Component {
                       Total: ${this.calculateTotal()}
                     </Typography>
                     {(this.state.checkout) ? 
-                    <PayPal /> :
+                    <PayPal checkout={this.state.checkout}/> :
                     <Button onClick={this.checkout}>Checkout</Button>
                     }
                   </CardContent>
