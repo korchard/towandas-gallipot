@@ -98,21 +98,19 @@ const styles = {
 
 class CartItem extends Component {
 
-  componentDidMount = () => {
-    this.props.dispatch({ type: 'GET_CART_ID', payload: this.props.item.id });
-  }
-
   addItem = (id) => {
     console.log('add', id);
-    this.props.dispatch({ type: 'ADD_ITEM', payload: this.props.store.cart.idReducer[0]?.id })
+    this.props.dispatch({ type: 'ADD_ITEM', payload: id })
   }
 
   subtractItem = (id) => {
     console.log('subtract', id);
+    this.props.dispatch({ type: 'SUBTRACT_ITEM', payload: id })
   }
 
   deleteItem = (id) => {
     console.log('delete', id);
+    this.props.dispatch({ type: 'DELETE_ITEM', payload: id })
   }
 
   render() {

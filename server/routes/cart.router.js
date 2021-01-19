@@ -7,13 +7,14 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('user', req.user);
 
-    const queryText = `SELECT product.id, product.name, product.size, product.image_path, 
-                        product.type, SUM(cart.quantity), 
-                        COALESCE(SUM(cart.quantity * cart.total_cost), cart.total_cost) 
-                        FROM product
-                        LEFT JOIN cart ON cart.product_id = product.id
-                        WHERE cart.user_id = $1
-                        GROUP BY product.id, cart.product_id, cart.quantity, cart.total_cost;`;
+    const queryText = `SELECT cart.id, product.name, product.description, 
+                      product.size, product.image_path, product.type, SUM(cart.quantity), 
+                      COALESCE(SUM(cart.quantity * cart.total_cost), cart.total_cost) 
+                      FROM cart
+                      LEFT JOIN product ON cart.product_id = product.id
+                      WHERE cart.user_id = $1
+                      GROUP BY cart.id, product.name, product.description, product.size, 
+                      product.image_path, product.type;`;
     pool.query(queryText, [req.user.id])
         .then((results) => {
           res.send(results.rows);
@@ -22,6 +23,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
           console.log('Bad news bears error in server GET route ---->', error)
           res.sendStatus(500);
         })
+
 });
 
 // GET ROUTE - for item total to display in navbar
@@ -49,22 +51,6 @@ router.get('/total', rejectUnauthenticated, (req, res) => {
                       LEFT JOIN cart ON cart.product_id = product.id
                       WHERE cart.user_id = $1;`
   pool.query(queryText, [req.user.id])
-      .then((results) => {
-        res.send(results.rows);
-        console.log('result', results.rows)
-      }).catch((error) => {
-        console.log('Bad news bears error in server GET route ---->', error)
-        res.sendStatus(500);
-      })
-});
-
-// GET ROUTE - to grab cart id number so quantity may be edited
-router.get('/adjust/:id', rejectUnauthenticated, (req, res) => {
-  console.log('user', req.user);
-  console.log('req.params', req.params);
-
-  const queryText = `SELECT cart.id FROM "cart" WHERE product_id = $1 LIMIT 1;`
-  pool.query(queryText, [req.params.id])
       .then((results) => {
         res.send(results.rows);
         console.log('result', results.rows)
@@ -132,6 +118,20 @@ router.put('/add/:id', rejectUnauthenticated, (req, res) => {
           console.log('Bad news bears error in server PUT route ---->', error)
           res.sendStatus(501)
         });
+});
+
+// PUT ROUTE
+router.put('/subtract/:id', rejectUnauthenticated, (req, res) => {
+  console.log('params', req.params);
+  console.log('user', req.user);
+
+  const queryText = `UPDATE "cart" SET quantity = GREATEST(quantity - 1, 0) WHERE id = $1;`
+  pool.query(queryText, [req.params.id])
+      .then(() => res.sendStatus(201))
+      .catch((error) => { 
+        console.log('Bad news bears error in server PUT route ---->', error)
+        res.sendStatus(501)
+      });
 });
 
 module.exports = router;

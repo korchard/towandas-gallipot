@@ -45,21 +45,10 @@ const paymentReducer = (state = 0, action) => {
     }
   }; 
 
-const idReducer = (state = 0, action) => {
-    switch (action.type) {
-      case 'SET_CART_ID':
-        return action.payload;
-      default:
-        return state;
-    }
-  }; 
-
-
 export default combineReducers({
   cartReducer,
   itemsReducer,
   totalReducer,
   shippingReducer,
   paymentReducer,
-  idReducer,
 });
