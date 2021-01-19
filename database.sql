@@ -3,7 +3,7 @@ DROP TABLE "user";
 CREATE TABLE "user" (
     id SERIAL PRIMARY KEY,
     username VARCHAR (100) UNIQUE NOT NULL,
-    hashed_password VARCHAR (1000) NOT NULL,
+    password VARCHAR (1000) NOT NULL,
     first_name VARCHAR(100) NOT NULL,
 	last_name VARCHAR(100) NOT NULL,
 	street_address VARCHAR(200) NOT NULL,
@@ -23,7 +23,8 @@ CREATE TABLE "product" (
 	description VARCHAR(400) NOT NULL,
 	size VARCHAR(50) NOT NULL,
 	cost DECIMAL(20, 2) NOT NULL,
-	image_path VARCHAR(700) NOT NULL
+	image_path VARCHAR(700) NOT NULL,
+	type VARCHAR(200) NOT NULL
 );
 
 DROP TABLE "order";
@@ -36,16 +37,6 @@ CREATE TABLE "order" (
 	shipping_cost DECIMAL(20, 2),
 	total_cost DECIMAL(20, 2),
 	shipped BOOLEAN DEFAULT false
-);
-
-DROP TABLE "order_detail";
-
-CREATE TABLE "order_detail" (
-	id SERIAL PRIMARY KEY,
-	product_id INT REFERENCES "product",
-	quantity INTEGER,
-	total_cost DECIMAL(20, 2),
-	order_id INT REFERENCES "order"
 );
 
 DROP TABLE "cart";

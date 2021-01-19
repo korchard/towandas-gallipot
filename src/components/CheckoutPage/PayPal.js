@@ -31,12 +31,12 @@ function PayPal(props) {
       onApprove: async (data, actions) => {
         const order = await actions.order.capture()
         console.log('sucessful order', order);
-        swal({
-          title: "Payment successful!",
-          text: "Thank you for supporting Towanda's Gallipot!",
-          icon: "success",
-          button: "Woot!",
-        });
+        // swal({
+        //   title: "Payment successful!",
+        //   text: "Thank you for supporting Towanda's Gallipot!",
+        //   icon: "success",
+        //   button: "Woot!",
+        // });
         checkout();
         history.push({ pathname:  "/checkout" })
       },

@@ -5,6 +5,7 @@ import product from './product.reducer';
 import edit from './edit.reducer';
 import cart from './cart.reducer';
 import search from './search.reducer';
+import order from './order.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   edit,
   cart,
   search,
+  order,
 });
 
 export default rootReducer;

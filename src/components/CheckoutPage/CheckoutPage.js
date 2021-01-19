@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+// import Moment from 'react-moment';
 
 // STYLING
 import { withStyles } from '@material-ui/core/styles';
@@ -17,6 +18,13 @@ const styles = {
       padding: '3%',
       radius: '5px',
     },
+    header2: {
+        margin: 'auto',
+        textAlign: 'center',
+        fontSize: '1.2em',
+        padding: '3%',
+        radius: '5px',
+      },
   }
 
   theme.typography.h3 = {
@@ -35,8 +43,27 @@ const styles = {
 
 class CheckoutPage extends Component {
 
+    state = { 
+        order: {
+            product_items: '',
+            product_cost: '',
+            shipping_cost: '',
+            total_cost: '',
+        }
+    };
+
     componentDidMount = () => {
-        this.props.dispatch({ type: 'RESET_CART' });
+        this.props.dispatch({ type: 'SEND_ORDER', payload: {
+            order: {
+                product_items: this.props.store.cart.cartReducer,
+                product_cost: Number(this.props.store.cart.totalReducer[0]?.sum),
+                shipping_cost: this.props.store.cart.shippingReducer,
+                total_cost: this.props.store.cart.paymentReducer
+            }
+        }})
+        
+        // this.props.dispatch({ type: 'RESET_CART' });
+
         // this.props.dispatch({ type: 'RESET_CART_ITEMS' });
         // this.props.dispatch({ type: 'RESET_CART_TOTAL' });
         // this.props.dispatch({ type: 'RESET_PAYMENT_TOTAL' });
@@ -47,9 +74,13 @@ class CheckoutPage extends Component {
 
     return (
       <div>
+          {JSON.stringify(this.state.order)}
         <center>
             <ThemeProvider theme={theme}>
                 <Typography component="h3" className={classes.header} variant="h3">
+                  Payment Successful!
+                </Typography>
+                <Typography component="h5" className={classes.header2} variant="h5">
                   Thank you for shopping at Towanda's Gallipot 
                     <br></br>
                   and supporting small businesses!

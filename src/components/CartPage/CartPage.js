@@ -94,6 +94,7 @@ class CartPage extends Component {
     } else if (this.props.store.cart.totalReducer[0]?.sum > 100.00) {
       shipping = '0.00';
     }
+    this.props.dispatch({ type: 'SET_SHIPPING', payload: Number(shipping) });
     return shipping;
   }
 

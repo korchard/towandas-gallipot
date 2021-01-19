@@ -100,7 +100,6 @@ class CartPage extends Component {
 
   addItem = (id) => {
     console.log('add', id);
-    // this.dispatch({ type: })
   }
 
   subtractItem = (id) => {
