@@ -6,7 +6,7 @@ function PayPal(props) {
   
   const paypal = useRef()
 
-  useEffect(() => {
+  useEffect((props) => {
     // console.log('cart', props.store.cart.cartReducer);
     // console.log('total', props.store.cart.totalReducer);
     window.paypal.Buttons({
@@ -15,10 +15,10 @@ function PayPal(props) {
           intent: "CAPTURE",
           purchase_units: [
             {
-              // description: props.store.cart.name,
+              description: "Towanda's Gallipot",
               amount: {
                 currency_code: "USD",
-                value: 100.00,
+                value: props.store.cart.paymentReducer,
               }
             }
           ]

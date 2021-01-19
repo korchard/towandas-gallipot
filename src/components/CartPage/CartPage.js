@@ -109,6 +109,7 @@ class CartPage extends Component {
     } else if (this.props.store.cart.totalReducer[0]?.sum > 100.00) {
       total = this.props.store.cart.totalReducer[0]?.sum; 
     }
+    this.props.dispatch({ type: 'SET_PAYMENT_TOTAL', payload: total });
     return total;
   }
 

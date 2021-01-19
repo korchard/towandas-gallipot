@@ -20,6 +20,7 @@ const styles = {
     textAlign: 'center',
     padding: '3%',
     fontFamily: 'fantasy',
+    fontSize: '2em',
     radius: '5px',
     color: '#f8f8f8',
   },
@@ -49,7 +50,7 @@ theme.typography.h5 = {
     'serif',
   ].join(','),
   fontSize: '1rem',
-'@media (min-width:320px)': {
+'@media (min-width:600px)': {
   fontSize: '1rem',
   },
   [theme.breakpoints.up('md')]: {

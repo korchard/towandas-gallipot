@@ -27,9 +27,9 @@ const totalReducer = (state = [], action) => {
     }
   }; 
 
-const shippingReducer = (state = [], action) => {
+const paymentReducer = (state = [], action) => {
     switch (action.type) {
-      case 'SET_SHIPPING':
+      case 'SET_PAYMENT_TOTAL':
         return action.payload;
       default:
         return state;
@@ -41,5 +41,5 @@ export default combineReducers({
   cartReducer,
   itemsReducer,
   totalReducer,
-  shippingReducer,
+  paymentReducer,
 });
