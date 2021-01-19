@@ -20,6 +20,7 @@ const styles = {
     textAlign: 'center',
     padding: '3%',
     fontFamily: 'fantasy',
+    fontSize: '2em',
     radius: '5px',
     color: '#f8f8f8',
   },
@@ -43,17 +44,17 @@ const styles = {
 }
 
 // responsiveness
-theme.typography.h4 = {
+theme.typography.h5 = {
   fontFamily: [
     'fantasy',
     'serif',
   ].join(','),
-  fontSize: '1.2rem',
-'@media (min-width:320px)': {
-  fontSize: '1.2rem',
+  fontSize: '1rem',
+'@media (min-width:600px)': {
+  fontSize: '1rem',
   },
   [theme.breakpoints.up('md')]: {
-    fontSize: '1.5rem',
+    fontSize: '1.2rem',
   },
 };
 
@@ -117,7 +118,7 @@ class ProductAdminForm extends Component {
             <form className={classes.form} onSubmit={this.addProduct}>
               <Card>
                 <ThemeProvider theme={theme}>
-                  <Typography gutterBottom variant="h4" component="h4" className={classes.header}>
+                  <Typography gutterBottom variant="h5" component="h5" className={classes.header}>
                     Add Product
                   </Typography>
               <CardContent>

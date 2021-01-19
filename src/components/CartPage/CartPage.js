@@ -4,6 +4,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // COMPONENTS
 import CartItem from './CartItem';
+import PayPal from '../CheckoutPage/PayPal';
 
 // STYLING
 import './CartPage.css'
@@ -12,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import CardContent from '@material-ui/core/CardContent';
+import { Button } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 const theme = createMuiTheme();
@@ -65,11 +67,50 @@ const styles = {
 
 class CartPage extends Component {
 
+  state = {
+    checkout: false
+  }
+
   componentDidMount = () => {
     this.props.dispatch({ type: 'GET_CART' });
     this.props.dispatch({ type: 'GET_CART_ITEMS' });
     this.props.dispatch({ type: 'GET_CART_TOTAL' });
-    this.props.dispatch({ type: 'GET_SHIPPING' });
+    // this.props.dispatch({ type: 'GET_SHIPPING' });
+  }
+
+  checkout = () => {
+    this.setState({
+      checkout: !this.state.checkout
+    })
+  }
+
+  calculateShipping = () => {
+    let shipping = null;
+    if (this.props.store.cart.totalReducer[0]?.sum <= 20.00) {
+      shipping = '5.00'; 
+    } else if (this.props.store.cart.totalReducer[0]?.sum <= 50.00) {
+      shipping = '8.00';
+    } else if (this.props.store.cart.totalReducer[0]?.sum <= 100.00) {
+      shipping = '10.00';
+    } else if (this.props.store.cart.totalReducer[0]?.sum > 100.00) {
+      shipping = '0.00';
+    }
+    return shipping;
+  }
+
+  calculateTotal = () => {
+    let total = null;
+    if (this.props.store.cart.totalReducer[0]?.sum <= 20.00) {
+      total = (Number(5.00) + Number(this.props.store.cart.totalReducer[0]?.sum)); 
+    } else if (this.props.store.cart.totalReducer[0]?.sum <= 50.00) {
+      total = (Number(8.00) + Number(this.props.store.cart.totalReducer[0]?.sum)); 
+    } else if (this.props.store.cart.totalReducer[0]?.sum <= 100.00) {
+      total = (Number(10.00) + Number(this.props.store.cart.totalReducer[0]?.sum)); 
+    } else if (this.props.store.cart.totalReducer[0]?.sum > 100.00) {
+      total = Number(this.props.store.cart.totalReducer[0]?.sum); 
+    }
+    this.props.dispatch({ type: 'SET_PAYMENT_TOTAL', payload: total });
+    return total;
   }
 
   render() {
@@ -95,23 +136,26 @@ class CartPage extends Component {
                     </Typography>
                     <br></br>
                     <Typography component="subtitle1" className={classes.subtitle1}>
-                      Subtotal:........................
+                      Subtotal................................
                        ${this.props.store.cart.totalReducer[0]?.sum}
                     </Typography>
                     <br></br><br></br>
                     <Typography component="subtitle1" className={classes.subtitle1}>
-                      Shipping Cost:  --- calculated upon checkout ---
+                      Shipping Cost........................
+                       <>${this.calculateShipping()}</>
                     </Typography>
                     <br></br><br></br>
                     <Typography component="h3" className={classes.header2}>
-                      Total: ${this.props.store.cart.totalReducer[0]?.sum}
+                      Total: ${this.calculateTotal()}
                     </Typography>
+                    {(this.state.checkout) ? 
+                    <PayPal checkout={this.checkout}/> :
+                    <Button onClick={this.checkout}>Checkout</Button>
+                    }
                   </CardContent>
                 </Paper>
             </Grid>
           </Grid> 
-          
-          
           :
           <center>
             <ThemeProvider theme={theme}>

@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     fontFamily: 'fantasy',
     fontWeight: '700',
-    // fontSize: '2.5em',
+    fontSize: '2.2em',
     display: 'inline-block',
     paddingLeft: '40px',
     paddingTop: '25px',
