@@ -55,6 +55,22 @@ router.get('/total', rejectUnauthenticated, (req, res) => {
       })
 });
 
+// GET ROUTE - to grab cart id number so quantity may be edited
+router.get('/adjust/:id', rejectUnauthenticated, (req, res) => {
+  console.log('user', req.user);
+  console.log('req.params', req.params);
+  
+  const queryText = `SELECT cart.id FROM "cart" WHERE product_id = $1 LIMIT 1;`
+  pool.query(queryText, [req.params.id])
+      .then((results) => {
+        res.send(results.rows);
+        console.log('result', results.rows)
+      }).catch((error) => {
+        console.log('Bad news bears error in server GET route ---->', error)
+        res.sendStatus(500);
+      })
+});
+
 // POST ROUTE
 router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('body', req.body);

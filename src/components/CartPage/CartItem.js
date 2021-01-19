@@ -96,10 +96,15 @@ const styles = {
 //     },
 //   };
 
-class CartPage extends Component {
+class CartItem extends Component {
+
+  componentDidMount = () => {
+    this.props.dispatch({ type: 'GET_CART_ID', payload: this.props.item.id });
+  }
 
   addItem = (id) => {
     console.log('add', id);
+    this.props.dispatch({ type: 'ADD_ITEM', payload: this.props.store.cart.idReducer[0]?.id })
   }
 
   subtractItem = (id) => {
@@ -155,4 +160,4 @@ class CartPage extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(CartPage));
+export default connect(mapStoreToProps)(withStyles(styles)(CartItem));

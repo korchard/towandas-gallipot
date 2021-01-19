@@ -44,30 +44,27 @@ const styles = {
 class CheckoutPage extends Component {
 
     state = { 
-        order: {
-            product_items: '',
-            product_cost: '',
-            shipping_cost: '',
-            total_cost: '',
-        }
+        product_items: '',
+        product_cost: '',
+        shipping_cost: '',
+        total_cost: '',
     };
 
     getItems = () => {
-        let itemArrayId = [];
-        for (let i = 0; i < this.props.store.cart.cartReducer.length; i++) {
-            itemArrayId.push(this.props.store.cart.cartReducer[i].id)
-        }
-        return itemArrayId;
+        return this.props.store.cart.cartReducer.map((e) => {
+            return {
+                id: e.id,
+                quantity: e.sum
+            }
+        })
     }
 
     componentDidMount = () => {
         this.props.dispatch({ type: 'SEND_ORDER', payload: {
-            order: {
                 product_items: this.getItems(),
                 product_cost: Number(this.props.store.cart.totalReducer[0]?.sum),
                 shipping_cost: this.props.store.cart.shippingReducer,
                 total_cost: this.props.store.cart.paymentReducer
-            }
         }})
         
         // this.props.dispatch({ type: 'RESET_CART' });
@@ -82,7 +79,6 @@ class CheckoutPage extends Component {
 
     return (
       <div>
-          {JSON.stringify(this.state.order)}
         <center>
             <ThemeProvider theme={theme}>
                 <Typography component="h3" className={classes.header} variant="h3">
@@ -93,7 +89,7 @@ class CheckoutPage extends Component {
                     <br></br>
                   and supporting small businesses!
                 </Typography>
-              <img src={window.location.origin + '/image/mushrooms.png'} 
+                <img src={window.location.origin + '/image/mushrooms.png'} 
                     alt="Mushrooms" 
                     className="flower2"/>
             </ThemeProvider>

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 
 // POST ROUTE
-function* addToCart (action) {
+function* addToCart(action) {
     try {
       const config = {
         headers: { 'Content-Type': 'application/json' },
@@ -14,6 +14,22 @@ function* addToCart (action) {
     } catch (error) {
       console.log('Bad news bears...error in cart saga post', error);
     }
+} // end addToCart
+
+// POST ROUTE
+function* addItem(action) {
+  // try {
+  //   const config = {
+  //     headers: { 'Content-Type': 'application/json' },
+  //     withCredentials: true,
+  //   };
+
+    console.log('id to update', action.payload);
+  //   yield axios.post('api/cart', action.payload, config);
+  //   yield put({ type: 'GET_CART' });
+  // } catch (error) {
+  //   console.log('Bad news bears...error in cart saga post', error);
+  // }
 } // end addToCart
 
 // GET ROUTE -- to get cart items
@@ -64,6 +80,23 @@ function* getCartTotal() {
   }
 } // end getCart
 
+// GET ROUTE -- to get specific cart id
+function* getCartId(action) {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+    console.log('action', action.payload);
+    const response = yield axios.get(`api/cart/adjust/${action.payload}`, config);
+
+    yield put({ type: 'SET_CART_ID', payload: response.data });
+    console.log('result', response.data);
+  } catch (error) {
+    console.log('Bad news bears...error in cart saga get', error);
+  }
+} // end getCart
+
 // DELETE ROUTE -- to remove cart items after purchase
 function* resetCart () {
   try {
@@ -84,6 +117,8 @@ function* productSaga() {
   yield takeEvery('GET_CART', getCart);
   yield takeEvery('GET_CART_ITEMS', getCartItems);
   yield takeEvery('GET_CART_TOTAL', getCartTotal);
+  yield takeEvery('GET_CART_ID', getCartId);
+  yield takeEvery('ADD_ITEM', addItem);
   yield takeEvery('RESET_CART', resetCart);
 }
 
