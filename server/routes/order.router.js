@@ -2,20 +2,72 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 // GET ROUTE - for cart items
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('user', req.user);
-    const queryText = `SELECT COALESCE("order".order_date), product.name, 
+    const queryText = `SELECT "order".order_date, product.name, 
                         product.size, cart.quantity from "cart" 
                         JOIN "order" ON cart.order_id = "order".id
                         JOIN "product" ON cart.product_id = product.id
-                        WHERE "order".id = $1
-                        GROUP BY "order".order_date, product.name, product.size, cart.quantity;`;
+                        WHERE "order".id = $1 AND cart.order_completed = true
+                        GROUP BY "order".order_date, product.name, product.size, 
+                        cart.quantity;`;
+
     pool.query(queryText, [req.user.id])
         .then((results) => {
           res.send(results.rows);
           console.log('result', results.rows)
+
+          const data = results.rows;
+          const password = process.env.password;
+        
+          const smtpTransport = nodemailer.createTransport({
+              host: 'smtp.gmail.com',
+              port: 587,
+              secure: false,
+              auth: {
+                  user: 'kimberly.a.orchard@gmail.com',
+                  pass: password
+              },
+              tls: {
+                  rejectUnauthorized: false 
+              }
+          });
+      
+          smtpTransport.verify(function(error, success) {
+              if (error) {
+                console.log(error);
+              } else {
+                console.log("Server is ready to take our messages!");
+              }
+            });
+        
+          const mailOptions = {
+              from: `${req.user.email_address}`,
+              to: 'kimberly.a.orchard@gmail.com',
+              subject: `New Order to Fill`,
+              html: `<h5>Hi Steph!</h5>
+                    <p>There is another order to fill.</p>
+                    <p>Items include: </p>
+                    <p>${data}</p>
+                    <p>The order is for user:</p>
+                    <p>${req.user}</p>
+                    <p>Thank you, ${req.user.first_name} ${req.user.last_name}</p>`
+          };
+      
+          smtpTransport.sendMail(mailOptions,
+              (error, response) => {
+                  if (error) {
+                      console.log('error sending', error);
+                  } else {
+                      console.log('Success!');
+                  }
+                  smtpTransport.close();
+          });
+
         }).catch((error) => {
           console.log('Bad news bears error in server GET route ---->', error)
           res.sendStatus(500);
@@ -36,18 +88,32 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         .then(result => {
             console.log('Order id...', result.rows[0].id);
 
-        const createdId = result.rows[0].id
+        const createdOrderId = result.rows[0].id
 
-        const sqlText = `UPDATE "cart" SET order_id = $1 WHERE user_id = $2;`;
-  
-        // SECOND QUERY MAKES ORDER ID FOR CART TABLE
-        pool.query(sqlText, [createdId, req.user.id])
-        .then(result => {
-          //Now that both are done, send back success!
-          res.sendStatus(201);
+        const queryText2 = `SELECT cart.id
+                            FROM cart
+                            WHERE cart.user_id = $1 AND order_completed = false
+                            GROUP BY cart.id;`;
+        
+        pool.query(queryText2, [req.user.id])
+            .then((results) => {
+                console.log('Cart ids...', results.rows)
+
+        const createdCartId = results.rows
+        
+        for (let i of createdCartId) {
+            const sqlText = `INSERT INTO "order_connection" (order_id, cart_id)
+                                VALUES ( $1, $2 );`;
+
+            pool.query(sqlText, [createdOrderId, i.id])
+            .then(result => {
+                console.log('in the loop')
+            })
+        }
+
         }).catch(error => {
           // catch for second query
-          console.log('Bad news bears error in server PUT adding order ---->', error)
+          console.log('Bad news bears error in server GET for cart id ---->', error)
           res.sendStatus(500)
         })
 

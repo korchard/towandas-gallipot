@@ -12,7 +12,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
                       COALESCE(SUM(cart.quantity * cart.total_cost), cart.total_cost) 
                       FROM cart
                       LEFT JOIN product ON cart.product_id = product.id
-                      WHERE cart.user_id = $1
+                      WHERE cart.user_id = $1 AND order_completed = false
                       GROUP BY cart.id, product.name, product.description, product.size, 
                       product.image_path, product.type;`;
     pool.query(queryText, [req.user.id])
@@ -32,7 +32,7 @@ router.get('/items', rejectUnauthenticated, (req, res) => {
 
     const queryText = `SELECT COUNT(cart.quantity) FROM product
                         LEFT JOIN cart ON cart.product_id = product.id
-                        WHERE cart.user_id = $1;`
+                        WHERE cart.user_id = $1 AND cart.order_completed = false;`
     pool.query(queryText, [req.user.id])
         .then((results) => {
           res.send(results.rows);
@@ -49,7 +49,7 @@ router.get('/total', rejectUnauthenticated, (req, res) => {
 
   const queryText = `SELECT SUM(cart.quantity * product.cost) FROM product
                       LEFT JOIN cart ON cart.product_id = product.id
-                      WHERE cart.user_id = $1;`
+                      WHERE cart.user_id = $1 AND cart.order_completed = false;`
   pool.query(queryText, [req.user.id])
       .then((results) => {
         res.send(results.rows);
@@ -77,20 +77,20 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 });
 
 // POST ROUTE
-router.post('/', rejectUnauthenticated, (req, res) => {
-  console.log('body', req.body);
-  console.log('user', req.user);
+// router.post('/', rejectUnauthenticated, (req, res) => {
+//   console.log('body', req.body);
+//   console.log('user', req.user);
 
-  const queryText = `INSERT INTO "cart" (product_id, quantity, total_cost, user_id)
-                     VALUES ( $1, $2, $3, $4 )`;
-  pool.query(queryText, [req.body.product_id, req.body.quantity, req.body.total_cost, 
-                         req.user.id])
-      .then(() => res.sendStatus(201))
-      .catch((error) => { 
-        console.log('Bad news bears error in server POST adding product ---->', error)
-        res.sendStatus(501)
-  });
-});
+//   const queryText = `INSERT INTO "cart" (product_id, quantity, total_cost, user_id)
+//                      VALUES ( $1, $2, $3, $4 )`;
+//   pool.query(queryText, [req.body.product_id, req.body.quantity, req.body.total_cost, 
+//                          req.user.id])
+//       .then(() => res.sendStatus(201))
+//       .catch((error) => { 
+//         console.log('Bad news bears error in server POST adding product ---->', error)
+//         res.sendStatus(501)
+//   });
+// });
 
 // DELETE ROUTE - to delete single item from the cart
 router.delete('/adjust/:id', rejectUnauthenticated, (req, res) => {
@@ -108,18 +108,18 @@ router.delete('/adjust/:id', rejectUnauthenticated, (req, res) => {
 });
 
 // DELETE ROUTE -- for cart reset
-router.delete('/', rejectUnauthenticated, (req, res) => {
-    console.log('user', req.user);
+// router.delete('/', rejectUnauthenticated, (req, res) => {
+//     console.log('user', req.user);
 
-    const queryText = `DELETE FROM "cart" WHERE user_id = $1`;
-    pool.query(queryText, [req.user.id])
-          .then(() => { res.sendStatus(200); })
-          .catch((err) => {
-            console.log('Bad news bears error in server DELETE cart ---->', error)
-            res.sendStatus(500);
-          });
+//     const queryText = `DELETE FROM "cart" WHERE user_id = $1`;
+//     pool.query(queryText, [req.user.id])
+//           .then(() => { res.sendStatus(200); })
+//           .catch((err) => {
+//             console.log('Bad news bears error in server DELETE cart ---->', error)
+//             res.sendStatus(500);
+//           });
 
-});
+// });
 
 // PUT ROUTE
 router.put('/add/:id', rejectUnauthenticated, (req, res) => {

@@ -80,19 +80,19 @@ function* deleteItem (action) {
 } // end deleteItem
 
 // DELETE ROUTE -- to remove cart items after purchase
-function* resetCart () {
-  try {
-    const config = {
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true,
-    };
+// function* resetCart () {
+//   try {
+//     const config = {
+//       headers: { 'Content-Type': 'application/json' },
+//       withCredentials: true,
+//     };
   
-    yield axios.delete(`api/cart`, config);
-    yield put({ type: 'GET_CART' });
-  } catch (error) {
-    console.log('Bad news bears...error in cart saga delete', error);
-  }
-} // end resetCart
+//     yield axios.delete(`api/cart`, config);
+//     yield put({ type: 'GET_CART' });
+//   } catch (error) {
+//     console.log('Bad news bears...error in cart saga delete', error);
+//   }
+// } // end resetCart
 
 // PUT ROUTE
 function* addItem (action) {
@@ -133,7 +133,7 @@ function* productSaga() {
   yield takeEvery('ADD_ITEM', addItem);
   yield takeEvery('SUBTRACT_ITEM', subtractItem);
   yield takeEvery('DELETE_ITEM', deleteItem);
-  yield takeEvery('RESET_CART', resetCart);
+  // yield takeEvery('RESET_CART', resetCart);
 }
 
 export default productSaga;

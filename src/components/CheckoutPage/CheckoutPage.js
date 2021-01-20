@@ -49,27 +49,15 @@ class CheckoutPage extends Component {
         total_cost: '',
     };
 
-    getItems = () => {
-        return this.props.store.cart.cartReducer.map((e) => {
-            return {
-                id: e.id,
-                quantity: e.sum
-            }
-        })
-    }
-
     componentDidMount = () => {
         this.props.dispatch({ type: 'SEND_ORDER', payload: {
             product_cost: Number(this.props.store.cart.totalReducer[0]?.sum),
             shipping_cost: this.props.store.cart.shippingReducer,
             total_cost: this.props.store.cart.paymentReducer
         }})
-        
-        this.props.dispatch({ type: 'RESET_CART' });
-
-        // this.props.dispatch({ type: 'RESET_CART_ITEMS' });
-        // this.props.dispatch({ type: 'RESET_CART_TOTAL' });
-        // this.props.dispatch({ type: 'RESET_PAYMENT_TOTAL' });
+          this.props.dispatch({ type: 'GET_CART' });
+          this.props.dispatch({ type: 'GET_CART_ITEMS' });
+          this.props.dispatch({ type: 'GET_CART_TOTAL' });
     }
 
   render() {
