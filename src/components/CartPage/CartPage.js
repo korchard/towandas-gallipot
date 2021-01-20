@@ -83,6 +83,14 @@ class CartPage extends Component {
     })
   }
 
+  sendOrder = () => {
+    this.props.dispatch({ type: 'SEND_ORDER', payload: {
+      product_cost: Number(this.props.store.cart.totalReducer[0]?.sum),
+      shipping_cost: this.props.store.cart.shippingReducer,
+      total_cost: this.props.store.cart.paymentReducer
+    }})
+  }
+
   calculateShipping = () => {
     let shipping = null;
     if (this.props.store.cart.totalReducer[0]?.sum <= 20.00) {
@@ -150,7 +158,7 @@ class CartPage extends Component {
                     </Typography>
                     {(this.state.checkout) ? 
                     <>
-                    <PayPal checkout={this.checkout}/> 
+                    <PayPal checkout={this.checkout} sendOrder={this.sendOrder}/> 
                     <center>
                       <Button className={classes.button} onClick={this.checkout}>
                         <input className="btn" type="button" value="Disregard Checkout" />

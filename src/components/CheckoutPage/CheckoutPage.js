@@ -44,7 +44,6 @@ const styles = {
 class CheckoutPage extends Component {
 
     state = { 
-        product_items: '',
         product_cost: '',
         shipping_cost: '',
         total_cost: '',
@@ -61,10 +60,9 @@ class CheckoutPage extends Component {
 
     componentDidMount = () => {
         this.props.dispatch({ type: 'SEND_ORDER', payload: {
-                product_items: this.getItems(),
-                product_cost: Number(this.props.store.cart.totalReducer[0]?.sum),
-                shipping_cost: this.props.store.cart.shippingReducer,
-                total_cost: this.props.store.cart.paymentReducer
+            product_cost: Number(this.props.store.cart.totalReducer[0]?.sum),
+            shipping_cost: this.props.store.cart.shippingReducer,
+            total_cost: this.props.store.cart.paymentReducer
         }})
         
         // this.props.dispatch({ type: 'RESET_CART' });

@@ -5,7 +5,7 @@ import swal from 'sweetalert';
 
 function PayPal(props) {
   
-  const { checkout } = props;
+  const { checkout, sendOrder } = props;
   const payment = useSelector(store => store.cart.paymentReducer) 
   const paypal = useRef()
   const history = useHistory();
@@ -39,6 +39,7 @@ function PayPal(props) {
         // });
         checkout();
         history.push({ pathname:  "/checkout" })
+        sendOrder();
       },
       onError: (error) => {
         console.log(error);

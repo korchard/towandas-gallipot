@@ -28,20 +28,35 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('body', req.body);
     console.log('user', req.user);
 
-    let itemList = null;
-    for (let item of req.body.product_items) {
-        console.log('item', item);
-    }
+    const queryText = `INSERT INTO "order" (user_id, product_cost, shipping_cost, total_cost)
+                       VALUES ( $1, $2, $3, $4 )
+                       RETURNING "id"`;
+    pool.query(queryText, [req.user.id, req.body.product_cost, 
+                           req.body.shipping_cost, req.body.total_cost])
 
-    // const queryText = `INSERT INTO "order" (user_id, product_items, product_cost, shipping_cost, total_cost)
-    //                    VALUES ( $1, $2, $3, $4, $5 )`;
-    // pool.query(queryText, [req.user.id, req.body.order.product_items, req.body.order.product_cost, 
-    //                        req.body.order.shipping_cost, req.body.order.total_cost])
-    //     .then(() => res.sendStatus(201))
-    //     .catch((error) => { 
-    //       console.log('Bad news bears error in server POST adding order ---->', error)
-    //       res.sendStatus(501)
-    // });
+        .then(result => {
+            console.log('Order id...', result.rows[0].id);
+
+        const createdId = result.rows[0].id
+
+        const sqlText = `UPDATE "cart" SET order_id = $1 WHERE user_id = $2;`;
+  
+        // SECOND QUERY MAKES ORDER ID FOR CART TABLE
+        pool.query(sqlText, [createdId, req.user.id])
+        .then(result => {
+          //Now that both are done, send back success!
+          res.sendStatus(201);
+        }).catch(error => {
+          // catch for second query
+          console.log('Bad news bears error in server PUT adding order ---->', error)
+          res.sendStatus(500)
+        })
+
+
+        }).catch((error) => { 
+          console.log('Bad news bears error in server POST adding order ---->', error)
+          res.sendStatus(501)
+    });
 });
 
 module.exports = router;

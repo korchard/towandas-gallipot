@@ -22,7 +22,7 @@ const styles = {
     display: 'flex',
     width: '100%',
     height: 'auto',
-    maxHeight: 200,
+    // maxHeight: 200,
     marginBottom: '5%',
   },
   details: {
@@ -38,7 +38,7 @@ const styles = {
     float: 'left',
   },
   controls: {
-    display: 'flex',
+    // display: 'flex',
     alignItems: 'right',
     paddingLeft: theme.spacing(1),
     paddingBottom: theme.spacing(1),
@@ -69,6 +69,8 @@ const styles = {
       paddingRight: '20px',
       paddingTop: '2%',
       float: 'right',
+      fontFamily: 'fantasy',
+      fontWeight: 700,
     }
   }
 
@@ -77,9 +79,9 @@ const styles = {
         'fantasy',
         'serif',
       ].join(','),
-      fontSize: '1rem',
+      fontSize: '.8rem',
     '@media (min-width:600px)': {
-      fontSize: '1rem',
+      fontSize: '.8rem',
       },
       [theme.breakpoints.up('md')]: {
         fontSize: '1.5rem',
@@ -98,19 +100,27 @@ const styles = {
 
 class CartItem extends Component {
 
+  componentDidMount = () => {
+    this.props.dispatch({ type: 'GET_CART_ITEMS' });
+    this.props.dispatch({ type: 'GET_CART_TOTAL' });
+  }
+
   addItem = (id) => {
     console.log('add', id);
-    this.props.dispatch({ type: 'ADD_ITEM', payload: id })
+    this.props.dispatch({ type: 'ADD_ITEM', payload: id });
+    this.componentDidMount();
   }
 
   subtractItem = (id) => {
     console.log('subtract', id);
-    this.props.dispatch({ type: 'SUBTRACT_ITEM', payload: id })
+    this.props.dispatch({ type: 'SUBTRACT_ITEM', payload: id });
+    this.componentDidMount();
   }
 
   deleteItem = (id) => {
     console.log('delete', id);
-    this.props.dispatch({ type: 'DELETE_ITEM', payload: id })
+    this.props.dispatch({ type: 'DELETE_ITEM', payload: id });
+    this.componentDidMount();
   }
 
   render() {
