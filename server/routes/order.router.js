@@ -117,6 +117,15 @@ router.post('/', rejectUnauthenticated, (req, res) => {
           res.sendStatus(500)
         })
 
+        const sqlText2 = `UPDATE "cart" SET order_completed = true WHERE user_id = $1`;
+
+        pool.query(sqlText2, [req.user.id])
+            .then((results) => {
+            res.send(results.rows);
+        }).catch((error) => { 
+            console.log('Bad news bears error in server POST adding order ---->', error)
+            res.sendStatus(501)
+        });
 
         }).catch((error) => { 
           console.log('Bad news bears error in server POST adding order ---->', error)
