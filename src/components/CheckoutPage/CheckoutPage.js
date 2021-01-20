@@ -65,7 +65,7 @@ class CheckoutPage extends Component {
             total_cost: this.props.store.cart.paymentReducer
         }})
         
-        // this.props.dispatch({ type: 'RESET_CART' });
+        this.props.dispatch({ type: 'RESET_CART' });
 
         // this.props.dispatch({ type: 'RESET_CART_ITEMS' });
         // this.props.dispatch({ type: 'RESET_CART_TOTAL' });

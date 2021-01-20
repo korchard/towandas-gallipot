@@ -4,24 +4,23 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 // GET ROUTE - for cart items
-// router.get('/', rejectUnauthenticated, (req, res) => {
-//     console.log('user', req.user);
-//     const queryText = `SELECT product.id, product.name, product.size, product.image_path, 
-//                         product.type, SUM(cart.quantity), 
-//                         COALESCE(SUM(cart.quantity * cart.total_cost), cart.total_cost) 
-//                         FROM product
-//                         LEFT JOIN cart ON cart.product_id = product.id
-//                         WHERE cart.user_id = $1
-//                         GROUP BY product.id, cart.product_id, cart.quantity, cart.total_cost;`;
-//     pool.query(queryText, [req.user.id])
-//         .then((results) => {
-//           res.send(results.rows);
-//           console.log('result', results.rows)
-//         }).catch((error) => {
-//           console.log('Bad news bears error in server GET route ---->', error)
-//           res.sendStatus(500);
-//         })
-// });
+router.get('/', rejectUnauthenticated, (req, res) => {
+    console.log('user', req.user);
+    const queryText = `SELECT COALESCE("order".order_date), product.name, 
+                        product.size, cart.quantity from "cart" 
+                        JOIN "order" ON cart.order_id = "order".id
+                        JOIN "product" ON cart.product_id = product.id
+                        WHERE "order".id = $1
+                        GROUP BY "order".order_date, product.name, product.size, cart.quantity;`;
+    pool.query(queryText, [req.user.id])
+        .then((results) => {
+          res.send(results.rows);
+          console.log('result', results.rows)
+        }).catch((error) => {
+          console.log('Bad news bears error in server GET route ---->', error)
+          res.sendStatus(500);
+        })
+});
 
 // POST ROUTE
 router.post('/', rejectUnauthenticated, (req, res) => {
