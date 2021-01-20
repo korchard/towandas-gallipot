@@ -9,24 +9,25 @@ function* sendOrder (action) {
         withCredentials: true,
       };
   
-      yield axios.post('api/order', action.payload, config);
-      // yield put({ type: 'GET_ORDER', payload: response.data });
-      // console.log('id response', response.data);
+      const response = yield axios.post('api/order', action.payload, config);
+      yield put({ type: 'GET_ORDER', payload: response.data[0]?.id });
+      console.log('id response', response.data[0].id);
     } catch (error) {
       console.log('Bad news bears...error in order saga post', error);
     }
 } // end addOrder
 
-// GET ROUTE -- to get total cost of products
-function* getOrder() {
+// GET ROUTE -- to get order id
+function* getOrder(action) {
   try {
     const config = {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     };
 
-    const response = yield axios.get('api/order', config);
-
+    console.log('payload', action.payload);
+    const response = yield axios.get(`api/order/${action.payload}`, config);
+    // yield axios.post('/api/order', {...action.payload, id: response.data})
     yield put({ type: 'SET_ORDER', payload: response.data });
   } catch (error) {
     console.log('Bad news bears...error in order saga get', error);

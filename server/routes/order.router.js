@@ -4,76 +4,92 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
+const Moment = require('react-moment');
 
 // GET ROUTE - for cart items
-router.get('/', rejectUnauthenticated, (req, res) => {
+router.get('/:id', rejectUnauthenticated, (req, res) => {
     console.log('user', req.user);
-    console.log('order id', req.body);
-    // const queryText = `SELECT "order".order_date, product.name, product.size, 
-    //                     cart.quantity from "cart" 
-    //                     JOIN "order_connection" ON cart.id = order_connection.cart_id
-    //                     JOIN "order" ON order_connection.order_id = "order".id
-    //                     JOIN "product" ON cart.product_id = product.id
-    //                     WHERE "order".id = $1
-    //                     GROUP BY "order".order_date, product.name, product.size, 
-    //                     cart.quantity;`;
+    console.log('order id', req.params.id);
+    const queryText = `SELECT "order".order_date, product.name, product.size, 
+                        cart.quantity from "cart" 
+                        JOIN "order_connection" ON cart.id = order_connection.cart_id
+                        JOIN "order" ON order_connection.order_id = "order".id
+                        JOIN "product" ON cart.product_id = product.id
+                        WHERE "order".id = $1
+                        GROUP BY "order".order_date, product.name, product.size, 
+                        cart.quantity;`;
 
-    // pool.query(queryText, [req.body])
-    //     .then((results) => {
-    //       res.send(results.rows);
-    //       console.log('result', results.rows)
+    pool.query(queryText, [req.params.id])
+        .then((results) => {
+          res.send(results.rows);
+          console.log('result', results.rows);
 
-    //       const data = results.rows;
-    //       const password = process.env.password;
+          const data = results.rows;
+          const date = Moment(results.rows.order_date);
+          console.log('date', date);
+          console.log('data', data);
+        //   for (let item of results.rows) {
+        //     data.push(item);
+        //   }
+        //   const data = results.rows[0];
+          const password = process.env.password;
         
-    //       const smtpTransport = nodemailer.createTransport({
-    //           host: 'smtp.gmail.com',
-    //           port: 587,
-    //           secure: false,
-    //           auth: {
-    //               user: 'kimberly.a.orchard@gmail.com',
-    //               pass: password
-    //           },
-    //           tls: {
-    //               rejectUnauthorized: false 
-    //           }
-    //       });
+          const smtpTransport = nodemailer.createTransport({
+              host: 'smtp.gmail.com',
+              port: 587,
+              secure: false,
+              auth: {
+                  user: 'kimberly.a.orchard@gmail.com',
+                  pass: password
+              },
+              tls: {
+                  rejectUnauthorized: false 
+              }
+          });
       
-    //       smtpTransport.verify(function(error, success) {
-    //           if (error) {
-    //             console.log(error);
-    //           } else {
-    //             console.log("Server is ready to take our messages!");
-    //           }
-    //         });
+          smtpTransport.verify(function(error, success) {
+              if (error) {
+                console.log(error);
+              } else {
+                console.log("Server is ready to take our messages!");
+              }
+            });
         
-    //       const mailOptions = {
-    //           from: `${req.user.email_address}`,
-    //           to: 'kimberly.a.orchard@gmail.com',
-    //           subject: `New Order to Fill`,
-    //           html: `<h5>Hi Steph!</h5>
-    //                 <p>There is another order to fill.</p>
-    //                 <p>Items include: </p>
-    //                 <p>${data}</p>
-    //                 <p>The order is for user:</p>
-    //                 <p>${req.user}</p>
-    //                 <p>Thank you, ${req.user.first_name} ${req.user.last_name}</p>`
-    //       };
+          const mailOptions = {
+              from: `${req.user.email_address}`,
+              to: 'kimberly.a.orchard@gmail.com',
+              subject: `New Order to Fill`,
+              html: `<h5>Hi Steph!</h5>
+                    <p>There is another order to fill.</p>
+                    <p>Items include: </p>
+                    <Moment format="MM/DD/YYYY">${data[0].order_date}</Moment>
+                    <p>${data[0].name}</p>
+                    <p>${data[0].size}</p>
+                    <p>${data[0].quantity}</p>
+                    <p>The order is for user:</p>
+                    <p>${req.user.first_name}</p>
+                    <p>${req.user.last_name}</p>
+                    <p>${req.user.street_address}</p>
+                    <p>${req.user.city}</p>
+                    <p>${req.user.zip}</p>
+                    <p>${req.user.email_address}</p>
+                    <p>Thank you!</p>`
+          };
       
-    //       smtpTransport.sendMail(mailOptions,
-    //           (error, response) => {
-    //               if (error) {
-    //                   console.log('error sending', error);
-    //               } else {
-    //                   console.log('Success!');
-    //               }
-    //               smtpTransport.close();
-    //       });
+          smtpTransport.sendMail(mailOptions,
+              (error, response) => {
+                  if (error) {
+                      console.log('error sending', error);
+                  } else {
+                      console.log('Success!');
+                  }
+                  smtpTransport.close();
+          });
 
-    //     }).catch((error) => {
-    //       console.log('Bad news bears error in server GET route ---->', error)
-    //       res.sendStatus(500);
-    //     })
+        }).catch((error) => {
+          console.log('Bad news bears error in server GET route ---->', error)
+          res.sendStatus(500);
+        })
 });
 
 // POST ROUTE
@@ -123,13 +139,12 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
             pool.query(sqlText2, [req.user.id])
                 .then((results) => {
-                // res.send(createdOrderId);
             }).catch((error) => { 
                 console.log('Bad news bears error in server POST adding order ---->', error)
                 res.sendStatus(501)
             });
 
-          res.send(result.rows[0].id)  
+          res.send(result.rows)  
         }).catch((error) => { 
           console.log('Bad news bears error in server POST adding order ---->', error)
           res.sendStatus(501)
