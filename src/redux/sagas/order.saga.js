@@ -10,7 +10,8 @@ function* sendOrder (action) {
       };
   
       yield axios.post('api/order', action.payload, config);
-      yield put({ type: 'GET_ORDER' });
+      // yield put({ type: 'GET_ORDER', payload: response.data });
+      // console.log('id response', response.data);
     } catch (error) {
       console.log('Bad news bears...error in order saga post', error);
     }

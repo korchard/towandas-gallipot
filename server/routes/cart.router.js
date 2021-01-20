@@ -30,7 +30,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.get('/items', rejectUnauthenticated, (req, res) => {
     console.log('user', req.user);
 
-    const queryText = `SELECT COUNT(cart.quantity) FROM product
+    const queryText = `SELECT SUM(cart.quantity) FROM product
                         LEFT JOIN cart ON cart.product_id = product.id
                         WHERE cart.user_id = $1 AND cart.order_completed = false;`
     pool.query(queryText, [req.user.id])
@@ -65,12 +65,34 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('body', req.body);
     console.log('user', req.user);
 
-    const queryText = `INSERT INTO "cart" (product_id, quantity, total_cost, user_id)
-                       VALUES ( $1, $2, $3, $4 )`;
-    pool.query(queryText, [req.body.product_id, req.body.quantity, req.body.total_cost, 
-                           req.user.id])
-        .then(() => res.sendStatus(201))
-        .catch((error) => { 
+    const sqlText = `SELECT cart.product_id from "cart" WHERE cart.product_id = $1
+                    AND cart.user_id = $2 AND order_completed = false`;
+    pool.query(sqlText, [req.body.product_id, req.user.id])
+        .then((results) => {
+          console.log('already there', results.rows);
+
+          if (results.rows.length > 0) {
+            const sqlText2 = `UPDATE "cart" SET quantity = (quantity + 1) 
+                              WHERE product_id = $1;`
+            pool.query(sqlText2, [req.body.product_id])
+            .then(() => res.sendStatus(201))
+            .catch((error) => { 
+              console.log('Bad news bears error in server POST adding product ---->', error)
+              res.sendStatus(501)
+            });
+          } else if (results.rows.length === 0) {
+            const queryText = `INSERT INTO "cart" (product_id, quantity, total_cost, user_id)
+                              VALUES ( $1, $2, $3, $4 )`;
+            pool.query(queryText, [req.body.product_id, req.body.quantity, req.body.total_cost, 
+                            req.user.id])
+            .then(() => res.sendStatus(201))
+            .catch((error) => { 
+              console.log('Bad news bears error in server POST adding product ---->', error)
+              res.sendStatus(501)
+            });
+          }
+          
+        }).catch((error) => { 
           console.log('Bad news bears error in server POST adding product ---->', error)
           res.sendStatus(501)
     });

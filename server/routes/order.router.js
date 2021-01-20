@@ -8,70 +8,72 @@ require('dotenv').config();
 // GET ROUTE - for cart items
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('user', req.user);
-    const queryText = `SELECT "order".order_date, product.name, 
-                        product.size, cart.quantity from "cart" 
-                        JOIN "order" ON cart.order_id = "order".id
-                        JOIN "product" ON cart.product_id = product.id
-                        WHERE "order".id = $1 AND cart.order_completed = true
-                        GROUP BY "order".order_date, product.name, product.size, 
-                        cart.quantity;`;
+    console.log('order id', req.body);
+    // const queryText = `SELECT "order".order_date, product.name, product.size, 
+    //                     cart.quantity from "cart" 
+    //                     JOIN "order_connection" ON cart.id = order_connection.cart_id
+    //                     JOIN "order" ON order_connection.order_id = "order".id
+    //                     JOIN "product" ON cart.product_id = product.id
+    //                     WHERE "order".id = $1
+    //                     GROUP BY "order".order_date, product.name, product.size, 
+    //                     cart.quantity;`;
 
-    pool.query(queryText, [req.user.id])
-        .then((results) => {
-          res.send(results.rows);
-          console.log('result', results.rows)
+    // pool.query(queryText, [req.body])
+    //     .then((results) => {
+    //       res.send(results.rows);
+    //       console.log('result', results.rows)
 
-          const data = results.rows;
-          const password = process.env.password;
+    //       const data = results.rows;
+    //       const password = process.env.password;
         
-          const smtpTransport = nodemailer.createTransport({
-              host: 'smtp.gmail.com',
-              port: 587,
-              secure: false,
-              auth: {
-                  user: 'kimberly.a.orchard@gmail.com',
-                  pass: password
-              },
-              tls: {
-                  rejectUnauthorized: false 
-              }
-          });
+    //       const smtpTransport = nodemailer.createTransport({
+    //           host: 'smtp.gmail.com',
+    //           port: 587,
+    //           secure: false,
+    //           auth: {
+    //               user: 'kimberly.a.orchard@gmail.com',
+    //               pass: password
+    //           },
+    //           tls: {
+    //               rejectUnauthorized: false 
+    //           }
+    //       });
       
-          smtpTransport.verify(function(error, success) {
-              if (error) {
-                console.log(error);
-              } else {
-                console.log("Server is ready to take our messages!");
-              }
-            });
+    //       smtpTransport.verify(function(error, success) {
+    //           if (error) {
+    //             console.log(error);
+    //           } else {
+    //             console.log("Server is ready to take our messages!");
+    //           }
+    //         });
         
-          const mailOptions = {
-              from: `${req.user.email_address}`,
-              to: 'kimberly.a.orchard@gmail.com',
-              subject: `New Order to Fill`,
-              html: `<h5>Hi Steph!</h5>
-                    <p>There is another order to fill.</p>
-                    <p>Items include: </p>
-                    <p>${data}</p>
-                    <p>The order is for user:</p>
-                    <p>${req.user}</p>
-                    <p>Thank you, ${req.user.first_name} ${req.user.last_name}</p>`
-          };
+    //       const mailOptions = {
+    //           from: `${req.user.email_address}`,
+    //           to: 'kimberly.a.orchard@gmail.com',
+    //           subject: `New Order to Fill`,
+    //           html: `<h5>Hi Steph!</h5>
+    //                 <p>There is another order to fill.</p>
+    //                 <p>Items include: </p>
+    //                 <p>${data}</p>
+    //                 <p>The order is for user:</p>
+    //                 <p>${req.user}</p>
+    //                 <p>Thank you, ${req.user.first_name} ${req.user.last_name}</p>`
+    //       };
       
-          smtpTransport.sendMail(mailOptions,
-              (error, response) => {
-                  if (error) {
-                      console.log('error sending', error);
-                  } else {
-                      console.log('Success!');
-                  }
-                  smtpTransport.close();
-          });
+    //       smtpTransport.sendMail(mailOptions,
+    //           (error, response) => {
+    //               if (error) {
+    //                   console.log('error sending', error);
+    //               } else {
+    //                   console.log('Success!');
+    //               }
+    //               smtpTransport.close();
+    //       });
 
-        }).catch((error) => {
-          console.log('Bad news bears error in server GET route ---->', error)
-          res.sendStatus(500);
-        })
+    //     }).catch((error) => {
+    //       console.log('Bad news bears error in server GET route ---->', error)
+    //       res.sendStatus(500);
+    //     })
 });
 
 // POST ROUTE
@@ -117,16 +119,17 @@ router.post('/', rejectUnauthenticated, (req, res) => {
           res.sendStatus(500)
         })
 
-        const sqlText2 = `UPDATE "cart" SET order_completed = true WHERE user_id = $1`;
+            const sqlText2 = `UPDATE "cart" SET order_completed = true WHERE user_id = $1`;
 
-        pool.query(sqlText2, [req.user.id])
-            .then((results) => {
-            res.send(results.rows);
-        }).catch((error) => { 
-            console.log('Bad news bears error in server POST adding order ---->', error)
-            res.sendStatus(501)
-        });
+            pool.query(sqlText2, [req.user.id])
+                .then((results) => {
+                // res.send(createdOrderId);
+            }).catch((error) => { 
+                console.log('Bad news bears error in server POST adding order ---->', error)
+                res.sendStatus(501)
+            });
 
+          res.send(result.rows[0].id)  
         }).catch((error) => { 
           console.log('Bad news bears error in server POST adding order ---->', error)
           res.sendStatus(501)
