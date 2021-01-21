@@ -9,11 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import DeleteIcon from '@material-ui/icons/Delete';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const theme = createMuiTheme();
 
@@ -98,29 +94,11 @@ const styles = {
 //     },
 //   };
 
-class CartItem extends Component {
+class OrderItem extends Component {
 
   componentDidMount = () => {
     this.props.dispatch({ type: 'GET_CART_ITEMS' });
     this.props.dispatch({ type: 'GET_CART_TOTAL' });
-  }
-
-  addItem = (id) => {
-    console.log('add', id);
-    this.props.dispatch({ type: 'ADD_ITEM', payload: id });
-    this.componentDidMount();
-  }
-
-  subtractItem = (id) => {
-    console.log('subtract', id);
-    this.props.dispatch({ type: 'SUBTRACT_ITEM', payload: id });
-    this.componentDidMount();
-  }
-
-  deleteItem = (id) => {
-    console.log('delete', id);
-    this.props.dispatch({ type: 'DELETE_ITEM', payload: id });
-    this.componentDidMount();
   }
 
   render() {
@@ -150,17 +128,6 @@ class CartItem extends Component {
                           </Typography>
                           </CardContent>
                       </div>
-                      <div className={classes.controls}>
-                            <IconButton aria-label="add" onClick={() => this.addItem(this.props.item.id)}>
-                              <AddCircleIcon/>
-                            </IconButton>
-                            <IconButton aria-label="minus" onClick={() => this.subtractItem(this.props.item.id)}>
-                                <RemoveCircleIcon />
-                            </IconButton>
-                            <IconButton aria-label="delete" onClick={() => this.deleteItem(this.props.item.id)}>
-                                <DeleteIcon />
-                            </IconButton>
-                          </div>
                        </Paper>
                 </Grid>
             </div>
@@ -168,4 +135,4 @@ class CartItem extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(CartItem));
+export default connect(mapStoreToProps)(withStyles(styles)(OrderItem));

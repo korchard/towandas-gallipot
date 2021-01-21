@@ -1,12 +1,14 @@
 import React, { useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from "react-router";
 import swal from 'sweetalert';
 
 function PayPal(props) {
   
-  const { checkout } = props;
+  const { checkout, sendOrder } = props;
   const payment = useSelector(store => store.cart.paymentReducer) 
   const paypal = useRef()
+  const history = useHistory();
   console.log('payment', payment);
 
   useEffect(() => {
@@ -29,13 +31,15 @@ function PayPal(props) {
       onApprove: async (data, actions) => {
         const order = await actions.order.capture()
         console.log('sucessful order', order);
-        swal({
-          title: "Payment successful!",
-          text: "Thank you for supporting Towanda's Gallipot!",
-          icon: "success",
-          button: "Woot!",
-        });
+        // swal({
+        //   title: "Payment successful!",
+        //   text: "Thank you for supporting Towanda's Gallipot!",
+        //   icon: "success",
+        //   button: "Woot!",
+        // });
         checkout();
+        history.push({ pathname:  "/checkout" })
+        sendOrder();
       },
       onError: (error) => {
         console.log(error);

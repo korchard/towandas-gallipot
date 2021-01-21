@@ -13,6 +13,7 @@ const adminRouter = require('./routes/admin.router');
 const productRouter = require('./routes/product.router');
 const contactRouter = require('./routes/contact.router');
 const cartRouter = require('./routes/cart.router');
+const orderRouter = require('./routes/order.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -31,6 +32,7 @@ app.use('/api/admin', adminRouter);
 app.use('/api/product', productRouter);
 app.use('/api/contact', contactRouter);
 app.use('/api/cart', cartRouter);
+app.use('/api/order', orderRouter);
 
 // Serve static files
 app.use(express.static('build'));

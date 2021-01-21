@@ -75,13 +75,20 @@ class CartPage extends Component {
     this.props.dispatch({ type: 'GET_CART' });
     this.props.dispatch({ type: 'GET_CART_ITEMS' });
     this.props.dispatch({ type: 'GET_CART_TOTAL' });
-    // this.props.dispatch({ type: 'GET_SHIPPING' });
   }
 
   checkout = () => {
     this.setState({
       checkout: !this.state.checkout
     })
+  }
+
+  sendOrder = () => {
+    this.props.dispatch({ type: 'SEND_ORDER', payload: {
+      product_cost: Number(this.props.store.cart.totalReducer[0]?.sum),
+      shipping_cost: this.props.store.cart.shippingReducer,
+      total_cost: this.props.store.cart.paymentReducer
+    }})
   }
 
   calculateShipping = () => {
@@ -95,6 +102,7 @@ class CartPage extends Component {
     } else if (this.props.store.cart.totalReducer[0]?.sum > 100.00) {
       shipping = '0.00';
     }
+    this.props.dispatch({ type: 'SET_SHIPPING', payload: Number(shipping) });
     return shipping;
   }
 
@@ -146,11 +154,23 @@ class CartPage extends Component {
                     </Typography>
                     <br></br><br></br>
                     <Typography component="h3" className={classes.header2}>
-                      Total: ${this.calculateTotal()}
+                      Total: ${this.calculateTotal()}.00
                     </Typography>
                     {(this.state.checkout) ? 
-                    <PayPal checkout={this.checkout}/> :
-                    <Button onClick={this.checkout}>Checkout</Button>
+                    <>
+                    <PayPal checkout={this.checkout} sendOrder={this.sendOrder}/> 
+                    <center>
+                      <Button className={classes.button} onClick={this.checkout}>
+                        <input className="btn" type="button" value="Disregard Checkout" />
+                      </Button>
+                    </center>
+                    </>
+                    :
+                    <center>
+                      <Button className={classes.button} onClick={this.checkout}>
+                        <input className="btn" type="button" value="Checkout" />
+                      </Button>
+                    </center>
                     }
                   </CardContent>
                 </Paper>

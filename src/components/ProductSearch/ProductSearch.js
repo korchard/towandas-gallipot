@@ -23,7 +23,7 @@ const styles = {
   header: {
     radius: '5px',
     color: '#648b16',
-    fontSize: '2em',
+    // fontSize: '2em',
     fontFamily: 'fantasy',
     fontWeight: '700',
     display: 'inline-block',
