@@ -42,18 +42,27 @@ const styles = {
       fontFamily: 'fantasy',
       textAlign: 'left',
       paddingLeft: '20px',
-      paddingTop: '20px',
+      paddingTop: '1%',
+      backgroundImage: 'linear-gradient(to right, #7fad14, #395208)',
+      color: '#f8f8f8',
+      paddingBottom: '1%',
     },
     subtext: {
-      paddingLeft: '20px',
-      paddingTop: '2%',
+      paddingRight: '20px',
+      fontSize: '1.1em',
+    //   float: 'right',
+      fontFamily: 'fantasy',
+    //   fontWeight: 700,
     },
     subtext2: {
-      paddingRight: '20px',
-      paddingTop: '2%',
-      float: 'right',
-      fontFamily: 'fantasy',
-      fontWeight: 700,
+        paddingRight: '20px',
+        fontSize: '1.2em',
+      //   float: 'right',
+        fontFamily: 'fantasy',
+        fontWeight: 700,
+      },
+    right: {
+        float: 'right',
     }
   }
 
@@ -93,15 +102,23 @@ class OrderItem extends Component {
                             {this.props.store.order.previousReducer.map(cart => 
                                 cart.map(product => 
                                     product.order_id === this.props.item.id &&
+                                    <ul>
                                         <div key={product.id} >
                                             <OrderCart product={product}/>
                                         </div>
+                                    </ul>
                                 )
                             )}
+                        <div className={classes.right}>
+                          <Typography variant="subtitle2" className={classes.subtext}>
+                            Shipping - ${this.props.item.shipping_cost}
+                          </Typography>
+                                <br></br>
                           <Typography variant="subtitle1" className={classes.subtext2}>
                             Total - ${this.props.item.total_cost}
                           </Typography>
-                          </CardContent>
+                        </div>
+                        </CardContent>
                       </div>
                        </Paper>
                 </Grid>
