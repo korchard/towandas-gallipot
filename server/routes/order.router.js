@@ -6,7 +6,7 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 // GET ROUTE - for order information and then POST nodemailer to admin
-router.get('/:id', rejectUnauthenticated, (req, res) => {
+router.get('/order/:id', rejectUnauthenticated, (req, res) => {
     console.log('user', req.user);
     console.log('order id', req.params.id);
     const queryText = `SELECT "order".order_date, product.name, product.size, 
@@ -95,7 +95,7 @@ router.get('/previous', rejectUnauthenticated, (req, res) => {
                         JOIN "order_connection" ON cart.id = order_connection.cart_id
                         JOIN "order" ON order_connection.order_id = "order".id
                         JOIN "product" ON cart.product_id = product.id
-                        WHERE "order".user_id = 3
+                        WHERE "order".user_id = $1
                         GROUP BY "order".id, "order".order_date, product.name, product.size, 
                         cart.quantity, cart.total_cost, "order".total_cost;`
     pool.query(queryText, [req.user.id])
