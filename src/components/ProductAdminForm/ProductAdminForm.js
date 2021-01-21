@@ -9,6 +9,9 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
+// DOTENV 
+const filestackApiKey = process.env.REACT_APP_FILESTACK_API_KEY
+
 // calls the theme
 const theme = createMuiTheme();
 
@@ -67,13 +70,22 @@ class ProductAdminForm extends Component {
       cost: '',
       image_path: '',
       type: '',
-      url: '',
-      imageUploadOpen: false,
+      imageUpload: false,
   };
 
-  openImageUpload = () => {
+  onSuccess = (result) => {
     this.setState({
-        imageUploadOpen: true
+        image_path: result.filesUploaded[0].url,
+    })
+  }
+
+  onError = (error) => {
+    console.error('Image did not successfully upload...', error);
+  }
+
+  upload = () => {
+    this.setState({
+      imageUpload: !this.state.imageUpload
     })
   }
 
@@ -88,8 +100,8 @@ class ProductAdminForm extends Component {
         size: this.state.size,
         cost: this.state.cost,
         image_path: this.state.image_path,
-        type: this.state.type
-      },
+        type: this.state.type,
+      }
     }); // end dispatch
     this.setState({
       name: '',
@@ -97,7 +109,8 @@ class ProductAdminForm extends Component {
       size: '',
       cost: '',
       image_path: '',
-      type: ''
+      type: '',
+      imageUpload: !this.state.imageUpload,
     })
   }; // end registerUser
 
@@ -110,6 +123,12 @@ class ProductAdminForm extends Component {
 
   render() {
     const { classes } = this.props;
+    const basicOptions = {
+      accept: 'image/*',
+      fromSources: ['local_file_system'],
+      maxSize: 1024 * 1024,
+      maxFiles: 1,
+    }
 
     return (
       <div className={classes.root}>
@@ -150,7 +169,22 @@ class ProductAdminForm extends Component {
                   required
                   value={this.state.cost}/>
                <br></br><br></br>
-               {this.state.imageUploadOpen && 
+               {this.state.imageUpload ? 
+                  <PickerOverlay
+                    apikey={filestackApiKey}
+                    buttonText="Upload Image"
+                    // buttonClass="ui medium button gray"
+                    className="btn"
+                    options={basicOptions}
+                    onSuccess={(event) => this.onSuccess(event, 'image_path')}
+                    onError={this.onError}
+                  />   :
+                // <Button variant="contained" className="btn" onClick={this.upload}>Upload Image</Button>
+                <Button onClick={this.upload}>
+                    <input className="btn" type="submit" name="submit" value="Upload Image" />
+                </Button>
+                }
+               {/* {this.state.imageUpload && 
                 <PickerOverlay 
                     apikey='INSERT_API_KEY_HERE'
                     onSuccess={(res) => {
@@ -158,7 +192,7 @@ class ProductAdminForm extends Component {
                     this.props.dispatch({type: 'SET_IMAGE', payload: res.filesUploaded[0].url}) }
                   }/>
                 }
-                <Button onClick={this.openImageUpload}>Upload Image</Button>
+                <Button onClick={this.openImageUpload}>Upload Image</Button> */}
                {/* <TextField
                   label="Image Path"
                   className={classes.textField}

@@ -45,6 +45,9 @@ const styles = {
     expandOpen: {
       transform: 'rotate(180deg)',
     },
+    title: {
+      fontFamily: 'fantasy',
+    },
   }
 
   theme.typography.h5 = {
@@ -182,7 +185,8 @@ class ProductsItem extends Component {
               <ThemeProvider theme={theme}>
                 <CardHeader
                   title={this.props.item.name}
-                  variant="h5"/>
+                  variant="h5"
+                  className={classes.title}/>
                 <CardMedia
                   className={classes.media}
                   image={this.props.item.image_path}

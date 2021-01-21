@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+
 const orderReducer = (state = [], action) => {
     switch (action.type) {
       case 'SET_ORDER':
@@ -7,4 +9,16 @@ const orderReducer = (state = [], action) => {
     }
   }; 
 
-export default orderReducer;
+const previousReducer = (state = [], action) => {
+    switch (action.type) {
+      case 'SET_PREVIOUS':
+        return [...state, action.payload];
+      default:
+        return state;
+    }
+  }; 
+
+  export default combineReducers({
+    orderReducer,
+    previousReducer,
+  });

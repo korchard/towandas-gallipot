@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import { PickerOverlay } from 'filestack-react';
 
 // STYLING
 import './Modal.css';
 import { Card, CardContent, Button, TextField, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 // import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
+// DOTENV 
+const filestackApiKey = process.env.REACT_APP_FILESTACK_API_KEY
 
 // const theme = createMuiTheme();
 
@@ -72,8 +76,28 @@ class Modal extends Component {
             size: '',
             cost: '',
             image_path: '',
-            type: ''
+            type: '',
+            imageUpload: false,
         }
+    }
+
+    onSuccess = (result) => {
+      this.setState({
+        product: {
+          ...this.state.product,
+          image_path: result.filesUploaded[0].url,
+        }
+      })
+    }
+  
+    onError = (error) => {
+      console.error('Image did not successfully upload...', error);
+    }
+  
+    upload = () => {
+      this.setState({
+        imageUpload: !this.state.imageUpload
+      })
     }
 
     // creating an object to set local state and send to PUT route
@@ -99,6 +123,12 @@ class Modal extends Component {
 render() {
   const showHideClassName = this.props.open ? "modal display-block" : "modal display-none";
   const { classes } = this.props;
+  const basicOptions = {
+    accept: 'image/*',
+    fromSources: ['local_file_system'],
+    maxSize: 1024 * 1024,
+    maxFiles: 1,
+  }
 
   return (
     <div className={showHideClassName}>
@@ -142,14 +172,29 @@ render() {
                   placeholder={this.props.store.edit.cost} 
                   onChange={(event) => this.updateProduct(event, 'cost')}
                />
-               <TextField
+               {this.state.imageUpload ? 
+                  <PickerOverlay
+                    apikey={filestackApiKey}
+                    buttonText="Upload Image"
+                    // buttonClass="ui medium button gray"
+                    className="btn"
+                    options={basicOptions}
+                    onSuccess={(event) => this.onSuccess(event, 'image_path')}
+                    onError={this.onError}
+                  />   :
+                // <Button variant="contained" className="btn" onClick={this.upload}>Upload Image</Button>
+                <Button onClick={this.upload}>
+                    <input className="btn" type="submit" name="submit" value="Upload Image" />
+                </Button>
+                }
+               {/* <TextField
                   label="Image"
                   type="text"
                   className={classes.textField}
                   value={this.state.product.image_path} 
                   placeholder={this.props.store.edit.image_path} 
                   onChange={(event) => this.updateProduct(event, 'image_path')}
-               />
+               /> */}
                <TextField
                   label="Type"
                   type="text"

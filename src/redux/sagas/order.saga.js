@@ -26,7 +26,7 @@ function* getOrder(action) {
     };
 
     console.log('payload', action.payload);
-    const response = yield axios.get(`api/order/${action.payload}`, config);
+    const response = yield axios.get(`api/order/order/${action.payload}`, config);
     yield put({ type: 'SET_ORDER', payload: response.data });
   } catch (error) {
     console.log('Bad news bears...error in order saga get', error);
@@ -48,10 +48,27 @@ function* getPrevious() {
   }
 } // end getPrevious
 
+// // GET ROUTE -- to get previous order items
+function* getPreviousItems(action) {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+  
+    console.log('in new get', action.payload)
+    const response = yield axios.get(`api/order/things/${action.payload}`, config);
+    yield put({ type: 'SET_PREVIOUS', payload: response.data });
+  } catch (error) {
+    console.log('Bad news bears...error in order saga get', error);
+  }
+} // end getPreviousItems
+
 function* orderSaga() {
   yield takeEvery('SEND_ORDER', sendOrder);
   yield takeEvery('GET_ORDER', getOrder);
   yield takeEvery('GET_PREVIOUS_ORDERS', getPrevious);
+  yield takeEvery('GET_PREVIOUS_ITEMS', getPreviousItems);
 }
 
 export default orderSaga;
