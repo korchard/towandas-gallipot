@@ -9,10 +9,10 @@ const orderReducer = (state = [], action) => {
     }
   }; 
 
-const itemReducer = (state = [], action) => {
+const previousReducer = (state = [], action) => {
     switch (action.type) {
-      case 'SET_ITEM':
-        return action.payload;
+      case 'SET_PREVIOUS':
+        return [...state, action.payload];
       default:
         return state;
     }
@@ -20,5 +20,5 @@ const itemReducer = (state = [], action) => {
 
   export default combineReducers({
     orderReducer,
-    itemReducer,
+    previousReducer,
   });

@@ -45,7 +45,7 @@ const styles = {
 class PreviousOrders extends Component {
 
   componentDidMount = () => {
-    this.props.dispatch({ type: 'GET_CART_ITEMS' });
+    // this.props.dispatch({ type: 'GET_CART_ITEMS' });
     this.props.dispatch({ type: 'GET_PREVIOUS_ORDERS' });
   }
 
@@ -60,7 +60,7 @@ class PreviousOrders extends Component {
             <Grid item xs={12} sm={9}>
               {this.props.store.order.orderReducer.map((item) => {
                   return (
-                      <OrderItem key= {item.id} item={item}/>
+                      <OrderItem key={item.id} item={item}/>
                   );
               })} 
             </Grid>

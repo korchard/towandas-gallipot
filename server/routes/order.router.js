@@ -87,24 +87,37 @@ router.get('/order/:id', rejectUnauthenticated, (req, res) => {
 
 // GET ROUTE - for previous orders
 router.get('/previous', rejectUnauthenticated, (req, res) => {
-    console.log('user', req.user);
-  
-    // const queryText = `SELECT "order".id, "order".order_date, product.name, 
-    //                     product.size, cart.quantity, cart.total_cost, "order".total_cost 
-    //                     FROM "cart" 
-    //                     JOIN "order_connection" ON cart.id = order_connection.cart_id
-    //                     JOIN "order" ON order_connection.order_id = "order".id
-    //                     JOIN "product" ON cart.product_id = product.id
-    //                     WHERE "order".user_id = $1
-    //                     GROUP BY "order".id, "order".order_date, product.name, product.size, 
-    //                     cart.quantity, cart.total_cost, "order".total_cost;`
-
+   
     const queryText = `SELECT * FROM "order" WHERE user_id = $1;`;
-    
+
     pool.query(queryText, [req.user.id])
         .then((results) => {
           res.send(results.rows);
-          console.log('result', results.rows)
+          console.log('result1', results.rows)
+        }).catch((error) => {
+          console.log('Bad news bears error in server GET route ---->', error)
+          res.sendStatus(500);
+        })
+  });
+
+// GET ROUTE - for previous orders
+router.get('/things/:id', rejectUnauthenticated, (req, res) => {
+    // console.log('user', req.user);
+    console.log('params', req.params.id);
+  
+    const queryText = `SELECT cart.id, order_connection.order_id, product.name, 
+                        product.size, cart.quantity, SUM(cart.quantity * product.cost) 
+                        FROM "cart"
+                        JOIN order_connection ON cart.id = order_connection.cart_id
+                        JOIN product ON product.id = cart.product_id
+                        WHERE order_connection.order_id = $1
+                        GROUP BY cart.id, order_connection.order_id, product.name, 
+                        product.size, cart.quantity;`;
+    
+    pool.query(queryText, [req.params.id])
+        .then((results) => {
+          res.send(results.rows);
+          console.log('results is', results.rows);
         }).catch((error) => {
           console.log('Bad news bears error in server GET route ---->', error)
           res.sendStatus(500);

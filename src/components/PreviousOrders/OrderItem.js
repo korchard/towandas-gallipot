@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import Moment from 'react-moment';
 
+// COMPONENTS
+import OrderCart from './OrderCart';
+
 // STYLING
 import { withStyles } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
@@ -19,13 +21,11 @@ const styles = {
     // display: 'flex',
     width: '100%',
     height: 'auto',
-    // maxHeight: 200,
     marginBottom: '5%',
   },
   details: {
     display: 'flex',
     flexDirection: 'column',
-    // width: 400,
   },
   content: {
     flex: '1 0 auto',
@@ -70,22 +70,12 @@ const styles = {
         fontSize: '1.5rem',
       },
   };
-  
-//   theme.typography.p = {
-//     fontSize: '1rem',
-//     '@media (min-width:600px)': {
-//       fontSize: '1rem',
-//     },
-//     [theme.breakpoints.up('md')]: {
-//       fontSize: '1.5rem',
-//     },
-//   };
 
 class OrderItem extends Component {
 
   componentDidMount = () => {
-    this.props.dispatch({ type: 'GET_CART_ITEMS' });
-    this.props.dispatch({ type: 'GET_PREVIOUS_ITEMS' });
+    this.props.dispatch({ type: 'GET_PREVIOUS_ITEMS', payload: this.props.item.id});
+    console.log('previous', this.props.item.id);
   }
 
   render() {
@@ -100,12 +90,14 @@ class OrderItem extends Component {
                           <Typography component="h5" variant="h5" className={classes.header}>
                             <Moment format="MM/DD/YYYY">{this.props.item.order_date}</Moment>
                           </Typography>
-                          <Typography variant="subtitle1" className={classes.subtext}>
-                            {this.props.item.size}
-                          </Typography>
-                          <Typography variant="subtitle1" className={classes.subtext}>
-                            quantity - {this.props.item.sum}
-                          </Typography>
+                            {this.props.store.order.previousReducer.map(cart => 
+                                cart.map(product => 
+                                    product.order_id === this.props.item.id &&
+                                        <div key={product.id} >
+                                            <OrderCart product={product}/>
+                                        </div>
+                                )
+                            )}
                           <Typography variant="subtitle1" className={classes.subtext2}>
                             Total - ${this.props.item.total_cost}
                           </Typography>
