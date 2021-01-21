@@ -5,7 +5,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-// GET ROUTE - for cart items
+// GET ROUTE - for order information and then POST nodemailer to admin
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     console.log('user', req.user);
     console.log('order id', req.params.id);
@@ -84,6 +84,29 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
           res.sendStatus(500);
         })
 });
+
+// GET ROUTE - for previous orders
+router.get('/previous', rejectUnauthenticated, (req, res) => {
+    console.log('user', req.user);
+  
+    const queryText = `SELECT "order".id, "order".order_date, product.name, 
+                        product.size, cart.quantity, cart.total_cost, "order".total_cost 
+                        FROM "cart" 
+                        JOIN "order_connection" ON cart.id = order_connection.cart_id
+                        JOIN "order" ON order_connection.order_id = "order".id
+                        JOIN "product" ON cart.product_id = product.id
+                        WHERE "order".user_id = 3
+                        GROUP BY "order".id, "order".order_date, product.name, product.size, 
+                        cart.quantity, cart.total_cost, "order".total_cost;`
+    pool.query(queryText, [req.user.id])
+        .then((results) => {
+          res.send(results.rows);
+          console.log('result', results.rows)
+        }).catch((error) => {
+          console.log('Bad news bears error in server GET route ---->', error)
+          res.sendStatus(500);
+        })
+  });
 
 // POST ROUTE
 router.post('/', rejectUnauthenticated, (req, res) => {
