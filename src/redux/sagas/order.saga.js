@@ -48,10 +48,26 @@ function* getPrevious() {
   }
 } // end getPrevious
 
+// GET ROUTE -- to get previous order items
+function* getPreviousItems() {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+
+    const response = yield axios.get('api/order/items', config);
+    yield put({ type: 'SET_ITEM', payload: response.data });
+  } catch (error) {
+    console.log('Bad news bears...error in order saga get', error);
+  }
+} // end getPreviousItems
+
 function* orderSaga() {
   yield takeEvery('SEND_ORDER', sendOrder);
   yield takeEvery('GET_ORDER', getOrder);
   yield takeEvery('GET_PREVIOUS_ORDERS', getPrevious);
+  yield takeEvery('GET_PREVIOUS_ITEMS', getPreviousItems);
 }
 
 export default orderSaga;

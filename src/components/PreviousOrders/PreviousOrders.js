@@ -26,24 +26,6 @@ const styles = {
       padding: '3%',
       radius: '5px',
     },
-    // header2: {
-    //   margin: 'auto',
-    //   fontFamily: 'fantasy',
-    //   textAlign: 'center',
-    //   fontSize: '2em',
-    //   padding: '3%',
-    //   radius: '5px',
-    // },
-    // root: {
-    //   marginBottom: '5%',
-    //   minWidth: 300,
-    // },
-    // orderDetails: {
-    //   marginLeft: '5%',
-    // },
-    // subtitle1: {
-    //   paddingBottom: '5%',
-    // }
   }
 
   theme.typography.h3 = {
@@ -73,10 +55,10 @@ class PreviousOrders extends Component {
     return (
 
       <div>
-        {(this.props.store.order.length > 0) ?
-          <Grid container spacing={4} className={classes.gridContainer}>
-            <Grid item xs={12} sm={7}>
-              {this.props.store.order.map((item) => {
+        {(this.props.store.order.orderReducer.length > 0) ?
+          <Grid container spacing={4} className={classes.gridContainer} justify="center">
+            <Grid item xs={12} sm={9}>
+              {this.props.store.order.orderReducer.map((item) => {
                   return (
                       <OrderItem key= {item.id} item={item}/>
                   );

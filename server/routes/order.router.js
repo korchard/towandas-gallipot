@@ -89,15 +89,18 @@ router.get('/order/:id', rejectUnauthenticated, (req, res) => {
 router.get('/previous', rejectUnauthenticated, (req, res) => {
     console.log('user', req.user);
   
-    const queryText = `SELECT "order".id, "order".order_date, product.name, 
-                        product.size, cart.quantity, cart.total_cost, "order".total_cost 
-                        FROM "cart" 
-                        JOIN "order_connection" ON cart.id = order_connection.cart_id
-                        JOIN "order" ON order_connection.order_id = "order".id
-                        JOIN "product" ON cart.product_id = product.id
-                        WHERE "order".user_id = $1
-                        GROUP BY "order".id, "order".order_date, product.name, product.size, 
-                        cart.quantity, cart.total_cost, "order".total_cost;`
+    // const queryText = `SELECT "order".id, "order".order_date, product.name, 
+    //                     product.size, cart.quantity, cart.total_cost, "order".total_cost 
+    //                     FROM "cart" 
+    //                     JOIN "order_connection" ON cart.id = order_connection.cart_id
+    //                     JOIN "order" ON order_connection.order_id = "order".id
+    //                     JOIN "product" ON cart.product_id = product.id
+    //                     WHERE "order".user_id = $1
+    //                     GROUP BY "order".id, "order".order_date, product.name, product.size, 
+    //                     cart.quantity, cart.total_cost, "order".total_cost;`
+
+    const queryText = `SELECT * FROM "order" WHERE user_id = $1;`;
+    
     pool.query(queryText, [req.user.id])
         .then((results) => {
           res.send(results.rows);

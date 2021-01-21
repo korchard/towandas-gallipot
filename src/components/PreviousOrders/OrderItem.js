@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import Moment from 'react-moment';
 
 // STYLING
 import { withStyles } from '@material-ui/core/styles';
@@ -15,7 +16,7 @@ const theme = createMuiTheme();
 
 const styles = {
   root: {
-    display: 'flex',
+    // display: 'flex',
     width: '100%',
     height: 'auto',
     // maxHeight: 200,
@@ -24,25 +25,11 @@ const styles = {
   details: {
     display: 'flex',
     flexDirection: 'column',
-    width: 400,
+    // width: 400,
   },
   content: {
     flex: '1 0 auto',
   },
-  cover: {
-    width: 200,
-    float: 'left',
-  },
-  controls: {
-    // display: 'flex',
-    alignItems: 'right',
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
-    media: {
-      height: 0,
-      paddingTop: '56.25%', // 16:9
-    },
     gridContainer: {
       paddingLeft: '5%',
       paddingRight: '5%',
@@ -98,7 +85,7 @@ class OrderItem extends Component {
 
   componentDidMount = () => {
     this.props.dispatch({ type: 'GET_CART_ITEMS' });
-    this.props.dispatch({ type: 'GET_CART_TOTAL' });
+    this.props.dispatch({ type: 'GET_PREVIOUS_ITEMS' });
   }
 
   render() {
@@ -108,14 +95,10 @@ class OrderItem extends Component {
             <div>
                 <Grid item xs={12} theme={theme}>
                     <Paper className={classes.root}>
-                    <CardMedia
-                          className={classes.cover}
-                          image={this.props.item.image_path}
-                          title={this.props.item.name}/>
                       <div className={classes.details}>
                         <CardContent className={classes.content}>
                           <Typography component="h5" variant="h5" className={classes.header}>
-                            {this.props.item.name}
+                            <Moment format="MM/DD/YYYY">{this.props.item.order_date}</Moment>
                           </Typography>
                           <Typography variant="subtitle1" className={classes.subtext}>
                             {this.props.item.size}
@@ -124,7 +107,7 @@ class OrderItem extends Component {
                             quantity - {this.props.item.sum}
                           </Typography>
                           <Typography variant="subtitle1" className={classes.subtext2}>
-                            Total - ${this.props.item.coalesce}
+                            Total - ${this.props.item.total_cost}
                           </Typography>
                           </CardContent>
                       </div>
