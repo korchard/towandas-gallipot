@@ -27,16 +27,31 @@ function* getOrder(action) {
 
     console.log('payload', action.payload);
     const response = yield axios.get(`api/order/${action.payload}`, config);
-    // yield axios.post('/api/order', {...action.payload, id: response.data})
     yield put({ type: 'SET_ORDER', payload: response.data });
   } catch (error) {
     console.log('Bad news bears...error in order saga get', error);
   }
 } // end getCart
 
+// GET ROUTE -- to get previous orders
+function* getPrevious() {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+
+    const response = yield axios.get('api/order/previous', config);
+    yield put({ type: 'SET_ORDER', payload: response.data });
+  } catch (error) {
+    console.log('Bad news bears...error in order saga get', error);
+  }
+} // end getPrevious
+
 function* orderSaga() {
   yield takeEvery('SEND_ORDER', sendOrder);
   yield takeEvery('GET_ORDER', getOrder);
+  yield takeEvery('GET_PREVIOUS_ORDERS', getPrevious);
 }
 
 export default orderSaga;

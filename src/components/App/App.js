@@ -38,6 +38,7 @@ class App extends Component {
   // calls the route for the user information
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_USER' });
+    this.props.dispatch({ type: 'GET_CART_ITEMS' });
   } // end componentDidMount
 
   render() {

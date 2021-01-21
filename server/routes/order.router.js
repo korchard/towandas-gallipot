@@ -4,7 +4,6 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
-const Moment = require('react-moment');
 
 // GET ROUTE - for cart items
 router.get('/:id', rejectUnauthenticated, (req, res) => {
@@ -25,13 +24,8 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
           console.log('result', results.rows);
 
           const data = results.rows;
-          const date = Moment(results.rows.order_date);
-          console.log('date', date);
           console.log('data', data);
-        //   for (let item of results.rows) {
-        //     data.push(item);
-        //   }
-        //   const data = results.rows[0];
+        
           const password = process.env.password;
         
           const smtpTransport = nodemailer.createTransport({
@@ -62,10 +56,9 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
               html: `<h5>Hi Steph!</h5>
                     <p>There is another order to fill.</p>
                     <p>Items include: </p>
-                    <Moment format="MM/DD/YYYY">${data[0].order_date}</Moment>
-                    <p>${data[0].name}</p>
-                    <p>${data[0].size}</p>
-                    <p>${data[0].quantity}</p>
+                    <p>Product: ${data.name}</p>
+                    <p>Size: ${data.size}</p>
+                    <p>Quantity: ${data.quantity}</p>
                     <p>The order is for user:</p>
                     <p>${req.user.first_name}</p>
                     <p>${req.user.last_name}</p>
