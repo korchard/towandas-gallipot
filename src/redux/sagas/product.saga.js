@@ -44,7 +44,8 @@ function* deleteProduct (action) {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true,
       };
-    
+      
+      console.log('deleting item', action.payload);
       yield axios.delete(`api/admin/${action.payload}`, config);
       yield put({ type: 'GET_PRODUCT' });
     } catch (error) {

@@ -10,4 +10,24 @@ import './Footer.css';
 
 const Footer = () => <div className="footer"><footer>&copy; Towanda's Gallipot 2021</footer></div>;
 
+// function Footer() {
+//     return (
+//         <div class="row">
+//             <div class="column">
+//                 <img src={window.location.origin + '/image/footer1.png'} alt="mushrooms" className="pic"/>
+//             </div>
+//             <div class="column">
+//                 <img src={window.location.origin + '/image/footer2.png'} alt="st. john's" className="pic"/>
+//             </div>
+//             <div class="column">
+//                 <img src={window.location.origin + '/image/footer3.png'} alt="mushrooms" className="pic"/>
+//             </div>
+//             <div class="column">
+//                 <img src={window.location.origin + '/image/footer4.png'} alt="mushrooms" className="pic"/>
+//             </div>
+//         </div>
+//       );
+// }
+    
 export default Footer;
+

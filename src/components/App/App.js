@@ -120,14 +120,14 @@ class App extends Component {
               exact
               path="/admin-product-add"
               component={ProductAdminDisplay}/>
-            <ProtectedRoute
+            {/* <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/user"
               // - else shows LoginPage at /login
               exact
               path="/user"
               component={UserPage}
-              authRedirect="/login"/>
+              authRedirect="/login"/> */}
             </>
             }
             {/* When a value is supplied for the authRedirect prop the user will

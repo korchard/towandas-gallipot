@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 // import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // STYLING
@@ -173,5 +173,5 @@ class AboutPage extends Component {
   }
 }
 
-export default withStyles(styles)(AboutPage);
+export default connect()(withStyles(styles)(AboutPage));
 
