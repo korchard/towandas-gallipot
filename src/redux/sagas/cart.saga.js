@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 
-// POST ROUTE
+// POST ROUTE - to add an item to the user's cart
 function* addToCart(action) {
     try {
       const config = {
@@ -12,11 +12,11 @@ function* addToCart(action) {
       yield axios.post('api/cart', action.payload, config);
       yield put({ type: 'GET_CART' });
     } catch (error) {
-      console.log('Bad news bears...error in cart saga post', error);
+      console.log('Bad news bears...error in cart saga POST', error);
     }
 } // end addToCart
 
-// GET ROUTE -- to get cart items
+// GET ROUTE -- to get cart items to display in cart page
 function* getCart() {
     try {
       const config = {
@@ -25,14 +25,13 @@ function* getCart() {
       };
   
       const response = yield axios.get('api/cart', config);
-  
       yield put({ type: 'SET_CART', payload: response.data });
     } catch (error) {
-      console.log('Bad news bears...error in cart saga get', error);
+      console.log('Bad news bears...error in cart saga GET', error);
     }
 } // end getCart
 
-// GET ROUTE -- to get number of items to display in navbar
+// GET ROUTE -- to get number of cart items to display in navbar
 function* getCartItems() {
   try {
     const config = {
@@ -41,12 +40,11 @@ function* getCartItems() {
     };
 
     const response = yield axios.get('api/cart/items', config);
-
     yield put({ type: 'SET_CART_ITEMS', payload: response.data });
   } catch (error) {
-    console.log('Bad news bears...error in cart saga get', error);
+    console.log('Bad news bears...error in cart saga GET', error);
   }
-} // end getCart
+} // end getCartItems
 
 // GET ROUTE -- to get total cost of products
 function* getCartTotal() {
@@ -57,12 +55,11 @@ function* getCartTotal() {
     };
 
     const response = yield axios.get('api/cart/total', config);
-
     yield put({ type: 'SET_CART_TOTAL', payload: response.data });
   } catch (error) {
-    console.log('Bad news bears...error in cart saga get', error);
+    console.log('Bad news bears...error in cart saga GET', error);
   }
-} // end getCart
+} // end getCartTotal
 
 // DELETE ROUTE -- to remove cart item
 function* deleteItem (action) {
@@ -75,26 +72,11 @@ function* deleteItem (action) {
     yield axios.delete(`api/cart/adjust/${action.payload}`, config);
     yield put({ type: 'GET_CART' });
   } catch (error) {
-    console.log('Bad news bears...error in cart saga delete', error);
+    console.log('Bad news bears...error in cart saga DELETE', error);
   }
 } // end deleteItem
 
-// DELETE ROUTE -- to remove cart items after purchase
-// function* resetCart () {
-//   try {
-//     const config = {
-//       headers: { 'Content-Type': 'application/json' },
-//       withCredentials: true,
-//     };
-  
-//     yield axios.delete(`api/cart`, config);
-//     yield put({ type: 'GET_CART' });
-//   } catch (error) {
-//     console.log('Bad news bears...error in cart saga delete', error);
-//   }
-// } // end resetCart
-
-// PUT ROUTE
+// PUT ROUTE - to increase thee quantity of a specific item in the cart
 function* addItem (action) {
   console.log('action', action.payload);
   try {
@@ -106,11 +88,11 @@ function* addItem (action) {
     yield axios.put(`api/cart/add/${action.payload}`, config);
     yield put({ type: 'GET_CART' });
   } catch (error) {
-    console.log('Bad news bears...error in cart saga put', error);
+    console.log('Bad news bears...error in cart saga PUT', error);
   }
 } // end addItem
 
-// PUT ROUTE
+// PUT ROUTE - to decrease the quantity of a specific item in the cart
 function* subtractItem (action) {
   try {
     const config = {
@@ -121,7 +103,7 @@ function* subtractItem (action) {
     yield axios.put(`api/cart/subtract/${action.payload}`, config);
     yield put({ type: 'GET_CART' });
   } catch (error) {
-    console.log('Bad news bears...error in cart saga put', error);
+    console.log('Bad news bears...error in cart saga PUT', error);
   }
 } // end subtractItem
 
@@ -133,7 +115,6 @@ function* productSaga() {
   yield takeEvery('ADD_ITEM', addItem);
   yield takeEvery('SUBTRACT_ITEM', subtractItem);
   yield takeEvery('DELETE_ITEM', deleteItem);
-  // yield takeEvery('RESET_CART', resetCart);
 }
 
 export default productSaga;

@@ -45,6 +45,12 @@ const paymentReducer = (state = 0, action) => {
     }
   }; 
 
+// cart will be on the redux state at:
+// state.cart.cartReducer &
+// state.cart.itemsReducer &
+// state.cart.totalReducer &
+// state.cart.shippingReducer &
+// state.cart.paymentReducer
 export default combineReducers({
   cartReducer,
   itemsReducer,

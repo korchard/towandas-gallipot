@@ -21,8 +21,22 @@
     height: auto;
     justify-content: center;
     transform: translate(-50%,-50%);
-    padding: 2em;
+    padding: 1em;
 }
+
+@media only screen and (max-width: 600px) {
+    .modal-main {
+        position: absolute;
+        width: 90%;
+        top: 90%;
+        left: 50%;
+        /* height: 70vh; */
+        height: auto;
+        justify-content: center;
+        transform: translate(-50%,-50%);
+        padding: .5em;
+    }
+  }
 
 .display-block {
     display: block;

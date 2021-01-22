@@ -9,4 +9,6 @@ const searchReducer = (state = [], action) => {
     }
   }; 
 
+// search will be on the redux state at:
+// state.search
 export default searchReducer;

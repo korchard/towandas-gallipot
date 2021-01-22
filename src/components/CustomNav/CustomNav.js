@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { withRouter } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // COMPONENTS
 import LogOutButton from '../LogOutButton/LogOutButton';
@@ -154,6 +155,11 @@ const CustomNav = (props) => {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const cart = useSelector(store => store.cart.itemsReducer[0]?.sum) 
+
+    useEffect(() => {
+      console.log('update cart items');
+    }, [])
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -244,7 +250,7 @@ const adminList = [
                         </>
                     )}
                     <Link className="nav-link" to="/cart">
-                      <Badge badgeContent={props.store.cart.itemsReducer[0]?.sum}>
+                      <Badge badgeContent={cart}>
                         <ShoppingCartIcon/>
                       </Badge>
                     </Link>

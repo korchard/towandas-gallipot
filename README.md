@@ -1,120 +1,73 @@
+![MIT LICENSE](https://img.shields.io/github/license/korchard/towandas-gallipot.svg?style=flat-square)
+![REPO SIZE](https://img.shields.io/github/repo-size/korchard/towandas-gallipot.svg?style=flat-square)
+![TOP_LANGUAGE](https://img.shields.io/github/languages/top/korchard/towandas-gallipot.svg?style=flat-square)
+![FORKS](https://img.shields.io/github/forks/korchard/towandas-gallipot.svg?style=social)
 
-# Towanda's Gallipot
-This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
+# TOWANDA'S GALLIPOT
 
-We **STRONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
+## Description
 
-## Use the Template for This Repository (Don't Clone) 
+_Duration: 2 Week Sprint_ // 60 HOURS
 
-- [x] Don't Fork or Clone. Instead, click the `Use this Template` button, and make a copy to your personal account.
+Towanda's Gallipot is an herbalist's apothecary. This site is the business page for Steph Peltier, as well as her virtual store. She is able to share information about herself, herbalism, her services, and products. Users are able to contact her, make appointments with her via email, and order items she has cultivated. 
 
-## Prerequisites
+To see the fully functional site, please visit: [DEPLOYED VERSION OF APP](www.heroku.com)
 
-Before you get started, make sure you have the following software installed on your computer:
+## Screen Shot
 
-- [x] [Node.js](https://nodejs.org/en/)
-- [x] [PostrgeSQL](https://www.postgresql.org/)
-- [x] [Nodemon](https://nodemon.io/)
+![towanda's_gallipot](./public/images/ss1.png)
+![towanda's_gallipot](./public/images/ss2.png)
 
-## Create database and table
+### Prerequisites
 
-[x] Create a new database called `prime_app` and create a `user` table:
+- [Node.js](https://nodejs.org/en/)
+- [express](https://expressjs.com/)
+- [postgreSQL](https://www.postgresql.org/download/)
+- [react-redux](https://redux.js.org/introduction/installation)
+- [react-pdf](https://www.npmjs.com/package/react-pdf)
+- [react-moment](https://www.npmjs.com/package/react-moment)
+- [nodemailer](https://www.npmjs.com/package/nodemailer)
+- [react-filestack](https://www.npmjs.com/package/filestack-react)
+- [PayPal](https://developer.paypal.com/docs/api/overview/)
 
-```SQL
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
-```
+## Installation 
 
-[x] If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`
+1. Create a database named `towandas_gallipot`,
+2. The queries in the `database.sql` file are set up to create all the necessary tables and populate the needed data to allow the application to run correctly. The project is built on [Postgres](https://www.postgresql.org/download/), so you will need to make sure to have that installed. We recommend using Postico to run those queries as that was used to create the queries.
+3. Go to Filestack (https://www.filestack.com/) to retrieve an API. Place the API key in the .env file and name it `REACT_APP_FILESTACK_API_KEY`.
+4. Create a unique password named `SERVER_SESSION_SECRET` in the .env file as well - this is for the user login authentication.
+5. Inclued your email password in the .env file and name it `password` - this is for the nodemailer to receive emails.
+6. Open up your editor of choice and run an `npm install`
+7. Run `npm run server` in your terminal
+5. Run `npm run client` in your terminal
+6. The `npm run client` command will open up a new browser tab for you!
 
-## Development Setup Instructions
+## Usage
 
-- [x] Run `npm install`
-- [x] Create a `.env` file at the root of the project and paste this line into the file:
-  ```
-  SERVER_SESSION_SECRET=superDuperSecret
-  ```
-  While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
-- [x] Start postgres if not running already by using `brew services start postgresql`
-- [x] Run `npm run server`
-- [x] Run `npm run client`
-- [x] Navigate to `localhost:3000`
+1. User who is not logged in is able to view the landing page, information about the herbalist, the consultations page, which includes a printable PDF to send to the herbalist so she may follow-up with making an appointment. They may view the products page, as well as the contact page, which allows the user to send the herbalist an email.
+2. Logged-in users are able to add items to their cart, to delete items from their cart and view their previous orders.
+3. Admin/herbalist is able to view the entire site, and in addition, able to add products to the product list, including image upload, as well as edit and delete the products. 
 
-## Debugging
+## Built With
 
-To debug, you will need to run the client-side separately from the server. Start the client by running the command `npm run client`. Start the debugging server by selecting the Debug button.
+- react
+- redux
+- node.js
+- express
+- postgreSQL
+- react-PDF
+- react-moment
+- sweetalert
+- nodemailer
+- passport
+- filestack-react API
+- PayPayl API
 
-![VSCode Toolbar](documentation/images/vscode-toolbar.png)
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
 
-Then make sure `Launch Program` is selected from the dropdown, then click the green play arrow.
+## Acknowledgement
+Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality. (Thank your people)
 
-![VSCode Debug Bar](documentation/images/vscode-debug-bar.png)
-
-## Testing Routes with Postman
-
-To use Postman with this repo, you will need to set up requests in Postman to register a user and login a user at a minimum.
-
-Keep in mind that once you using the login route, Postman will manage your session cookie for you just like a browser, ensuring it is sent with each subsequent request. If you delete the `localhost` cookie in Postman, it will effectively log you out.
-
-1. Start the server - `npm run server`
-2. [Import the sample routes JSON file](./PostmanPrimeSoloRoutes.json) by clicking `Import` in Postman. Select the file.
-3. Click `Collections` and `Send` the following three calls in order:
-   1. `POST /api/user/register` registers a new user, see body to change username/password
-   2. `POST /api/user/login` will login a user, see body to change username/password
-   3. `GET /api/user` will get user information, by default it's not very much
-
-After running the login route above, you can try any other route you've created that requires a logged in user!
-
-## Production Build
-
-Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
-
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm start`
-- Navigate to `localhost:5000`
-
-## Lay of the Land
-
-There are a few videos linked below that show a walkthrough the client and sever setup to help acclimatize to the boilerplate. Please take some time to watch the videos in order to get a better understanding of what the boilerplate is like.
-
-- [x] [Initial Set](https://vimeo.com/453297271)
-- [x] [Server Walkthrough](https://vimeo.com/453297212)
-- [x] [Client Walkthrough](https://vimeo.com/453297124)
-
-[x] Directory Structure:
-
-- `src/` contains the React application
-- `public/` contains static assets for the client-side
-- `build/` after you build the project, contains the transpiled code from `src/` and `public/` that will be viewed on the production site
-- `server/` contains the Express App
-
-This code is also heavily commented. We recommend reading through the comments, getting a lay of the land, and becoming comfortable with how the code works before you start making too many changes. If you're wondering where to start, consider reading through component file comments in the following order:
-
-- src/components
-  - App/App
-  - Footer/Footer
-  - Nav/Nav
-  - AboutPage/AboutPage
-  - InfoPage/InfoPage
-  - UserPage/UserPage
-  - LoginPage/LoginPage
-  - RegisterPage/RegisterPage
-  - LogOutButton/LogOutButton
-  - ProtectedRoute/ProtectedRoute
-
-## Deployment
-
-1. Create a new Heroku project
-1. Link the Heroku project to the project GitHub Repo
-1. Create an Heroku Postgres database
-1. Connect to the Heroku Postgres database from Postico
-1. Create the necessary tables
-1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
-1. In the deploy section, select manual deploy
-
-## Update Documentation
-
-Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+## Support
+If you have suggestions or issues, please email me at [kimberly.a.orchard.@gmail.com].

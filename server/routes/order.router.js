@@ -64,6 +64,7 @@ router.get('/order/:id', rejectUnauthenticated, (req, res) => {
                     <p>${req.user.last_name}</p>
                     <p>${req.user.street_address}</p>
                     <p>${req.user.city}</p>
+                    <p>${req.user.state}</p>
                     <p>${req.user.zip}</p>
                     <p>${req.user.email_address}</p>
                     <p>Thank you!</p>`

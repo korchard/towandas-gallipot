@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { takeEvery, put } from 'redux-saga/effects';
 
-// POST ROUTE
+// POST ROUTE - creates a new order
 function* sendOrder (action) {
     try {
       const config = {
@@ -11,13 +11,12 @@ function* sendOrder (action) {
   
       const response = yield axios.post('api/order', action.payload, config);
       yield put({ type: 'GET_ORDER', payload: response.data[0]?.id });
-      console.log('id response', response.data[0].id);
     } catch (error) {
-      console.log('Bad news bears...error in order saga post', error);
+      console.log('Bad news bears...error in order saga POST', error);
     }
-} // end addOrder
+} // end sendOrder
 
-// GET ROUTE -- to get order id
+// GET ROUTE -- to get specific order id
 function* getOrder(action) {
   try {
     const config = {
@@ -25,15 +24,14 @@ function* getOrder(action) {
       withCredentials: true,
     };
 
-    console.log('payload', action.payload);
     const response = yield axios.get(`api/order/order/${action.payload}`, config);
     yield put({ type: 'SET_ORDER', payload: response.data });
   } catch (error) {
-    console.log('Bad news bears...error in order saga get', error);
+    console.log('Bad news bears...error in order saga GET', error);
   }
-} // end getCart
+} // end getOrder
 
-// GET ROUTE -- to get previous orders
+// GET ROUTE -- to get previous order id and general order info
 function* getPrevious() {
   try {
     const config = {
@@ -44,11 +42,11 @@ function* getPrevious() {
     const response = yield axios.get('api/order/previous', config);
     yield put({ type: 'SET_ORDER', payload: response.data });
   } catch (error) {
-    console.log('Bad news bears...error in order saga get', error);
+    console.log('Bad news bears...error in order saga GET', error);
   }
 } // end getPrevious
 
-// // GET ROUTE -- to get previous order items
+// // GET ROUTE -- to get cart items in the previous orders
 function* getPreviousItems(action) {
   try {
     const config = {
@@ -56,11 +54,10 @@ function* getPreviousItems(action) {
       withCredentials: true,
     };
   
-    console.log('in new get', action.payload)
     const response = yield axios.get(`api/order/things/${action.payload}`, config);
     yield put({ type: 'SET_PREVIOUS', payload: response.data });
   } catch (error) {
-    console.log('Bad news bears...error in order saga get', error);
+    console.log('Bad news bears...error in order saga GET', error);
   }
 } // end getPreviousItems
 

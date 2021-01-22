@@ -18,7 +18,9 @@ const previousReducer = (state = [], action) => {
     }
   }; 
 
-  export default combineReducers({
-    orderReducer,
-    previousReducer,
-  });
+// order will be on the redux state at:
+// state.order.orderReducer & state.order.previousReducer
+export default combineReducers({
+  orderReducer,
+  previousReducer,
+});

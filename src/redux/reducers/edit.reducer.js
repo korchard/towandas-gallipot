@@ -7,4 +7,6 @@ const editReducer = (state = [], action) => {
     }
   }; 
 
+// edit will be on the redux state at:
+// state.edit
 export default editReducer;

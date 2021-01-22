@@ -9,8 +9,7 @@ const productReducer = (state = [], action) => {
     }
   };
 
-  // product will be on the redux state at:
-  // state.product
-
+// product will be on the redux state at:
+// state.product
 export default productReducer;
   

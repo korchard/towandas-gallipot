@@ -24,7 +24,8 @@ const styles = {
     fontFamily: 'fantasy',
     radius: '5px',
     color: '#f8f8f8',
-    // height: '3vh',
+    fontSize: '2em',
+    marginTop: '.5em',
   },
   form: {
     height: 'auto',

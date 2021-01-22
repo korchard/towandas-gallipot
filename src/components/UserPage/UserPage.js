@@ -55,7 +55,6 @@ class UserPage extends Component {
     this.props.dispatch({ type: 'GET_CART_ITEMS' });
   }
   
-  // this component doesn't do much to start, just renders some user info to the DOM
   render() {
     const { classes } = this.props;
 
@@ -80,5 +79,4 @@ class UserPage extends Component {
   }
 }
 
-// this allows us to use <App /> in index.js
 export default connect(mapStoreToProps)(withStyles(styles)(UserPage));
