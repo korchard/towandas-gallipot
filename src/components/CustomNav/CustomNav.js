@@ -159,7 +159,7 @@ const CustomNav = (props) => {
 
     useEffect(() => {
       console.log('update cart items');
-    }, [])
+    }, [cart])
 
   const handleDrawerOpen = () => {
     setOpen(true);

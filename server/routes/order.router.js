@@ -89,7 +89,7 @@ router.get('/order/:id', rejectUnauthenticated, (req, res) => {
 // GET ROUTE - for previous orders
 router.get('/previous', rejectUnauthenticated, (req, res) => {
    
-    const queryText = `SELECT * FROM "order" WHERE user_id = $1;`;
+    const queryText = `SELECT * FROM "order" WHERE user_id = $1 ORDER BY order_date DESC;`;
 
     pool.query(queryText, [req.user.id])
         .then((results) => {

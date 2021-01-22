@@ -83,7 +83,8 @@ class ProductsItem extends Component {
     }
   
     componentDidMount = () => {
-      this.props.dispatch({ type: 'GET_CART_ITEMS '});
+      this.props.dispatch({ type: 'GET_CART_ITEMS' });
+      this.props.dispatch({ type: 'GET_CART_TOTAL' });
     }
 
     // expands the card info for the products

@@ -13,6 +13,12 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 const theme = createMuiTheme();
 
@@ -49,10 +55,10 @@ const styles = {
     },
     subtext: {
       paddingRight: '20px',
-      fontSize: '1.1em',
+      fontSize: '1em',
     //   float: 'right',
       fontFamily: 'fantasy',
-    //   fontWeight: 700,
+      fontWeight: 700,
     },
     subtext2: {
         paddingRight: '20px',
@@ -63,6 +69,12 @@ const styles = {
       },
     right: {
         float: 'right',
+    },
+    table: {
+      minWidth: 320,
+    },
+    container: {
+      paddingBottom: '3%',
     }
   }
 
@@ -99,16 +111,28 @@ class OrderItem extends Component {
                           <Typography component="h5" variant="h5" className={classes.header}>
                             <Moment format="MM/DD/YYYY">{this.props.item.order_date}</Moment>
                           </Typography>
+                          <TableContainer className={classes.container}>
+                            <Table className={classes.table} aria-label="simple table">
+                              <TableHead>
+                                <TableRow>
+                                  <TableCell align="left">Name</TableCell>
+                                  <TableCell align="left">Size</TableCell>
+                                  <TableCell align="left">Quantity</TableCell>
+                                  <TableCell align="right">Subtotal</TableCell>
+                                </TableRow>
+                              </TableHead>
+                              <TableBody>
                             {this.props.store.order.previousReducer.map(cart => 
                                 cart.map(product => 
                                     product.order_id === this.props.item.id &&
-                                    <ul>
-                                        <div key={product.id} >
+                                        <TableRow key={product.id} >
                                             <OrderCart product={product}/>
-                                        </div>
-                                    </ul>
+                                        </TableRow>
                                 )
                             )}
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
                         <div className={classes.right}>
                           <Typography variant="subtitle2" className={classes.subtext}>
                             Shipping - ${this.props.item.shipping_cost}

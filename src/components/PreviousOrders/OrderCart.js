@@ -5,29 +5,33 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 // STYLING
 import { withStyles } from '@material-ui/core/styles';
 // import { createMuiTheme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
+import TableCell from '@material-ui/core/TableCell';
 
 // const theme = createMuiTheme();
 
 const styles = {
-    subtext: {
-      paddingLeft: '20px',
-      display: 'inline-block',
-      paddingRight: '5px',
-      fontSize: '1em',
-    },
+    // subtext: {
+    //   paddingLeft: '20px',
+    //   display: 'inline-block',
+    //   paddingRight: '5px',
+    //   fontSize: '1em',
+    // },
     text: {
       fontFamily: 'fantasy',
-      fontWeight: '700',
-      display: 'inline-block',
-      paddingLeft: '5px',
-      fontSize: '1.1em',
+      // fontWeight: '700',
+      // display: 'inline-block',
+      // paddingLeft: '5px',
+      // fontSize: '1.1em',
     },
-    right: {
-      float: 'right',
-      paddingRight: '20px',
-      fontSize: '1em',
-    }
+    // right: {
+    //   float: 'right',
+    //   paddingRight: '20px',
+    //   fontSize: '1em',
+    // },
+    table: {
+      minWidth: 650,
+    },
   }
   
 class OrderCart extends Component {
@@ -36,22 +40,20 @@ class OrderCart extends Component {
     const { classes } = this.props;
 
         return (
-            <div>
-              <li>
-                <Typography variant="subtitle1" className={classes.text}>
+          <>
+                <TableCell variant="subtitle1" className={classes.text} align="left">
                     {this.props.product.name}
-                </Typography>
-                <Typography variant="subtitle1" className={classes.subtext}>
+                </TableCell>
+                <TableCell variant="subtitle1" className={classes.subtext} align="left">
                     {this.props.product.size}
-                </Typography>
-                <Typography variant="subtitle1" className={classes.subtext}>
-                    quantity - {this.props.product.quantity}
-                </Typography>
-                <Typography variant="subtitle1" className={classes.right}>
-                    total - ${this.props.product.sum}
-                </Typography>
-              </li>
-            </div>
+                </TableCell>
+                <TableCell variant="subtitle1" className={classes.subtext} align="left">
+                    {this.props.product.quantity}
+                </TableCell>
+                <TableCell variant="subtitle1" className={classes.right} align="right">
+                    ${this.props.product.sum}
+                </TableCell>
+          </>
         );
     }
 }

@@ -1,4 +1,3 @@
-[![License: MIT](https://img.shields.io/github/license/korchard/towandas-gallipot.svg?style=flat-square)]
 ![REPO SIZE](https://img.shields.io/github/repo-size/korchard/towandas-gallipot.svg?style=flat-square)
 ![TOP_LANGUAGE](https://img.shields.io/github/languages/top/korchard/towandas-gallipot.svg?style=flat-square)
 ![FORKS](https://img.shields.io/github/forks/korchard/towandas-gallipot.svg?style=social)
