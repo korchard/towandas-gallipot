@@ -1,4 +1,4 @@
-![MIT LICENSE](https://img.shields.io/github/license/korchard/towandas-gallipot.svg?style=flat-square)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://img.shields.io/github/license/korchard/towandas-gallipot.svg?style=flat-square)
 ![REPO SIZE](https://img.shields.io/github/repo-size/korchard/towandas-gallipot.svg?style=flat-square)
 ![TOP_LANGUAGE](https://img.shields.io/github/languages/top/korchard/towandas-gallipot.svg?style=flat-square)
 ![FORKS](https://img.shields.io/github/forks/korchard/towandas-gallipot.svg?style=social)
@@ -7,7 +7,7 @@
 
 ## Description
 
-_Duration: 2 Week Sprint_ // 60 HOURS
+_Duration: 2 Week Sprint_ // 70 HOURS
 
 Towanda's Gallipot is an herbalist's apothecary. This site is the business page for Steph Peltier, as well as her virtual store. She is able to share information about herself, herbalism, her services, and products. Users are able to contact her, make appointments with her via email, and order items she has cultivated. 
 
@@ -64,10 +64,19 @@ To see the fully functional site, please visit: [DEPLOYED VERSION OF APP](www.he
 - PayPayl API
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Acknowledgement
-Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality. (Thank your people)
+Thank you to my peers, for being my coding buddies, for supporting me, and answering all my questions. Thank you to Steph Peltier for allowing me to exercise my creative decision making and providing me with the opportunity to create something that will be utilized for her business. Thank you to my amazing partner, Eddy, for keeping me sane during this process, and my sweet puppy, Sir David Attenbowwow, for keeping things cute. Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality. Special thanks to my primary instructor, 
+-[Mary Mossman](https://github.com/mbMosman)
+
+My peers to went out of their way to offer support and coding input throughout this project.
+-[Brady Baker]()
+-[Carl Barfuss]()
+-[Josie Fredericksen](https://github.com/freder48)
+-[Steven Maloney](https://github.com/sdeda1us)
+-[Jordan Newberry]()
+-[James Posey]()
 
 ## Support
 If you have suggestions or issues, please email me at [kimberly.a.orchard.@gmail.com].
