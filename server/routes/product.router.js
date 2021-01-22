@@ -6,7 +6,7 @@ require('dotenv').config();
 
 // GET ROUTE
 router.get('/', (req, res) => {
-    const queryText = `SELECT * FROM "product" ORDER BY type`;
+    const queryText = `SELECT * FROM "product" WHERE archived = false ORDER BY type`;
     pool.query(queryText)
         .then((results) => {
           res.send(results.rows);
