@@ -22,10 +22,8 @@ const styles = {
 
 class ProductList extends Component {
 
-  // calls the GET route to display thee products
+  // calls the GET route to display the products or the search route on refresh
   componentDidMount = () => {
-    // this.props.dispatch({ type: 'GET_CART_ITEMS' });
-    console.log('productlist component', this.props.store.search);
     if (this.props.store.search?.[0] === undefined) {
       this.props.dispatch({ type: 'GET_PRODUCT' });
     } else {

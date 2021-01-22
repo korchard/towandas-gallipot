@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
-// import Moment from 'react-moment';
+// import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // STYLING
 import { withStyles } from '@material-ui/core/styles';
@@ -27,6 +26,7 @@ const styles = {
       },
   }
 
+  // responsiveness
   theme.typography.h3 = {
     fontFamily: [
       'fantasy',
@@ -43,22 +43,26 @@ const styles = {
 
 class CheckoutPage extends Component {
 
-    state = { 
-        product_cost: '',
-        shipping_cost: '',
-        total_cost: '',
-    };
+// LOCAL STATE AND 'SEND_ORDER' DISPATCH ONLY USED FOR DEVELOPMENT MODE
+// TO PREVENT REPEATEDLY NEEDING TO MAKE FAU PAYPAL PAYMENT
 
+    // state = { 
+    //     product_cost: '',
+    //     shipping_cost: '',
+    //     total_cost: '',
+    // };
+
+    // resets the cart and cart items
     componentDidMount = () => {
-        this.props.dispatch({ type: 'SEND_ORDER', payload: {
-            product_cost: Number(this.props.store.cart.totalReducer[0]?.sum),
-            shipping_cost: this.props.store.cart.shippingReducer,
-            total_cost: this.props.store.cart.paymentReducer
-        }})
-          this.props.dispatch({ type: 'GET_CART' });
-          this.props.dispatch({ type: 'GET_CART_ITEMS' });
-          this.props.dispatch({ type: 'GET_CART_TOTAL' });
-    }
+        // this.props.dispatch({ type: 'SEND_ORDER', payload: {
+        //     product_cost: Number(this.props.store.cart.totalReducer[0]?.sum),
+        //     shipping_cost: this.props.store.cart.shippingReducer,
+        //     total_cost: this.props.store.cart.paymentReducer
+        // }})
+          // this.props.dispatch({ type: 'GET_CART' });
+          // this.props.dispatch({ type: 'GET_CART_TOTAL' });
+          this.props.dispatch({ type: 'RESET_CART_ITEMS' });
+    } // end componentDidMount
 
   render() {
     const { classes } = this.props;
@@ -85,4 +89,4 @@ class CheckoutPage extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(CheckoutPage));
+export default connect()(withStyles(styles)(CheckoutPage));

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+import { withRouter } from 'react-router-dom';
+// import { connect } from 'react-redux';
+// import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // COMPONENTS
 import LoginForm from '../LoginForm/LoginForm';
@@ -26,4 +27,4 @@ class LoginPage extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(LoginPage);
+export default withRouter(LoginPage);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+// import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // COMPONENTS
 import ProductList from '../ProductList/ProductList';
@@ -11,9 +11,6 @@ import ProductsText from '../ProductsItem/ProductsText';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-// import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-
-// const theme = createMuiTheme();
 
 const styles = {
   root: {
@@ -34,28 +31,18 @@ const styles = {
   },
 }
 
-// theme.typography.h5 = {
-//   fontSize: '1rem',
-//   '@media (min-width:600px)': {
-//     fontSize: '1rem',
-//   },
-//   [theme.breakpoints.up('md')]: {
-//     fontSize: '2rem',
-//   },
-// };
-
 class ProductDisplay extends Component {
 
+  // calls cart items to display in navbar
   componentDidMount = () => {
     this.props.dispatch({ type: 'GET_CART_ITEMS' });
-  }
+  } // end componentDidMount
 
   render() {
     const { classes } = this.props;
 
     return (
       <div >
-        {/* </ThemeProvider> */}
         <Grid container className={classes.gridContainer} justify="center">
           <Grid item xs={12} className={classes.search}>
             <ProductSearch />
@@ -68,10 +55,9 @@ class ProductDisplay extends Component {
                 <ProductList />
           </Grid>
         </Grid>
-        {/* </ThemeProvider> */}
       </div>
     );
   }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(ProductDisplay));
+export default connect()(withStyles(styles)(ProductDisplay));

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+// import mapStoreToProps from '../../redux/mapStoreToProps';
 import swal from 'sweetalert';
 
 // STYLING
@@ -19,7 +19,6 @@ const styles = {
     width: '100%',
     textAlign: 'center',
     padding: '3%',
-    // fontFamily: 'fantasy',
     radius: '5px',
     color: '#f8f8f8',
   },
@@ -59,6 +58,7 @@ theme.typography.h3 = {
 
 class ContactPage extends Component {
 
+  // local state to set the message and send to database
   state = {
     name: '',
     email_address: '',
@@ -66,9 +66,10 @@ class ContactPage extends Component {
     message: '',
 };
 
+// refreshes cart items icon view from this page
 componentDidMount = () => {
   this.props.dispatch({ type: 'GET_CART_ITEMS' });
-}
+} // end componentDidMount
 
 // POST route to add a new product
 sendMessage = (event) => {
@@ -168,4 +169,4 @@ handleInputChangeFor = (propertyName) => (event) => {
   }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(ContactPage));
+export default connect()(withStyles(styles)(ContactPage));

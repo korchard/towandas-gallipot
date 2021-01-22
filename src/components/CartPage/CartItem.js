@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+// import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // STYLING
 import { withStyles } from '@material-ui/core/styles';
@@ -22,7 +22,6 @@ const styles = {
     display: 'flex',
     width: '100%',
     height: 'auto',
-    // maxHeight: 200,
     marginBottom: '5%',
   },
   details: {
@@ -55,7 +54,6 @@ const styles = {
     header: {
       margin: 'auto',
       radius: '5px',
-      // fontSize: '2em',
       fontFamily: 'fantasy',
       textAlign: 'left',
       paddingLeft: '20px',
@@ -74,6 +72,7 @@ const styles = {
     }
   }
 
+  // responsiveness
   theme.typography.h5 = {
       fontFamily: [
         'fantasy',
@@ -87,40 +86,31 @@ const styles = {
         fontSize: '1.5rem',
       },
   };
-  
-//   theme.typography.p = {
-//     fontSize: '1rem',
-//     '@media (min-width:600px)': {
-//       fontSize: '1rem',
-//     },
-//     [theme.breakpoints.up('md')]: {
-//       fontSize: '1.5rem',
-//     },
-//   };
 
 class CartItem extends Component {
 
+  // calls the cart items icon and car total on refresh
   componentDidMount = () => {
     this.props.dispatch({ type: 'GET_CART_ITEMS' });
     this.props.dispatch({ type: 'GET_CART_TOTAL' });
-  }
+  } // end componentDidMount
 
+  // adds to the item's quantity
   addItem = (id) => {
-    console.log('add', id);
     this.props.dispatch({ type: 'ADD_ITEM', payload: id });
-    this.componentDidMount();
-  }
+    this.componentDidMount(); // refreshes the total and items
+  } // end addItem
 
+  // subtracts from the item's quantity
   subtractItem = (id) => {
-    console.log('subtract', id);
     this.props.dispatch({ type: 'SUBTRACT_ITEM', payload: id });
-    this.componentDidMount();
-  }
+    this.componentDidMount(); // refreshes the total and items
+  } // end subtractItem
 
+  // removes item from the cart
   deleteItem = (id) => {
-    console.log('delete', id);
     this.props.dispatch({ type: 'DELETE_ITEM', payload: id });
-    this.componentDidMount();
+    this.componentDidMount(); // refreshes the total and items
   }
 
   render() {
@@ -168,4 +158,4 @@ class CartItem extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(CartItem));
+export default connect()(withStyles(styles)(CartItem));

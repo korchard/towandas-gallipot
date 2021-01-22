@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+// import { connect } from 'react-redux';
+// import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // STYLING
 import { Typography } from '@material-ui/core';
@@ -18,7 +18,6 @@ const styles = {
     marginBottom: '30px',
     radius: '5px',
     color: '#648b16',
-    // fontSize: '2em',
     fontFamily: 'fantasy',
     fontWeight: '700',
     textAlign: 'center',
@@ -31,7 +30,6 @@ const styles = {
     marginTop: '10%',
     radius: '5px',
     color: '#648b16',
-    // fontSize: '1.5em',
     fontFamily: 'fantasy',
     textAlign: 'right',
     paddingRight: '20px',
@@ -53,6 +51,7 @@ const styles = {
   },
 }
 
+// responsiveness
 theme.typography.h6 = {
   fontSize: '1rem',
 '@media (min-width:320px)': {
@@ -85,9 +84,10 @@ theme.typography.p = {
 
 class AboutPage extends Component {
 
+  // calls items for cart icon
   componentDidMount = () => {
     this.props.dispatch({ type: 'GET_CART_ITEMS' });
-  }
+  } // end componentDidMount
 
   render() {
     const { classes } = this.props;
@@ -173,5 +173,5 @@ class AboutPage extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(AboutPage));
+export default withStyles(styles)(AboutPage);
 

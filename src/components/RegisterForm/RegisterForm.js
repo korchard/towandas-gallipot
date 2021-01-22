@@ -21,7 +21,6 @@ const styles = {
   },
   form: {
     textAlign: 'center',
-    // width: '80%',
   },
   textField: {
     marginTop: '1rem',
@@ -42,6 +41,7 @@ const styles = {
   },
 }
 
+// responsiveness
 theme.typography.h3 = {
   fontFamily: [
     'fantasy',
@@ -68,6 +68,7 @@ theme.typography.body1 = {
 
 class RegisterForm extends Component {
 
+  // local state to input and set new register's info
   state = {
       username: '',
       password: '',

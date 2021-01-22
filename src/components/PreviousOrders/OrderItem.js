@@ -24,7 +24,6 @@ const theme = createMuiTheme();
 
 const styles = {
   root: {
-    // display: 'flex',
     width: '100%',
     height: 'auto',
     marginBottom: '5%',
@@ -44,7 +43,6 @@ const styles = {
     header: {
       margin: 'auto',
       radius: '5px',
-      // fontSize: '2em',
       fontFamily: 'fantasy',
       textAlign: 'left',
       paddingLeft: '20px',
@@ -56,14 +54,12 @@ const styles = {
     subtext: {
       paddingRight: '20px',
       fontSize: '1em',
-    //   float: 'right',
       fontFamily: 'fantasy',
       fontWeight: 700,
     },
     subtext2: {
         paddingRight: '20px',
         fontSize: '1.2em',
-      //   float: 'right',
         fontFamily: 'fantasy',
         fontWeight: 700,
       },
@@ -78,6 +74,7 @@ const styles = {
     }
   }
 
+  // responsiveness
   theme.typography.h5 = {
       fontFamily: [
         'fantasy',
@@ -94,10 +91,10 @@ const styles = {
 
 class OrderItem extends Component {
 
+  // call to the the previous cart items associated with the specific order
   componentDidMount = () => {
     this.props.dispatch({ type: 'GET_PREVIOUS_ITEMS', payload: this.props.item.id});
-    console.log('previous', this.props.item.id);
-  }
+  } // end componentDidMount
 
   render() {
     const { classes } = this.props;
@@ -115,7 +112,7 @@ class OrderItem extends Component {
                             <Table className={classes.table} aria-label="simple table">
                               <TableHead>
                                 <TableRow>
-                                  <TableCell align="left">Name</TableCell>
+                                  <TableCell align="left">Product</TableCell>
                                   <TableCell align="left">Size</TableCell>
                                   <TableCell align="left">Quantity</TableCell>
                                   <TableCell align="right">Subtotal</TableCell>
@@ -133,18 +130,18 @@ class OrderItem extends Component {
                               </TableBody>
                             </Table>
                           </TableContainer>
-                        <div className={classes.right}>
-                          <Typography variant="subtitle2" className={classes.subtext}>
-                            Shipping - ${this.props.item.shipping_cost}
-                          </Typography>
-                                <br></br>
-                          <Typography variant="subtitle1" className={classes.subtext2}>
-                            Total - ${this.props.item.total_cost}
-                          </Typography>
-                        </div>
+                          <div className={classes.right}>
+                            <Typography variant="subtitle2" className={classes.subtext}>
+                              Shipping - ${this.props.item.shipping_cost}
+                            </Typography>
+                                  <br></br>
+                            <Typography variant="subtitle1" className={classes.subtext2}>
+                              Total - ${this.props.item.total_cost}
+                            </Typography>
+                          </div>
                         </CardContent>
                       </div>
-                       </Paper>
+                    </Paper>
                 </Grid>
             </div>
         );

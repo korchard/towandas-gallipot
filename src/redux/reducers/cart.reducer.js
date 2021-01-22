@@ -13,6 +13,8 @@ const itemsReducer = (state = [], action) => {
     switch (action.type) {
       case 'SET_CART_ITEMS':
         return action.payload;
+      case 'RESET_CART_ITEMS':
+        return state = [];
       default:
         return state;
     }

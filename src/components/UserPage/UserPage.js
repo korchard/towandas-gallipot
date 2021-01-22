@@ -25,6 +25,7 @@ const styles = {
   },
 };
 
+// repsponsiveness
 theme.typography.h5 = {
   fontFamily: [
     'fantasy',

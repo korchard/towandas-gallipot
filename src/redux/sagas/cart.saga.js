@@ -12,6 +12,7 @@ function* addToCart(action) {
       yield axios.post('api/cart', action.payload, config);
       yield put({ type: 'GET_CART' });
       yield put({ type: 'GET_CART_ITEMS' });
+      yield put({ type: 'GET_CART_TOTAL' });
     } catch (error) {
       console.log('Bad news bears...error in cart saga POST', error);
     }
@@ -73,6 +74,7 @@ function* deleteItem (action) {
     yield axios.delete(`api/cart/adjust/${action.payload}`, config);
     yield put({ type: 'GET_CART' });
     yield put({ type: 'GET_CART_ITEMS' });
+    yield put({ type: 'GET_CART_TOTAL' });
   } catch (error) {
     console.log('Bad news bears...error in cart saga DELETE', error);
   }
@@ -90,6 +92,7 @@ function* addItem (action) {
     yield axios.put(`api/cart/add/${action.payload}`, config);
     yield put({ type: 'GET_CART' });
     yield put({ type: 'GET_CART_ITEMS' });
+    yield put({ type: 'GET_CART_TOTAL' });
   } catch (error) {
     console.log('Bad news bears...error in cart saga PUT', error);
   }
@@ -106,6 +109,7 @@ function* subtractItem (action) {
     yield axios.put(`api/cart/subtract/${action.payload}`, config);
     yield put({ type: 'GET_CART' });
     yield put({ type: 'GET_CART_ITEMS' });
+    yield put({ type: 'GET_CART_TOTAL' });
   } catch (error) {
     console.log('Bad news bears...error in cart saga PUT', error);
   }

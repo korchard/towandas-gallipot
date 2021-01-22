@@ -28,6 +28,7 @@ const styles = {
     },
   }
 
+  // responsiveness
   theme.typography.h3 = {
     fontFamily: [
       'fantasy',
@@ -44,16 +45,15 @@ const styles = {
 
 class PreviousOrders extends Component {
 
+  // call to get the previous order info by id
   componentDidMount = () => {
-    // this.props.dispatch({ type: 'GET_CART_ITEMS' });
     this.props.dispatch({ type: 'GET_PREVIOUS_ORDERS' });
-  }
+  } // end componentDidMount
 
   render() {
     const { classes } = this.props;
 
     return (
-
       <div>
         {(this.props.store.order.orderReducer.length > 0) ?
           <Grid container spacing={4} className={classes.gridContainer} justify="center">

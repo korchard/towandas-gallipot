@@ -7,7 +7,6 @@ import { PickerOverlay } from 'filestack-react';
 import './Modal.css';
 import { Card, CardContent, Button, TextField, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-// import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 // DOTENV 
 const filestackApiKey = process.env.REACT_APP_FILESTACK_API_KEY
@@ -38,20 +37,6 @@ const styles = {
   },
 }
 
-// theme.typography.h3 = {
-//   fontFamily: [
-//     'fantasy',
-//     'serif',
-//   ].join(','),
-//   fontSize: '1.5rem',
-// '@media (min-width:600px)': {
-//   fontSize: '1.5rem',
-//   },
-//   [theme.breakpoints.up('md')]: {
-//     fontSize: '2rem',
-//   },
-// };
-
 class Modal extends Component {
 
   // sets the local state to the info sent to the product reducer on 
@@ -70,6 +55,7 @@ class Modal extends Component {
         }); // end setState
       } // end componentDidMount
 
+    // local state to reset the items in edit
     state = {
         product: {
             name: '',
@@ -82,24 +68,27 @@ class Modal extends Component {
         }
     }
 
+    // when image upload is successful set image_path to url
     onSuccess = (result) => {
       this.setState({
         product: {
           ...this.state.product,
           image_path: result.filesUploaded[0].url,
         }
-      })
-    }
+      }); // end setState
+    } // end onSuccess
   
+    // provide a message when image upload is not successful
     onError = (error) => {
       console.error('Image did not successfully upload...', error);
-    }
+    } // end onError
   
+    // to open up the image modal
     upload = () => {
       this.setState({
         imageUpload: !this.state.imageUpload
-      })
-    }
+      }); // end setState
+    } // end upload
 
     // creating an object to set local state and send to PUT route
     updateProduct = (event, inputProperty) => {
@@ -133,7 +122,6 @@ render() {
 
   return (
     <div className={showHideClassName}>
-      {/* <ThemeProvider theme={theme}> */}
       <Card className="modal-main">
         <Typography gutterBottom variant="h3" component="h3" className={classes.header}>
           Edit Product
@@ -177,13 +165,11 @@ render() {
                   <PickerOverlay
                     apikey={filestackApiKey}
                     buttonText="Upload Image"
-                    // buttonClass="ui medium button gray"
                     className="btn"
                     options={basicOptions}
                     onSuccess={(event) => this.onSuccess(event, 'image_path')}
                     onError={this.onError}
                   />   :
-                // <Button variant="contained" className="btn" onClick={this.upload}>Upload Image</Button>
                 <Button onClick={this.upload}>
                     <input className="btn" type="submit" name="submit" value="Upload Image" />
                 </Button>
@@ -221,7 +207,6 @@ render() {
              </form>
            </CardContent>
       </Card>
-      {/* </ThemeProvider> */}
     </div>
   );
 }};

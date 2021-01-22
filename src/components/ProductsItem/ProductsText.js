@@ -14,8 +14,9 @@ const styles = {
     textAlign: 'center',
   },
 };
-  
-  theme.typography.subtitle2 = {
+
+// responsiveness
+theme.typography.subtitle2 = {
     fontSize: '.5rem',
     '@media (min-width:600px)': {
       fontSize: '.5rem',
@@ -23,7 +24,7 @@ const styles = {
     [theme.breakpoints.up('md')]: {
       fontSize: '0.875rem',
     },
-  };
+};
 
 class ProductsText extends Component {
 
