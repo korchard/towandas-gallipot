@@ -6,23 +6,35 @@ import { withRouter } from 'react-router-dom';
 // COMPONENTS
 import LoginForm from '../LoginForm/LoginForm';
 
+// STYLING
+import './LoginPage.css';
+
 class LoginPage extends Component {
   render() {
     return (
-      <div>
-        <LoginForm />
+      <>
+        <div>
+          <LoginForm />
 
+          <center>
+            <button
+              type="button"
+              className="btn btn_asLink"
+              onClick={() => {
+                this.props.history.push('/registration');
+              }}>
+                Register
+            </button>
+          </center>
+        </div>
+        <div>
         <center>
-          <button
-            type="button"
-            className="btn btn_asLink"
-            onClick={() => {
-              this.props.history.push('/registration');
-            }}>
-              Register
-          </button>
+          <img src={window.location.origin + '/image/fungus2.png'} 
+                    alt="fungus" 
+                    className="flower"/>
         </center>
       </div>
+    </>
     );
   }
 }

@@ -1,11 +1,11 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 require('dotenv').config();
 
-// GET ROUTE
+// GET ROUTE - to get ALL the products available
 router.get('/', (req, res) => {
+
     const queryText = `SELECT * FROM "product" WHERE archived = false ORDER BY type`;
     pool.query(queryText)
         .then((results) => {
@@ -15,12 +15,12 @@ router.get('/', (req, res) => {
           console.log('Bad news bears error in server GET route ---->', error)
           res.sendStatus(500);
         })
-});
+}); // end GET ROUTE
 
-// GET ROUTE - for SEARCH
+// GET ROUTE - for SEARCH item
 router.get('/search/:search', (req, res) => {
   let search = req.params.search; // identifys search item
-  console.log('router search', search);
+
   const queryText = `SELECT * FROM "product" WHERE "name" || "description" || "size" || 
                     "cost" || "type" ILIKE '%' || $1 || '%' LIMIT 12;`;
   
@@ -30,21 +30,6 @@ router.get('/search/:search', (req, res) => {
       console.log('Bad news bears, error in GET', error);
       res.sendStatus(500);
     });
-}); // end GET ROUTE - for SEARCH
-
-// POST ROUTE
-router.post('/', rejectUnauthenticated, (req, res) => {
-    console.log('body', req.body);
-    console.log('user', req.user);
-    const queryText = `INSERT INTO "product" (name, description, size, cost, image_path, type)
-                     VALUES ( $1, $2, $3, $4, $5, $6 )`;
-    pool.query(queryText, [req.body.name, req.body.description, req.body.size, 
-                           req.body.cost, req.body.image_path, req.body.type])
-        .then(() => res.sendStatus(201))
-        .catch((error) => { 
-          console.log('Bad news bears error in server POST adding product ---->', error)
-          res.sendStatus(501)
-    });
-});
+}); // end GET ROUTE
 
 module.exports = router;

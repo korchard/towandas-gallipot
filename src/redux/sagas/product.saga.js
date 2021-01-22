@@ -45,7 +45,6 @@ function* deleteProduct (action) {
         withCredentials: true,
       };
       
-      console.log('deleting item', action.payload);
       yield axios.put(`api/admin/delete/${action.payload}`, config);
       yield put({ type: 'GET_PRODUCT' });
     } catch (error) {

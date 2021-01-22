@@ -6,6 +6,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import OrderItem from './OrderItem';
 
 // STYLING
+import './PreviousOrders.css'
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -25,6 +26,7 @@ const styles = {
       textAlign: 'center',
       padding: '3%',
       radius: '5px',
+      marginTop: '10%',
     },
   }
 

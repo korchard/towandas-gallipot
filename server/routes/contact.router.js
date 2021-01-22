@@ -4,7 +4,7 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-// NODEMAILER && POST ROUTE
+// NODEMAILER && POST ROUTE to send an email to admin
 router.post('/', (req, res) => {
     console.log('email', req.body);
     const data = req.body;
@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
         host: 'smtp.gmail.com',
         port: 587,
         secure: false,
-        auth: {
+        auth: { // auth will change to business email after development
             user: 'kimberly.a.orchard@gmail.com',
             pass: password
         },
@@ -31,6 +31,8 @@ router.post('/', (req, res) => {
         }
       });
   
+      // 'to' will change after development
+      // this is the message that will send
     const mailOptions = {
         from: `${data.email_address}`,
         to: 'kimberly.a.orchard@gmail.com',

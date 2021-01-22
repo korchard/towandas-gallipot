@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import swal from 'sweetalert';
 
 // STYLING
+import './ContactPage.css';
 import { Card, CardContent, Button, TextField, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
@@ -164,6 +165,13 @@ handleInputChangeFor = (propertyName) => (event) => {
             </form>
           </Grid>
         </Grid>
+        <div>
+          <center>
+            <img src={window.location.origin + '/image/lavenderandpoppy.png'} 
+                      alt="lavender and poppy" 
+                      className="flower"/>
+          </center>
+        </div>
       </div>
     );
   }

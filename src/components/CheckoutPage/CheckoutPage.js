@@ -16,6 +16,7 @@ const styles = {
       textAlign: 'center',
       padding: '3%',
       radius: '5px',
+      marginTop: '10%',
     },
     header2: {
         margin: 'auto',
