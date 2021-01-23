@@ -56,12 +56,9 @@ router.get('/order/:id', rejectUnauthenticated, (req, res) => {
               from: `${req.user.email_address}`,
               to: 'kimberly.a.orchard@gmail.com',
               subject: `New Order to Fill`,
-              html: `<h5>Hi Steph!</h5>
-                    <p>There is another order to fill.</p>
-                    <p>Items include: </p>
-                    <p>Product: ${data.name}</p>
-                    <p>Size: ${data.size}</p>
-                    <p>Quantity: ${data.quantity}</p>
+              html: `<h3>Hi Steph!</h3>
+                    <p>There is another order to fill. Please log-in to view the items requested
+                    by the below user.</p>
                     <p>The order is for user:</p>
                     <p>${req.user.first_name}</p>
                     <p>${req.user.last_name}</p>

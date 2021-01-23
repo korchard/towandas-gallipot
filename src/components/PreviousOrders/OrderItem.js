@@ -93,7 +93,9 @@ class OrderItem extends Component {
 
   // call to the the previous cart items associated with the specific order
   componentDidMount = () => {
-    this.props.dispatch({ type: 'GET_PREVIOUS_ITEMS', payload: this.props.item.id});
+    if (this.props.store.order.previousReducer.length === 0) {
+      this.props.dispatch({ type: 'GET_PREVIOUS_ITEMS', payload: this.props.item.id});
+    }
   } // end componentDidMount
 
   render() {
@@ -120,11 +122,11 @@ class OrderItem extends Component {
                               </TableHead>
                               <TableBody>
                             {this.props.store.order.previousReducer.map(cart => 
-                                cart.map(product => 
-                                    product.order_id === this.props.item.id &&
+                                cart.map(product =>
+                                  product.order_id === this.props.item.id &&
                                         <TableRow key={product.id} >
                                             <OrderCart product={product}/>
-                                        </TableRow>
+                                        </TableRow> 
                                 )
                             )}
                               </TableBody>

@@ -54,6 +54,7 @@ function* logoutUser(action) {
     // the client-side code know the user is logged out
     yield put({ type: 'UNSET_USER' });
     yield put({ type: 'RESET_CART_ITEMS' });
+    yield put({ type: 'RESET_CART' });
     yield put({ type: 'RESET_COOKIE' });
   } catch (error) {
     console.log('Error with user logout:', error);

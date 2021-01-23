@@ -37,7 +37,7 @@ const styles = {
     float: 'left',
   },
   controls: {
-    // display: 'flex',
+    display: 'flex',
     alignItems: 'right',
     paddingLeft: theme.spacing(1),
     paddingBottom: theme.spacing(1),

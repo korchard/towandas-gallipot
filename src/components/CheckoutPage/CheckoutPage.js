@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import mapStoreToProps from '../../redux/mapStoreToProps';
+import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // STYLING
 import { withStyles } from '@material-ui/core/styles';
@@ -47,11 +47,11 @@ class CheckoutPage extends Component {
 // LOCAL STATE AND 'SEND_ORDER' DISPATCH ONLY USED FOR DEVELOPMENT MODE
 // TO PREVENT REPEATEDLY NEEDING TO MAKE FAU PAYPAL PAYMENT
 
-    // state = { 
-    //     product_cost: '',
-    //     shipping_cost: '',
-    //     total_cost: '',
-    // };
+    state = { 
+        product_cost: '',
+        shipping_cost: '',
+        total_cost: '',
+    };
 
     // resets the cart and cart items
     componentDidMount = () => {
@@ -60,8 +60,8 @@ class CheckoutPage extends Component {
         //     shipping_cost: this.props.store.cart.shippingReducer,
         //     total_cost: this.props.store.cart.paymentReducer
         // }})
-          // this.props.dispatch({ type: 'GET_CART' });
-          // this.props.dispatch({ type: 'GET_CART_TOTAL' });
+          this.props.dispatch({ type: 'GET_CART' });
+          this.props.dispatch({ type: 'GET_CART_TOTAL' });
           this.props.dispatch({ type: 'RESET_CART_ITEMS' });
     } // end componentDidMount
 
@@ -90,4 +90,4 @@ class CheckoutPage extends Component {
   }
 }
 
-export default connect()(withStyles(styles)(CheckoutPage));
+export default connect(mapStoreToProps)(withStyles(styles)(CheckoutPage));

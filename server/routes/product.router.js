@@ -22,7 +22,7 @@ router.get('/search/:search', (req, res) => {
   let search = req.params.search; // identifys search item
 
   const queryText = `SELECT * FROM "product" WHERE "name" || "description" || "size" || 
-                    "cost" || "type" ILIKE '%' || $1 || '%' LIMIT 12;`;
+                    "cost" || "type" ILIKE '%' || $1 || '%' AND archived = false LIMIT 12;`;
   
   pool.query(queryText, [search])
     .then((result) => { res.send(result.rows); })
