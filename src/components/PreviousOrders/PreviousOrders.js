@@ -6,6 +6,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import OrderItem from './OrderItem';
 
 // STYLING
+import './PreviousOrders.css'
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -25,9 +26,11 @@ const styles = {
       textAlign: 'center',
       padding: '3%',
       radius: '5px',
+      marginTop: '10%',
     },
   }
 
+  // responsiveness
   theme.typography.h3 = {
     fontFamily: [
       'fantasy',
@@ -44,16 +47,15 @@ const styles = {
 
 class PreviousOrders extends Component {
 
+  // call to get the previous order info by id
   componentDidMount = () => {
-    // this.props.dispatch({ type: 'GET_CART_ITEMS' });
     this.props.dispatch({ type: 'GET_PREVIOUS_ORDERS' });
-  }
+  } // end componentDidMount
 
   render() {
     const { classes } = this.props;
 
     return (
-
       <div>
         {(this.props.store.order.orderReducer.length > 0) ?
           <Grid container spacing={4} className={classes.gridContainer} justify="center">

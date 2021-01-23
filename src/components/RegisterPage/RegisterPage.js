@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+import { withRouter } from 'react-router-dom';
+// import { connect } from 'react-redux';
+// import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // COMPONENTS
 import RegisterForm from '../RegisterForm/RegisterForm';
+
+// STYLING
+import './RegisterPage.css';
 
 class RegisterPage extends Component {
   
@@ -14,23 +18,32 @@ class RegisterPage extends Component {
 
   render() {
     return (
-      <div>
-        <RegisterForm />
+      <>
+        <div>
+          <RegisterForm />
 
-        <center>
-          <button
-            type="button"
-            className="btn btn_asLink"
-            onClick={() => {
-              this.props.history.push('/login');
-            }}
-          >
-            Login
-          </button>
-        </center>
-      </div>
+          <center>
+            <button
+              type="button"
+              className="btn btn_asLink"
+              onClick={() => {
+                this.props.history.push('/login');
+              }}
+            >
+              Login
+            </button>
+          </center>
+        </div>
+        <div>
+          <center>
+            <img src={window.location.origin + '/image/stjohns.png'} 
+                      alt="st. john's wort" 
+                      className="flower"/>
+          </center>
+        </div>
+      </>
     );
   }
 }
 
-export default connect(mapStoreToProps)(RegisterPage);
+export default withRouter(RegisterPage);

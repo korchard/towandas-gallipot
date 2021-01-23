@@ -2,4 +2,23 @@ footer {
   margin-top: 80px;
   padding: 20px;
   text-align: center;
+  /* position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0; */
+}
+
+.row {
+  display: flex;
+  margin-top: 15%;
+  margin-bottom: 0;
+  max-height: 8%;
+}
+
+.column {
+  flex: 25%;
+}
+
+.pic {
+  width: 100%;
 }

@@ -7,9 +7,6 @@ body,
 body {
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   margin: 0px;
-  /* background-image: url(/image/mushroom.JPG);
-  background-size: cover;
-  background-repeat: none */
 }
 
 img {
@@ -72,6 +69,7 @@ Button
   background: none;
   font: inherit;
   color: #444;
+  font-size: 1.2em;
 }
 
 .btn_asLink:hover {

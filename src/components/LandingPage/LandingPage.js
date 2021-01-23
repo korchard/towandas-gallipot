@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+// import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // STYLING
 import { Typography } from '@material-ui/core';
@@ -20,7 +20,6 @@ const styles = {
     marginTop: '10%',
     radius: '5px',
     color: '#648b16',
-    // fontSize: '2em',
     fontFamily: 'fantasy',
     textAlign: 'right',
     paddingRight: '20px',
@@ -32,7 +31,6 @@ const styles = {
     marginTop: '10%',
     radius: '5px',
     color: '#648b16',
-    // fontSize: '2em',
     fontFamily: 'fantasy',
     textAlign: 'left',
     paddingLeft: '20px',
@@ -62,6 +60,7 @@ const styles = {
   },
 }
 
+// responsiveness
 theme.typography.h6 = {
   fontSize: '1rem',
 '@media (min-width:320px)': {
@@ -95,13 +94,14 @@ theme.typography.p = {
 class LandingPage extends Component {
 
   // routes the user to the login page when button is clicked
-  onLogin = (event) => {
-    this.props.history.push('/login');
-  };
+  // onLogin = (event) => {
+  //   this.props.history.push('/login');
+  // }; // end onLogin
 
+  // retrieves the cart items to display in the cart icon
   componentDidMount = () => {
     this.props.dispatch({ type: 'GET_CART_ITEMS' });
-  }
+  } // end componentDidMount
 
   render() {
     const { classes } = this.props;
@@ -154,4 +154,4 @@ class LandingPage extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(LandingPage));
+export default connect()(withStyles(styles)(LandingPage));

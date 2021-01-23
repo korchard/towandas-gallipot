@@ -18,7 +18,6 @@ const styles = {
     padding: '3%',
     radius: '5px',
     color: '#f8f8f8',
-    // height: '3vh',
   },
   form: {
     textAlign: 'center',
@@ -41,6 +40,7 @@ const styles = {
   },
 }
 
+// responsiveness
 theme.typography.h3 = {
   fontFamily: [
     'fantasy',
@@ -67,6 +67,7 @@ theme.typography.body1 = {
 
 class LoginForm extends Component {
 
+  // local state to set and send info to database
   state = {
     username: '',
     password: '',

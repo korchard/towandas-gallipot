@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+// import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // STYLING
 import { Typography } from '@material-ui/core';
@@ -19,7 +19,6 @@ const styles = {
     width: '100%',
     radius: '5px',
     color: '#648b16',
-    // fontSize: '2em',
     fontFamily: 'fantasy',
     fontWeight: '700',
     textAlign: 'center',
@@ -32,7 +31,6 @@ const styles = {
     marginTop: '3%',
     radius: '5px',
     color: '#648b16',
-    // fontSize: '1.5em',
     fontFamily: 'fantasy',
     textAlign: 'center',
   },
@@ -59,6 +57,7 @@ const styles = {
   },
 }
 
+// responsiveness
 theme.typography.h6 = {
   fontSize: '1rem',
 '@media (min-width:320px)': {
@@ -91,9 +90,10 @@ theme.typography.p = {
 
 class Consultations extends Component {
 
+  // to refresh cart icon for this page
   componentDidMount = () => {
     this.props.dispatch({ type: 'GET_CART_ITEMS' });
-  }
+  } // end componentDidMount
 
   // routes the user to the consult form when button is clicked
   goToForm = () => {
@@ -203,4 +203,4 @@ class Consultations extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(withRouter(Consultations)));
+export default connect()(withStyles(styles)(withRouter(Consultations)));

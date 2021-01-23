@@ -4,31 +4,6 @@ import { connect } from 'react-redux';
 // STYLING
 import './LogOutButton.css';
 
-// const getCookie = (cookieName) => {
-//   // Get name followed by anything except a semicolon
-//   const cookieString = RegExp(''+cookieName+'[^;]+').exec(document.cookie);
-//   // Return everything after the equal sign, or an empty string if the cookie name not found
-//   return decodeURIComponent(!!cookieString ? cookieString.toString().replace(/^[^=]+./,'') : '');
-// }
-
-// state = {
-//   cartItems: getCookie('cart') || 0,
-//   usernameId: getCookie(this.props.store.user.id) || '',
-// }
-
-// componentDidMount = () => {
-//   if (this.state.usernameId !== ''){
-//     this.setState({
-//       usernameId: getCookie(this.props.store.user.id)
-//     });
-//   }
-// }
-
-// removeCookie = () => {
-//   document.cookie = "usernameId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-//   this.componentDidMount();
-// }
-
 const LogOutButton = (props) => (
   <button
     // This button shows up in multiple locations and is styled differently

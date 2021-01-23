@@ -30,6 +30,7 @@ const styles = {
       textAlign: 'center',
       padding: '3%',
       radius: '5px',
+      marginTop: '10%',
     },
     header2: {
       margin: 'auto',
@@ -51,6 +52,7 @@ const styles = {
     }
   }
 
+  // responsiveness
   theme.typography.h3 = {
     fontFamily: [
       'fantasy',
@@ -67,30 +69,35 @@ const styles = {
 
 class CartPage extends Component {
 
+  // state to determine if paypal is visible or checkout button
   state = {
     checkout: false
   }
 
+  // to retrieved the cart items and total
   componentDidMount = () => {
     this.props.dispatch({ type: 'GET_CART' });
     this.props.dispatch({ type: 'GET_CART_ITEMS' });
     this.props.dispatch({ type: 'GET_CART_TOTAL' });
-  }
+  } // end componentDidMount
 
+  // sets state to true or false depending if the paypal is available
   checkout = () => {
     this.setState({
       checkout: !this.state.checkout
-    })
-  }
+    }); // end setState
+  } // end checkout
 
+  // sends the order to the database
   sendOrder = () => {
     this.props.dispatch({ type: 'SEND_ORDER', payload: {
       product_cost: Number(this.props.store.cart.totalReducer[0]?.sum),
       shipping_cost: this.props.store.cart.shippingReducer,
       total_cost: this.props.store.cart.paymentReducer
-    }})
-  }
+    }}); // end dispatch
+  } // end sendOrder
 
+  // calculates the shipping cost based on cart item cost
   calculateShipping = () => {
     let shipping = null;
     if (this.props.store.cart.totalReducer[0]?.sum <= 20.00) {
@@ -101,11 +108,13 @@ class CartPage extends Component {
       shipping = '10.00';
     } else if (this.props.store.cart.totalReducer[0]?.sum > 100.00) {
       shipping = '0.00';
-    }
+    } // end conditional 
+    // dispatches the result to the reducer to access later
     this.props.dispatch({ type: 'SET_SHIPPING', payload: Number(shipping) });
     return shipping;
-  }
+  } // end calculateShipping
 
+  // calculates the total including shipping costs
   calculateTotal = () => {
     let total = null;
     if (this.props.store.cart.totalReducer[0]?.sum <= 20.00) {
@@ -116,7 +125,8 @@ class CartPage extends Component {
       total = (Number(10.00) + Number(this.props.store.cart.totalReducer[0]?.sum)); 
     } else if (this.props.store.cart.totalReducer[0]?.sum > 100.00) {
       total = Number(this.props.store.cart.totalReducer[0]?.sum); 
-    }
+    } // end conditional
+    // dispatches the total to a reducer to be accessed elsewhere
     this.props.dispatch({ type: 'SET_PAYMENT_TOTAL', payload: total });
     return total;
   }

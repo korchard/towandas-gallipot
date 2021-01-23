@@ -27,9 +27,6 @@ import ProductDisplay from '../ProductDisplay/ProductDisplay';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import UserPage from '../UserPage/UserPage';
-// import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-
-// const theme = createMuiTheme();
 
 import './App.css';
 
@@ -38,7 +35,6 @@ class App extends Component {
   // calls the route for the user information
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_USER' });
-    this.props.dispatch({ type: 'GET_CART_ITEMS' });
   } // end componentDidMount
 
   render() {
@@ -83,7 +79,7 @@ class App extends Component {
               component={LandingPage}/>
             <Route
               // shows ProductList at all times (logged in or not)
-              // exact
+              exact
               path="/product"
               component={ProductDisplay}/>
 
@@ -108,6 +104,7 @@ class App extends Component {
               component={CheckoutPage}/>
             {(this.props.store.user.administrator) &&
             <>
+            
             <ProtectedRoute
               // logged in shows UserPage else shows LoginPage
               exact
@@ -123,13 +120,14 @@ class App extends Component {
               exact
               path="/admin-product-add"
               component={ProductAdminDisplay}/>
-            <ProtectedRoute
+            {/* <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/user"
               // - else shows LoginPage at /login
               exact
               path="/user"
-              component={UserPage}/>
+              component={UserPage}
+              authRedirect="/login"/> */}
             </>
             }
             {/* When a value is supplied for the authRedirect prop the user will
@@ -151,33 +149,6 @@ class App extends Component {
               path="/login"
               component={LoginPage}
               authRedirect="/checkout"/>
-            {/* <ProtectedRoute
-              // with authRedirect:
-              // - if logged in, redirects to "/user"
-              // - else shows CompletedOrdersAdmin at "/admin_completed_orders"
-              exact
-              path="/login"
-              component={LoginPage}
-              authRedirect="/admin-completed-orders"
-            /> */}
-            {/* <ProtectedRoute
-              // with authRedirect:
-              // - if logged in, redirects to "/user"
-              // - else shows IncompleteOrdersAdmin at "/admin_incomplete_orders"
-              exact
-              path="/login"
-              component={LoginPage}
-              authRedirect="/admin-incomplete-orders"
-            /> */}
-            {/* <ProtectedRoute
-              // with authRedirect:
-              // - if logged in, redirects to "/user"
-              // - else shows ProductAdminDisplay at "/admin_product_add"
-              exact
-              path="/login"
-              component={LoginPage}
-              authRedirect="/admin-product-add"
-            /> */}
             <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/user"

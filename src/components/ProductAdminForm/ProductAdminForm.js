@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+// import mapStoreToProps from '../../redux/mapStoreToProps';
 import { PickerOverlay } from 'filestack-react';
 
 // STYLING
@@ -42,7 +42,6 @@ const styles = {
     paddingLeft: '5%',
     paddingRight: '5%',
     paddingTop: '5%',
-    // width: '60%',
   },
 }
 
@@ -63,6 +62,7 @@ theme.typography.h5 = {
 
 class ProductAdminForm extends Component {
 
+  // local state to add a new product
   state = {
       name: '',
       description: '',
@@ -73,21 +73,24 @@ class ProductAdminForm extends Component {
       imageUpload: false,
   };
 
+  // when image upload is successful - set state
   onSuccess = (result) => {
     this.setState({
         image_path: result.filesUploaded[0].url,
-    })
-  }
+    }); // end setState
+  } // end onSuccess
 
+  // when image does not upload successfully
   onError = (error) => {
     console.error('Image did not successfully upload...', error);
-  }
+  } // end onError
 
+  // to opne up upload modal
   upload = () => {
     this.setState({
       imageUpload: !this.state.imageUpload
-    })
-  }
+    }); // end setState
+  } // end upload
 
   // POST route to add a new product
   addProduct = (event) => {
@@ -111,7 +114,7 @@ class ProductAdminForm extends Component {
       image_path: '',
       type: '',
       imageUpload: !this.state.imageUpload,
-    })
+    }) // clears inputs and resets modal to false
   }; // end registerUser
 
   // handles the input fields for adding a product
@@ -173,26 +176,15 @@ class ProductAdminForm extends Component {
                   <PickerOverlay
                     apikey={filestackApiKey}
                     buttonText="Upload Image"
-                    // buttonClass="ui medium button gray"
                     className="btn"
                     options={basicOptions}
                     onSuccess={(event) => this.onSuccess(event, 'image_path')}
                     onError={this.onError}
                   />   :
-                // <Button variant="contained" className="btn" onClick={this.upload}>Upload Image</Button>
                 <Button onClick={this.upload}>
                     <input className="btn" type="submit" name="submit" value="Upload Image" />
                 </Button>
                 }
-               {/* {this.state.imageUpload && 
-                <PickerOverlay 
-                    apikey='INSERT_API_KEY_HERE'
-                    onSuccess={(res) => {
-                    console.log('in onSuccess', res)
-                    this.props.dispatch({type: 'SET_IMAGE', payload: res.filesUploaded[0].url}) }
-                  }/>
-                }
-                <Button onClick={this.openImageUpload}>Upload Image</Button> */}
                {/* <TextField
                   label="Image Path"
                   className={classes.textField}
@@ -221,4 +213,4 @@ class ProductAdminForm extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(ProductAdminForm));
+export default connect()(withStyles(styles)(ProductAdminForm));

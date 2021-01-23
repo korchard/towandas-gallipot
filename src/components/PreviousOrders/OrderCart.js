@@ -1,33 +1,20 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+// import { connect } from 'react-redux';
+// import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // STYLING
 import { withStyles } from '@material-ui/core/styles';
-// import { createMuiTheme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-
-// const theme = createMuiTheme();
+import TableCell from '@material-ui/core/TableCell';
 
 const styles = {
-    subtext: {
-      paddingLeft: '20px',
-      display: 'inline-block',
-      paddingRight: '5px',
-      fontSize: '1em',
-    },
     text: {
       fontFamily: 'fantasy',
       fontWeight: '700',
-      display: 'inline-block',
-      paddingLeft: '5px',
       fontSize: '1.1em',
     },
-    right: {
-      float: 'right',
-      paddingRight: '20px',
-      fontSize: '1em',
-    }
+    table: {
+      minWidth: 650,
+    },
   }
   
 class OrderCart extends Component {
@@ -36,24 +23,22 @@ class OrderCart extends Component {
     const { classes } = this.props;
 
         return (
-            <div>
-              <li>
-                <Typography variant="subtitle1" className={classes.text}>
+            <>
+                <TableCell variant="subtitle1" className={classes.text} align="left">
                     {this.props.product.name}
-                </Typography>
-                <Typography variant="subtitle1" className={classes.subtext}>
+                </TableCell>
+                <TableCell variant="subtitle1" align="left">
                     {this.props.product.size}
-                </Typography>
-                <Typography variant="subtitle1" className={classes.subtext}>
-                    quantity - {this.props.product.quantity}
-                </Typography>
-                <Typography variant="subtitle1" className={classes.right}>
-                    total - ${this.props.product.sum}
-                </Typography>
-              </li>
-            </div>
+                </TableCell>
+                <TableCell variant="subtitle1" align="left">
+                    {this.props.product.quantity}
+                </TableCell>
+                <TableCell variant="subtitle1" align="right">
+                    ${this.props.product.sum}
+                </TableCell>
+            </>
         );
     }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(OrderCart));
+export default (withStyles(styles)(OrderCart));

@@ -13,12 +13,17 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 const theme = createMuiTheme();
 
 const styles = {
   root: {
-    // display: 'flex',
     width: '100%',
     height: 'auto',
     marginBottom: '5%',
@@ -38,7 +43,6 @@ const styles = {
     header: {
       margin: 'auto',
       radius: '5px',
-      // fontSize: '2em',
       fontFamily: 'fantasy',
       textAlign: 'left',
       paddingLeft: '20px',
@@ -49,23 +53,28 @@ const styles = {
     },
     subtext: {
       paddingRight: '20px',
-      fontSize: '1.1em',
-    //   float: 'right',
+      fontSize: '1em',
       fontFamily: 'fantasy',
-    //   fontWeight: 700,
+      fontWeight: 700,
     },
     subtext2: {
         paddingRight: '20px',
         fontSize: '1.2em',
-      //   float: 'right',
         fontFamily: 'fantasy',
         fontWeight: 700,
       },
     right: {
         float: 'right',
+    },
+    table: {
+      minWidth: 320,
+    },
+    container: {
+      paddingBottom: '3%',
     }
   }
 
+  // responsiveness
   theme.typography.h5 = {
       fontFamily: [
         'fantasy',
@@ -82,10 +91,12 @@ const styles = {
 
 class OrderItem extends Component {
 
+  // call to the the previous cart items associated with the specific order
   componentDidMount = () => {
-    this.props.dispatch({ type: 'GET_PREVIOUS_ITEMS', payload: this.props.item.id});
-    console.log('previous', this.props.item.id);
-  }
+    if (this.props.store.order.previousReducer.length === 0) {
+      this.props.dispatch({ type: 'GET_PREVIOUS_ITEMS', payload: this.props.item.id});
+    }
+  } // end componentDidMount
 
   render() {
     const { classes } = this.props;
@@ -99,28 +110,40 @@ class OrderItem extends Component {
                           <Typography component="h5" variant="h5" className={classes.header}>
                             <Moment format="MM/DD/YYYY">{this.props.item.order_date}</Moment>
                           </Typography>
+                          <TableContainer className={classes.container}>
+                            <Table className={classes.table} aria-label="simple table">
+                              <TableHead>
+                                <TableRow>
+                                  <TableCell align="left">Product</TableCell>
+                                  <TableCell align="left">Size</TableCell>
+                                  <TableCell align="left">Quantity</TableCell>
+                                  <TableCell align="right">Subtotal</TableCell>
+                                </TableRow>
+                              </TableHead>
+                              <TableBody>
                             {this.props.store.order.previousReducer.map(cart => 
-                                cart.map(product => 
-                                    product.order_id === this.props.item.id &&
-                                    <ul>
-                                        <div key={product.id} >
+                                cart.map(product =>
+                                  product.order_id === this.props.item.id &&
+                                        <TableRow key={product.id} >
                                             <OrderCart product={product}/>
-                                        </div>
-                                    </ul>
+                                        </TableRow> 
                                 )
                             )}
-                        <div className={classes.right}>
-                          <Typography variant="subtitle2" className={classes.subtext}>
-                            Shipping - ${this.props.item.shipping_cost}
-                          </Typography>
-                                <br></br>
-                          <Typography variant="subtitle1" className={classes.subtext2}>
-                            Total - ${this.props.item.total_cost}
-                          </Typography>
-                        </div>
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
+                          <div className={classes.right}>
+                            <Typography variant="subtitle2" className={classes.subtext}>
+                              Shipping - ${this.props.item.shipping_cost}
+                            </Typography>
+                                  <br></br>
+                            <Typography variant="subtitle1" className={classes.subtext2}>
+                              Total - ${this.props.item.total_cost}
+                            </Typography>
+                          </div>
                         </CardContent>
                       </div>
-                       </Paper>
+                    </Paper>
                 </Grid>
             </div>
         );

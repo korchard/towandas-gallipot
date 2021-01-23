@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+// import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // STYLING
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Button, TextField } from '@material-ui/core';
-// import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-
-// const theme = createMuiTheme();
 
 const styles = {
   root: {
@@ -23,7 +20,6 @@ const styles = {
   header: {
     radius: '5px',
     color: '#648b16',
-    // fontSize: '2em',
     fontFamily: 'fantasy',
     fontWeight: '700',
     display: 'inline-block',
@@ -36,16 +32,6 @@ const styles = {
   },
 };
 
-// theme.typography.h5 = {
-//   fontSize: '1rem',
-//   '@media (min-width:600px)': {
-//     fontSize: '1rem',
-//   },
-//   [theme.breakpoints.up('md')]: {
-//     fontSize: '2rem',
-//   },
-// };
-
 const getCookie = (cookieName) => {
   // Get name followed by anything except a semicolon
   const cookieString = RegExp(''+cookieName+'[^;]+').exec(document.cookie);
@@ -55,18 +41,20 @@ const getCookie = (cookieName) => {
 
 class ProductSearch extends Component {
 
+  // setting the search cookie
     state = { 
         search: getCookie('search') || '',
     }
 
+    // if there is anything in the search reducer, on manual 
+    // refresh the search items will remain
     componentDidMount = () => {
       if (this.state.search !== '') {
         this.setState({
           search: getCookie('search')
         });
       }
-      this.searchProducts();
-      console.log('refresh', this.state.search);
+      this.searchProducts(); // calls the search GET route
     }
 
   // handles the input fields for adding a product
@@ -81,7 +69,7 @@ class ProductSearch extends Component {
     const newSearch = (this.state.search);
     document.cookie = `search=${newSearch}`
     this.props.dispatch({ type: 'GET_SEARCH', payload: newSearch }); // GET search
-    this.props.dispatch({ type: 'SET_COOKIE', payload: {cookie: newSearch} });
+    this.props.dispatch({ type: 'SET_COOKIE', payload: {cookie: newSearch} }); // sets the search reducer
     this.setState({
         search: ''
     }) // end setState
@@ -89,9 +77,8 @@ class ProductSearch extends Component {
 
   clearSearch = () => {
     this.props.dispatch({ type: 'GET_PRODUCT' }); // GET search
-    this.props.dispatch({ type: 'RESET_COOKIE' });
+    this.props.dispatch({ type: 'RESET_COOKIE' }); // emptys the search reducer
     document.cookie = "search=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    // this.componentDidMount();
   } // end searchProducts
 
   render() {
@@ -99,7 +86,6 @@ class ProductSearch extends Component {
 
     return (
       <div className={classes.root}>
-        {/* <ThemeProvider theme={theme}> */}
         <center>
             <Grid container spacing={4} className={classes.gridContainer} justify="center">
                 <Grid item xs={12}>
@@ -120,10 +106,9 @@ class ProductSearch extends Component {
                 </Grid>
             </Grid>
         </center>
-        {/* </ThemeProvider> */}
       </div>
     );
   }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(ProductSearch));
+export default connect()(withStyles(styles)(ProductSearch));

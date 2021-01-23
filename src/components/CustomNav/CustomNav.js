@@ -30,7 +30,6 @@ import Badge from '@material-ui/core/Badge';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 const theme = createMuiTheme();
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -118,6 +117,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// responsiveness
 theme.typography.h3 = {
     fontSize: '1.5rem',
   '@media (min-width:320px)': {
@@ -139,6 +139,7 @@ theme.typography.h3 = {
   };
 
 const CustomNav = (props) => {
+
     let loginLinkData = {
       path: '/login',
       text: 'Login / Register',
@@ -154,21 +155,25 @@ const CustomNav = (props) => {
 
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
-    const cart = useSelector(store => store.cart.itemsReducer[0]?.sum) 
+    const [open, setOpen] = React.useState(false); // used for the drawer opening and closing
+    const cart = useSelector(store => store.cart.itemsReducer[0]?.sum) // for car items icon
 
+    // updated the cart items each time the reducer is changed
     useEffect(() => {
       console.log('update cart items');
-    }, [])
+    }, [cart])
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+    // handles the drawer opening
+    const handleDrawerOpen = () => {
+      setOpen(true); // sets state
+    }; // end handleDrawerOpen
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+    // handles the drawer closing
+    const handleDrawerClose = () => {
+      setOpen(false); // sets state
+    }; // end handleDrawerClose
 
+  // list of items that non-logged in users can see
   const itemsList = [
     {
       text: 'About Me', 
@@ -192,6 +197,7 @@ const CustomNav = (props) => {
     },
 ];
 
+// list of items that users can see when they are logged in
 const loggedInList = [
     {
         text: 'Orders', 
@@ -202,6 +208,7 @@ const loggedInList = [
     }, 
 ];
 
+// list of items that only the admin can view
 const adminList = [
     {
         text: 'Add/Edit Products', 

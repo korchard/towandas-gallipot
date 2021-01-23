@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+// import mapStoreToProps from '../../redux/mapStoreToProps';
 import swal from 'sweetalert';
 
 // STYLING
+import './ContactPage.css';
 import { Card, CardContent, Button, TextField, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
@@ -19,7 +20,6 @@ const styles = {
     width: '100%',
     textAlign: 'center',
     padding: '3%',
-    // fontFamily: 'fantasy',
     radius: '5px',
     color: '#f8f8f8',
   },
@@ -59,6 +59,7 @@ theme.typography.h3 = {
 
 class ContactPage extends Component {
 
+  // local state to set the message and send to database
   state = {
     name: '',
     email_address: '',
@@ -66,9 +67,10 @@ class ContactPage extends Component {
     message: '',
 };
 
+// refreshes cart items icon view from this page
 componentDidMount = () => {
   this.props.dispatch({ type: 'GET_CART_ITEMS' });
-}
+} // end componentDidMount
 
 // POST route to add a new product
 sendMessage = (event) => {
@@ -163,9 +165,16 @@ handleInputChangeFor = (propertyName) => (event) => {
             </form>
           </Grid>
         </Grid>
+        <div>
+          <center>
+            <img src={window.location.origin + '/image/lavenderandpoppy.png'} 
+                      alt="lavender and poppy" 
+                      className="flower"/>
+          </center>
+        </div>
       </div>
     );
   }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(ContactPage));
+export default connect()(withStyles(styles)(ContactPage));

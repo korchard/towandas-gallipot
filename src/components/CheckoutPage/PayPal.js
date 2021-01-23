@@ -5,11 +5,10 @@ import swal from 'sweetalert';
 
 function PayPal(props) {
   
-  const { checkout, sendOrder } = props;
-  const payment = useSelector(store => store.cart.paymentReducer) 
+  const { checkout, sendOrder } = props; // checkout and sendOrder are passed from checkout page
+  const payment = useSelector(store => store.cart.paymentReducer) // accessing payment total
   const paypal = useRef()
   const history = useHistory();
-  console.log('payment', payment);
 
   useEffect(() => {
 
@@ -19,10 +18,10 @@ function PayPal(props) {
           intent: "CAPTURE",
           purchase_units: [
             {
-              description: "Towanda's Gallipot",
+              description: "Towanda's Gallipot", // what will show up when user makes a purchase
               amount: {
                 currency_code: "USD",
-                value: payment,
+                value: payment, // payment total here
               }
             }
           ]
@@ -31,28 +30,27 @@ function PayPal(props) {
       onApprove: async (data, actions) => {
         const order = await actions.order.capture()
         console.log('sucessful order', order);
-        // swal({
-        //   title: "Payment successful!",
-        //   text: "Thank you for supporting Towanda's Gallipot!",
-        //   icon: "success",
-        //   button: "Woot!",
-        // });
-        checkout();
-        history.push({ pathname:  "/checkout" })
-        sendOrder();
+        swal({ // sweetalert ensuring payment was processed
+          title: "Your payment is being processed!",
+          icon: "success",
+          button: "Woot!",
+        });
+        checkout(); // closes the paypal modal
+        history.push({ pathname:  "/checkout" }) // routes user to checkout confirmation page
+        sendOrder(); // calls the sendOrder function to dispatch order to database
       },
       onError: (error) => {
         console.log(error);
-        swal({
+        swal({ // sweetalert error message if payment was not processed
           title: "Your payment has not gone through yet!",
           text: "Please try again or reach out to the Herbalist!",
           icon: "error",
           button: "Thank you!",
         });
-        checkout();
+        checkout(); // closes the paypal modal
       }
     }).render(paypal.current)
-  }, [])
+  }, [checkout, history, payment, sendOrder])
 
   return (
     <div>

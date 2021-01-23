@@ -24,7 +24,8 @@ CREATE TABLE "product" (
 	size VARCHAR(50) NOT NULL,
 	cost DECIMAL(20, 2) NOT NULL,
 	image_path VARCHAR(700) NOT NULL,
-	type VARCHAR(200) NOT NULL
+	type VARCHAR(200) NOT NULL,
+	archived BOOLEAN DEFAULT false
 );
 
 DROP TABLE "order";

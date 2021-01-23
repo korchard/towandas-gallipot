@@ -50,6 +50,7 @@ const styles = {
     },
   }
 
+  // responsiveness
   theme.typography.h5 = {
       fontFamily: [
         'fantasy',
@@ -76,15 +77,17 @@ const styles = {
 
 class ProductsItem extends Component {
     
+  // local state for edit modal, drop down for product descriptions, and whether modal is open
     state = {
         expanded: false,
         mode: 'edit',
         open: false,
     }
   
-    componentDidMount = () => {
-      this.props.dispatch({ type: 'GET_CART_ITEMS '});
-    }
+    // componentDidMount = () => {
+    //   this.props.dispatch({ type: 'GET_CART_ITEMS' });
+    //   this.props.dispatch({ type: 'GET_CART_TOTAL' });
+    // }
 
     // expands the card info for the products
     handleExpandClick = () => {
@@ -116,20 +119,6 @@ class ProductsItem extends Component {
         } // end conditional
       }); // end sweetalert
     } // end deleteItem
-  
-    // whichButton = () => {
-    //   if (this.state.mode === 'edit') {
-    //     return <IconButton aria-label="edit"
-    //               onClick={this.showModal}>
-    //               <EditIcon />
-    //            </IconButton>
-    //   } else if (this.state.mode === 'save') {
-    //     return <IconButton aria-label="save"
-    //               onClick={this.saveItem}>
-    //               <CheckIcon />
-    //            </IconButton>
-    //   }
-    // }
   
     // PUT route
     editItem = () => {
@@ -168,12 +157,9 @@ class ProductsItem extends Component {
             quantity: 1,
             total_cost: this.props.item.cost,
           } 
-        });
-        // this.props.dispatch({ type: 'GET_CART_ITEMS '});
-        this.componentDidMount(); 
-      } 
-      // this.componentDidMount(); // ------------------------------ WANT CART ITEMS TO UPDATE WHEN BUTTON IS CLICKED
-    }
+        }); // end dispatch
+      } // end conditional
+    } // end purchaseItem
 
   render() {
     const { classes } = this.props;
@@ -200,17 +186,16 @@ class ProductsItem extends Component {
                   <IconButton aria-label="add to cart" onClick={() => this.purhcaseItem(this.props.item)}>
                     <AddShoppingCartIcon />
                   </IconButton>
-              {this.props.store.user.administrator &&
-                <>
-              {/* <>{this.whichButton()}</> */}
-                  <IconButton aria-label="edit" onClick={this.editItem}>
-                      <EditIcon />
-                  </IconButton>
-                  <IconButton aria-label="delete" onClick={this.deleteItem}>
-                      <DeleteIcon />
-                  </IconButton>
-                </>
-              }
+                {this.props.store.user.administrator &&
+                  <>
+                    <IconButton aria-label="edit" onClick={this.editItem}>
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton aria-label="delete" onClick={this.deleteItem}>
+                        <DeleteIcon />
+                    </IconButton>
+                  </>
+                }
                   <IconButton
                     className={clsx(classes.expand, {
                       [classes.expandOpen]: this.state.expanded,
@@ -221,16 +206,16 @@ class ProductsItem extends Component {
                       <ExpandMoreIcon />
                   </IconButton>
                 </CardActions>
-              <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-                <CardContent>
-                    <Typography paragraph variant="body1">
-                      Ingredients:
-                    </Typography>
-                    <Typography paragraph>
-                      {this.props.item.description}
-                    </Typography>
-                </CardContent>
-              </Collapse>
+                <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+                  <CardContent>
+                      <Typography paragraph variant="body1">
+                        Ingredients:
+                      </Typography>
+                      <Typography paragraph>
+                        {this.props.item.description}
+                      </Typography>
+                  </CardContent>
+                </Collapse>
               </ThemeProvider>
             </Card> :
           <>
@@ -245,49 +230,48 @@ class ProductsItem extends Component {
                   variant="h4"/>
                 <CardContent>
                     <Typography color="textSecondary" component="p" variant="body1">
-              {this.props.item.size} - ${this.props.item.cost} - {this.props.item.type}
-            </Typography>
-          </CardContent>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to cart">
-              <AddShoppingCartIcon />
-            </IconButton>
-            {this.props.store.user.administrator &&
-            <>
-            {/* <>{this.whichButton()}</> */}
-            <IconButton aria-label="edit" onClick={this.editItem}>
-                <EditIcon />
-            </IconButton>
-            <IconButton aria-label="delete" onClick={this.deleteItem}>
-              <DeleteIcon />
-            </IconButton>
-            </>
-            }
-            <IconButton
-              className={clsx(classes.expand, {
-                [classes.expandOpen]: this.state.expanded,
-              })}
-              onClick={this.handleExpandClick}
-              aria-expanded={this.state.expanded}
-              aria-label="show more">
-                <ExpandMoreIcon />
-            </IconButton>
-          </CardActions>
-          <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-              <CardContent>
-                <Typography paragraph variant="body1">Ingredients:</Typography>
-                <Typography paragraph variant="body1">
-                  {this.props.item.description}
-                </Typography>
-              </CardContent>
-          </Collapse>
-          </ThemeProvider>
-        </Card>
-          <Modal open={this.state.open} hideModal={this.hideModal} editItem={this.editItem}/>
-         </>}
+                      {this.props.item.size} - ${this.props.item.cost} - {this.props.item.type}
+                    </Typography>
+                </CardContent>
+                <CardActions disableSpacing>
+                  <IconButton aria-label="add to cart">
+                    <AddShoppingCartIcon />
+                  </IconButton>
+                    {this.props.store.user.administrator &&
+                    <>
+                      <IconButton aria-label="edit" onClick={this.editItem}>
+                          <EditIcon />
+                      </IconButton>
+                      <IconButton aria-label="delete" onClick={this.deleteItem}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </>
+                    }
+                    <IconButton
+                      className={clsx(classes.expand, {
+                        [classes.expandOpen]: this.state.expanded,
+                      })}
+                      onClick={this.handleExpandClick}
+                      aria-expanded={this.state.expanded}
+                      aria-label="show more">
+                        <ExpandMoreIcon />
+                    </IconButton>
+                </CardActions>
+                  <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+                    <CardContent>
+                      <Typography paragraph variant="body1">Ingredients:</Typography>
+                      <Typography paragraph variant="body1">
+                        {this.props.item.description}
+                      </Typography>
+                    </CardContent>
+                  </Collapse>
+                </ThemeProvider>
+              </Card>
+                <Modal open={this.state.open} hideModal={this.hideModal} editItem={this.editItem}/>
+          </>}
         </Grid>
       );
-  }
+   }
 }
 
 export default connect(mapStoreToProps)(withStyles(styles)(ProductsItem));

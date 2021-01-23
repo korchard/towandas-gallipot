@@ -15,8 +15,6 @@ import Button from '@material-ui/core/Button';
         flexGrow: 1,
       },
       gridContainer: {
-        // paddingLeft: '12%',
-        // paddingRight: '12%',
         paddingTop: '2%',
         marginBottom: '15px',
       },
