@@ -70,12 +70,12 @@ Thank you to my peers, for being my coding buddies, for supporting me, and answe
 -[Mary Mossman](https://github.com/mbMosman)
 
 My peers to went out of their way to offer support and coding input throughout this project.
--[Brady Baker]()
--[Carl Barfuss]()
+-[Brady Baker](https://github.com/bradybaker)
+-[Carl Barfuss](https://github.com/carlbarfuss)
 -[Josie Fredericksen](https://github.com/freder48)
 -[Steven Maloney](https://github.com/sdeda1us)
--[Jordan Newberry]()
--[James Posey]()
+-[Jordan Newberry](https://github.com/jordanNewberry21)
+-[James Posey](https://github.com/jposeyjr)
 
 ## Support
 If you have suggestions or issues, please email me at [kimberly.a.orchard.@gmail.com].
