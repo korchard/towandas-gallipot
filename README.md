@@ -69,7 +69,7 @@ To see the fully functional site, please visit: [DEPLOYED VERSION OF APP](www.he
 Thank you to my peers, for being my coding buddies, for supporting me, and answering all my questions. Thank you to Steph Peltier for allowing me to exercise my creative decision making and providing me with the opportunity to create something that will be utilized for her business. Thank you to my amazing partner, Eddy, for keeping me sane during this process, and my sweet puppy, Sir David Attenbowwow, for keeping things cute. Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality. Special thanks to my primary instructor, 
 -[Mary Mossman](https://github.com/mbMosman)
 
-My peers to went out of their way to offer support and coding input throughout this project.
+My peers who went out of their way to offer support and coding input throughout this project.
 -[Brady Baker](https://github.com/bradybaker)
 -[Carl Barfuss](https://github.com/carlbarfuss)
 -[Josie Fredericksen](https://github.com/freder48)
