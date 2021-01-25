@@ -14,8 +14,10 @@ To see the fully functional site, please visit: [DEPLOYED VERSION OF APP](www.he
 
 ## Screen Shot
 
-![towanda's_gallipot](./public/images/ss1.png)
-![towanda's_gallipot](./public/images/ss2.png)
+![towanda's_gallipot](./public/image/ss1.png)
+![towanda's_gallipot](./public/image/ss2.png)
+![towanda's_gallipot](./public/image/ss3.png)
+![towanda's_gallipot](./public/image/ss4.png)
 
 ### Prerequisites
 
